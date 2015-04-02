@@ -143,7 +143,7 @@ public class SpinnerButton extends Button {
             popup.showAsDropDown(topButton);
         }
     }
-    protected void dismiss() {
+    public void dismiss() {
         if (popup.isShowing()) {
             if (dissAnimation == null) {
                 dissAnimation = new TranslateAnimation(

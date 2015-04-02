@@ -24,7 +24,7 @@ public class FiveFragment extends FatherFragment {
       //  return "five!!!";
     //}
     private HeadBar headBar;
-    private SpinnerButton spinnerButton;
+    private static SpinnerButton spinnerButton;
     String[] strs = new String[] {"no1", "no2", "no3"};
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -34,7 +34,7 @@ public class FiveFragment extends FatherFragment {
         headBar = (HeadBar)this.getActivity().findViewById(R.id.head_bar);
         headBar.setTitleText("扫一扫");
         spinnerButton = (SpinnerButton) view.findViewById(R.id.custom_sinnper);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, strs);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.select_dialog_item, strs);
         spinnerButton.setAdapter(adapter);
         spinnerButton.setOnItemSeletedListener(new SpinnerButton.OnItemSeletedListener() {
             @Override
@@ -46,8 +46,8 @@ public class FiveFragment extends FatherFragment {
         return view;
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
+    public static boolean onKeyDown(int keyCode, KeyEvent event) {
+        Log.i("static onkeyDowm", "yes");
         if(keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)
         {
             if(spinnerButton.isShowPopup())
@@ -56,6 +56,6 @@ public class FiveFragment extends FatherFragment {
                 return true;
             }
         }
-        return super.onKeyDown(keyCode, event);
+        return true;
     }
 }

@@ -7,12 +7,14 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioGroup;
 
+import com.example.root.libapp_v1.Fragment.FiveFragment;
 import com.example.root.libapp_v1.Fragment.FragmentFactory;
 import com.example.root.libapp_v1.HeadBar.HeadBar;
 
@@ -22,6 +24,7 @@ public class MainActivity extends Activity{
     private RadioGroup radioGroup;
     private ActionBar actionBar;
     private HeadBar headBar;
+    private Fragment fragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +40,7 @@ public class MainActivity extends Activity{
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 try {
                     FragmentTransaction transaction = fragmentManager.beginTransaction();
-                    Fragment fragment = FragmentFactory.getInstanceByIndex(checkedId);
+                    fragment = FragmentFactory.getInstanceByIndex(checkedId);
                     transaction.replace(R.id.content, fragment);
                     transaction.commit();
                 } catch (Exception e) {
@@ -77,4 +80,12 @@ public class MainActivity extends Activity{
         return super.onOptionsItemSelected(item);
     }*/
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        Log.i("onkeyDowm", "yes");
+        if (fragment instanceof FiveFragment) {
+            FiveFragment.onKeyDown(keyCode, event);
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }
