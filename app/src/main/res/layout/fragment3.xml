@@ -1,0 +1,12 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black" >
+
+    <com.example.root.libapp_v1.Gallery.CustomGallery
+        android:id="@+id/customgallery"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+    </com.example.root.libapp_v1.Gallery.CustomGallery>
+</RelativeLayout>

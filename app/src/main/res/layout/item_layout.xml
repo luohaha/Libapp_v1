@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_marginLeft="2.0dip"
+        android:layout_marginRight="2.0dip"
+        android:background="@drawable/more_item_press"
+        android:paddingBottom="16.0dip"
+        android:paddingTop="8.0dip">
+
+        <ImageView
+            android:id="@+id/item3_apkiv"
+            android:layout_width="50dip"
+            android:layout_height="50dip"
+            android:background="@drawable/face"
+            android:layout_marginTop="-60dip"
+            android:layout_marginLeft="10dip" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dip"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/item3_apkname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="应用程序名字"
+                android:textColor="@color/black"
+                android:textSize="30dip" />
+
+            <TextView
+                android:id="@+id/item3_apkinfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:text="应用程序信息"
+                android:textSize="14dip" />
+            <TextView
+                android:id="@+id/item3_apkdes"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dip"
+                android:layout_marginRight="5dip"
+                android:gravity="center_vertical"
+                android:text="《正义曙光》将加快了与其他DC角色共同的宇宙。2014年4月，证实了继《正义曙光》之后的下一个项目就是《正义联盟》电影，并再由扎克·施奈德执导，演员卡维尔、艾佛列克、贾多特、费雪和摩莫亚确认都将会回归出演自己的角色[71]。而《正义联盟》也将会和《正义曙光》有所连接"
+                android:textSize="20dip" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

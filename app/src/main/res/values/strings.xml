@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">LibraryApp</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_send">Send</string>
+    <string name="action_searching">Search</string>
+    <string name="app_list_header_refresh_down">pull and refresh</string>
+    <string name="app_list_header_refresh_last_update">update</string>
+    <string name="pull_update">pull and update</string>
+    <string name="load_now">加载中...</string>
+</resources>
