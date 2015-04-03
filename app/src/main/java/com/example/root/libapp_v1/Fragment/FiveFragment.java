@@ -24,7 +24,7 @@ public class FiveFragment extends FatherFragment {
       //  return "five!!!";
     //}
     private HeadBar headBar;
-    private static SpinnerButton spinnerButton;
+    private SpinnerButton spinnerButton;
     String[] strs = new String[] {"no1", "no2", "no3"};
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -46,7 +46,7 @@ public class FiveFragment extends FatherFragment {
         return view;
     }
 
-    public static boolean onKeyDown(int keyCode, KeyEvent event) {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
         Log.i("static onkeyDowm", "yes");
         if(keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)
         {
@@ -56,6 +56,6 @@ public class FiveFragment extends FatherFragment {
                 return true;
             }
         }
-        return true;
+        return getView().onKeyDown(keyCode, event);
     }
 }

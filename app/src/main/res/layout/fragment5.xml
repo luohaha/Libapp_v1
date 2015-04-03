@@ -2,11 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <com.example.root.libapp_v1.SpinnerButton.SpinnerButton
-        android:id="@+id/custom_sinnper"
-        android:layout_width="200dip"
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="haha"
-        >
-    </com.example.root.libapp_v1.SpinnerButton.SpinnerButton>
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:background="#C0C0C0"
+        android:text="点击下拉列表" />
 </LinearLayout>

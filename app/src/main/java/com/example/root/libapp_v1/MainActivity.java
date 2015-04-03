@@ -80,12 +80,5 @@ public class MainActivity extends Activity{
         return super.onOptionsItemSelected(item);
     }*/
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        Log.i("onkeyDowm", "yes");
-        if (fragment instanceof FiveFragment) {
-            FiveFragment.onKeyDown(keyCode, event);
-        }
-        return super.onKeyDown(keyCode, event);
-    }
+
 }

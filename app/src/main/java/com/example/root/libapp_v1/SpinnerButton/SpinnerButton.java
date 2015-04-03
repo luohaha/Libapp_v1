@@ -120,7 +120,7 @@ public class SpinnerButton extends Button {
             popup.setWidth(topButton.getWidth());
             popup.setBackgroundDrawable(new ColorDrawable(0x00000000));
             popup.setFocusable(false);
-            popup.setHeight(WindowManager.LayoutParams.FILL_PARENT);
+            popup.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
             popup.setOutsideTouchable(false);
             popup.setContentView(mListView);
 //解决 popup 弹出输入法被遮挡问题
