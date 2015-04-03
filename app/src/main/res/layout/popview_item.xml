@@ -1,31 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="300dip"
+    android:orientation="vertical">
     <Button
         android:id="@+id/button2"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:paddingRight="70dp"
-        android:text="viviens" />
+        android:layout_width="match_parent"
+        android:layout_height="60dip"
+        android:text="button1" />
 
     <Button
         android:id="@+id/button3"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:layout_width="match_parent"
+        android:layout_height="60dip"
         android:layout_below="@+id/button2"
-        android:paddingRight="70dp"
-        android:text="mryang" />
+        android:text="button2" />
 
     <Button
         android:id="@+id/button4"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:layout_width="match_parent"
+        android:layout_height="60dip"
         android:layout_below="@+id/button3"
-        android:paddingRight="70dp"
-        android:text="张晓达" />
+        android:text="button3" />
 </LinearLayout>
