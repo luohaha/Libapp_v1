@@ -22,6 +22,7 @@ public class ImageUtil {
 
     private static final String TAG = "ImageUtil";
     /** 缓存集合 */
+    //软引用，当内存空间不足时，jvm会回收这部分内存
     private static Hashtable<Integer, SoftReference<Bitmap>> mImageCache //
             = new Hashtable<Integer, SoftReference<Bitmap>>();
 

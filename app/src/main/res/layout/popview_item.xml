@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="140dip"
+    android:layout_height="180dip"
     android:background="#333"
     android:orientation="vertical">
     <Button
@@ -17,5 +17,11 @@
         android:layout_below="@+id/send_book"
         android:text="搜索" />
 
+    <Button
+        android:id="@+id/login_logout"
+        android:layout_width="match_parent"
+        android:layout_height="60dip"
+        android:layout_below="@+id/search_all"
+        android:text="登陆"/>
 
 </LinearLayout>
