@@ -1,5 +1,6 @@
 package com.example.root.libapp_v1.Fragment;
 
+import android.app.ActionBar;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.PopupWindow;
+import android.widget.Toast;
 
 import com.example.root.libapp_v1.HeadBar.HeadBar;
 import com.example.root.libapp_v1.R;
@@ -47,9 +49,13 @@ public class FiveFragment extends FatherFragment implements OnClickListener{
                 }
                 else {
                     initmPopupWindowView();
-                    popupwindow.showAsDropDown(v, 0 ,5);
+                    popupwindow.showAsDropDown(v, 0 , 9);
 
                 }
+                break;
+            case R.id.button2:
+                Toast toast = Toast.makeText(this.getActivity(), "button push!", Toast.LENGTH_SHORT);
+                toast.show();
                 break;
             default:
                 break;
@@ -60,7 +66,7 @@ public class FiveFragment extends FatherFragment implements OnClickListener{
 
         // // 获取自定义布局文件pop.xml的视图
         // 创建PopupWindow实例,200,150分别是宽度和高度
-        popupwindow = new PopupWindow(customView, 200, 150);
+        popupwindow = new PopupWindow(customView, 200, 300);
         // 设置动画效果 [R.style.AnimationFade 是自己事先定义好的]
         popupwindow.setAnimationStyle(R.style.AnimationFade);
         // 自定义view添加触摸事件
@@ -86,4 +92,5 @@ public class FiveFragment extends FatherFragment implements OnClickListener{
         btton4.setOnClickListener(this);
 
     }
+
 }
