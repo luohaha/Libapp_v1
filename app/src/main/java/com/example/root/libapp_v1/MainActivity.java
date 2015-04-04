@@ -68,7 +68,7 @@ public class MainActivity extends Activity implements OnClickListener {
                     }
                     else {
                         initmPopupWindowView();
-                        popupwindow.showAsDropDown(v, 0, 5);
+                        popupwindow.showAsDropDown(v, 0, 3);
                     }
                 }
 

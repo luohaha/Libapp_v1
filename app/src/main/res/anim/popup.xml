@@ -11,6 +11,11 @@
         android:fromYScale="1"
         android:toXScale="0"
         android:toYScale="0"
-        android:duration="500"
+        android:duration="200"
+        />
+    <alpha
+        android:fromAlpha="1"
+        android:toAlpha="0"
+        android:duration="200"
         />
 </set>
