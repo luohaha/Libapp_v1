@@ -1,6 +1,7 @@
 package com.example.root.libapp_v1.Fragment;
 
 import android.app.ActionBar;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -17,7 +18,7 @@ import com.example.root.libapp_v1.R;
 /**
  * Created by root on 15-3-26.
  */
-public class FiveFragment extends FatherFragment implements OnClickListener{
+public class FiveFragment extends FatherFragment {
     //public String initContent() {
       //  return "five!!!";
     //}
@@ -25,7 +26,7 @@ public class FiveFragment extends FatherFragment implements OnClickListener{
     private HeadBar headBar;
     private Button button;
     private View customView;
-    String[] strs = new String[] {"no1", "no2", "no3"};
+  //  String[] strs = new String[] {"no1", "no2", "no3"};
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
@@ -33,14 +34,14 @@ public class FiveFragment extends FatherFragment implements OnClickListener{
       //  TextView textView = (TextView) view.findViewById(R.id.txt_content);
         headBar = (HeadBar)this.getActivity().findViewById(R.id.head_bar);
         headBar.setTitleText("扫一扫");
-        button = (Button)view.findViewById(R.id.button1);
-        button.setOnClickListener(this);
-        customView = inflater.inflate(R.layout.popview_item, null);
+    //    button = (Button)view.findViewById(R.id.button1);
+    //    button.setOnClickListener(this);
+    //    customView = inflater.inflate(R.layout.popview_item, null);
 
         return view;
     }
 
-    public void onClick(View v) {
+   /* public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button1:
                 if (popupwindow != null && popupwindow.isShowing()) {
@@ -62,11 +63,12 @@ public class FiveFragment extends FatherFragment implements OnClickListener{
         }
     }
 
-    public void initmPopupWindowView() {
+    private void initmPopupWindowView() {
 
         // // 获取自定义布局文件pop.xml的视图
         // 创建PopupWindow实例,200,150分别是宽度和高度
-        popupwindow = new PopupWindow(customView, 200, 300);
+        popupwindow = new PopupWindow(customView, 200, 300, true);
+        popupwindow.setBackgroundDrawable(new BitmapDrawable());
         // 设置动画效果 [R.style.AnimationFade 是自己事先定义好的]
         popupwindow.setAnimationStyle(R.style.AnimationFade);
         // 自定义view添加触摸事件
@@ -83,7 +85,7 @@ public class FiveFragment extends FatherFragment implements OnClickListener{
             }
         });
 
-        /** 在这里可以实现自定义视图的功能 */
+        // 在这里可以实现自定义视图的功能
         Button btton2 = (Button) customView.findViewById(R.id.button2);
         Button btton3 = (Button) customView.findViewById(R.id.button3);
         Button btton4 = (Button) customView.findViewById(R.id.button4);
@@ -91,6 +93,6 @@ public class FiveFragment extends FatherFragment implements OnClickListener{
         btton3.setOnClickListener(this);
         btton4.setOnClickListener(this);
 
-    }
+    }*/
 
 }

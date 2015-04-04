@@ -5,7 +5,7 @@
         android:fromYDelta="0"
         android:toYDelta="-100%" /> -->
     <scale
-        android:pivotX="0%"
+        android:pivotX="100%"
         android:pivotY="0%"
         android:fromXScale="1"
         android:fromYScale="1"

@@ -4,22 +4,17 @@
     android:layout_height="300dip"
     android:orientation="vertical">
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/send_book"
         android:layout_width="match_parent"
         android:layout_height="60dip"
-        android:text="button1" />
+        android:text="发书" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/search_all"
         android:layout_width="match_parent"
         android:layout_height="60dip"
-        android:layout_below="@+id/button2"
-        android:text="button2" />
+        android:layout_below="@+id/send_book"
+        android:text="搜索" />
 
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="match_parent"
-        android:layout_height="60dip"
-        android:layout_below="@+id/button3"
-        android:text="button3" />
+
 </LinearLayout>
