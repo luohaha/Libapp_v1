@@ -15,32 +15,45 @@ import java.util.*;
  *  ps.. I hate today !!!
  */
 public class LyxListViewAdapter extends BaseAdapter {
-    private LayoutInflater layoutInflater;
+    private LayoutInflater mLayoutInflater;
+    private List<Map<String, Object>> mList;
     /**
      * @param context the context, you know what it is
      * @param list the list of map which need to put into the adapter
      */
     public LyxListViewAdapter(Context context, List<Map<String, Object>> list) {
-        this.layoutInflater = LayoutInflater.from(context);
+        this.mLayoutInflater = LayoutInflater.from(context);
+        this.mList = list;
     }
 
+    /**
+     * @return the size of mList
+     */
     @Override
     public int getCount() {
-        return 0;
+        return mList.size();
     }
 
+    /**
+     * @param position where the item it is
+     * @return the position
+     */
     @Override
     public Object getItem(int position) {
-        return null;
+        return mList.get(position);
     }
 
+    /**
+     * @param position
+     * @return
+     */
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        return null;
+        ViewHolder 
     }
 }
