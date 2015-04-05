@@ -21,41 +21,50 @@ import com.example.root.libapp_v1.ListView.FreshListView.IReflashListener;
 /**
  * author : Yixin Luo
  * Date : 2015-3-26.
- * usage : 实现社交圈模块的展示实现社交圈模块的展示
+ *  this is the second fragment of main acitvity
+ *  now it's used to show the social group function in app
  */
 public class SecondFragment extends FatherFragment implements IReflashListener {
-   // public String initContent() {
-    //    return "second!";
-    //}
+    /*
+    * define some variables
+    * */
     private ArrayList<ApkEntry> apk_list; //将要展示的信息集合队列
     private MyAdapter adapter;  //新建一个适配器接口
     private FreshListView listview; //新建一个支持下拉刷新的listview
     private HeadBar headBar;
 
+    /**
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
     }
 
+    /**
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return the
+     */
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
    {
        View view = inflater.inflate(R.layout.fragment2, null);
        listview = (FreshListView) view.findViewById(R.id.listview);
        headBar = (HeadBar)this.getActivity().findViewById(R.id.head_bar);
        headBar.setTitleText("书友会");
-       setData();
-       showList(apk_list);
+       setData();//push the new data into apk_list when it is first time
+       showList(apk_list);// push the aok_list into the adapter and show the apk_list
        return view;
    }
- /*   @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        setData();
-        showList(apk_list);
-    }*/
 
+
+    /** if adapter is null, then create a new adapter and push the apk_list into the adapter
+     * else just change the date
+     *
+     * @param apk_list the arraylist which need to show
+     */
     private void showList(ArrayList<ApkEntry> apk_list) {
         if (adapter == null) {
             listview.setInterface(this);
@@ -67,7 +76,9 @@ public class SecondFragment extends FatherFragment implements IReflashListener {
     }
 
 
-
+    /**
+     * push the new data int apk_list
+     */
     private void setData() {
         apk_list = new ArrayList<ApkEntry>();
         for (int i = 0; i < 10; i++) {
@@ -79,6 +90,9 @@ public class SecondFragment extends FatherFragment implements IReflashListener {
         }
     }
 
+    /**
+     * refresh the apk_list, and push the new data into the head of the apk_list
+     */
     private void setReflashData() {
         for (int i = 0; i < 2; i++) {
             ApkEntry entity = new ApkEntry();
@@ -88,6 +102,10 @@ public class SecondFragment extends FatherFragment implements IReflashListener {
             apk_list.add(0,entity);
         }
     }
+
+    /**
+     * refresh the apk_list, and add new data into the tail of the apk_list
+     */
     private void setLoadData() {
         for (int i = 0; i < 2; i++) {
             ApkEntry entity = new ApkEntry();
@@ -99,6 +117,10 @@ public class SecondFragment extends FatherFragment implements IReflashListener {
         }
 
     }
+
+    /**
+     * refresh in head of the apk_list and show in view
+     */
     public void onReflash() {
         // TODO Auto-generated method stub\
         Handler handler = new Handler();
@@ -118,6 +140,9 @@ public class SecondFragment extends FatherFragment implements IReflashListener {
 
     }
 
+    /**
+     * add new data into the tail of apk_list and show in view
+     */
     @Override
     public void onLoad() {
         //get more data, and notice ListView to refresh view
