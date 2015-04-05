@@ -4,6 +4,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.beardedhen.androidbootstrap.BootstrapButton;
+
 /**
  * Author : Yixin Luo
  * Date : 2015-4-5
@@ -15,5 +17,5 @@ class ViewHolder {
     public ImageView img;
     public TextView title;
     public TextView detal;
-    public Button moreButton;
+    public BootstrapButton moreButton;
 }
