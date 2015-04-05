@@ -16,30 +16,44 @@ import com.example.root.libapp_v1.Gallery.ImageUtil;
 import com.example.root.libapp_v1.R;
 
 /**
- * Created by root on 15-3-26.
+ * author : Yixin Luo
+ * date : 2015-3-26
+ *
+ *  the third fragment of main activity
  */
 public class ThirdFragment extends FatherFragment {
-    //public String initContent() {
-      //  return "third!";
-    //}
+
     private int[] imageResIDs;
     private String[] imageStrings;
     private CustomGallery customGallery;
     public View view;
 
+    /**
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         view = inflater.inflate(R.layout.fragment3, null);
+        //the ids of books
         imageResIDs = new int[] {R.drawable.book8, R.drawable.book7,R.drawable.book6
                         ,R.drawable.book5, R.drawable.book4, R.drawable.book3, R.drawable.book2,
                         R.drawable.book1};
+        //the descriptions of books
         imageStrings = new String[] {"NO.1", "NO.2", "NO.3", "NO.4", "NO.5", "NO.6", "NO.7", "NO.8"};
+        //
         customGallery = (CustomGallery) view.findViewById(R.id.customgallery);
         ImageAdapter adapter = new ImageAdapter();
         customGallery.setAdapter(adapter);
         return view;
     }
 
+    /**
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +61,9 @@ public class ThirdFragment extends FatherFragment {
 
     }
 
+    /**
+     * define the ImageAdapter which match the customgallery
+     */
     public class ImageAdapter extends BaseAdapter {
 
         @Override
