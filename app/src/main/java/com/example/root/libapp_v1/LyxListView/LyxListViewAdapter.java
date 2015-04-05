@@ -52,8 +52,18 @@ public class LyxListViewAdapter extends BaseAdapter {
         return position;
     }
 
+    /**
+     * @param position it means which line it will show
+     * @param convertView it came from the layout file
+     * @param parent sorry, i don't know too
+     * @return
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder 
+        ViewHolder viewHolder;
+        if (convertView == null) {
+            viewHolder = new ViewHolder();
+
+        }
     }
 }
