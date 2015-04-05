@@ -1,27 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="180dip"
-    android:background="#333"
+    xmlns:bootstrap="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
-    <Button
+ <!--   <Button
         android:id="@+id/send_book"
         android:layout_width="match_parent"
         android:layout_height="60dip"
-        android:text="发书" />
+        android:text="发书" />  -->
+    <com.beardedhen.androidbootstrap.BootstrapButton
+        android:id="@+id/send_book"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:text="发书"
+        bootstrap:bb_icon_right="fa-send"
+        bootstrap:bb_type="success"
+        bootstrap:bb_size="large"
+        bootstrap:bb_roundedCorners="true"
+        />
 
-    <Button
+  <!--  <Button
         android:id="@+id/search_all"
         android:layout_width="match_parent"
         android:layout_height="60dip"
         android:layout_below="@+id/send_book"
-        android:text="搜索" />
+        android:text="搜索" /> -->
 
-    <Button
+    <com.beardedhen.androidbootstrap.BootstrapButton
+        android:id="@+id/search_all"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:text="搜索"
+        android:layout_below="@+id/send_book"
+        bootstrap:bb_icon_right="fa-search"
+        bootstrap:bb_type="warning"
+        bootstrap:bb_size="large"
+        bootstrap:bb_roundedCorners="true"
+        />
+
+ <!--   <Button
         android:id="@+id/login_logout"
         android:layout_width="match_parent"
         android:layout_height="60dip"
         android:layout_below="@+id/search_all"
-        android:text="登陆"/>
+        android:text="登陆"/> -->
 
+    <com.beardedhen.androidbootstrap.BootstrapButton
+        android:id="@+id/login_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:text="登陆"
+        android:layout_below="@+id/search_all"
+        bootstrap:bb_icon_right="fa-sign-in"
+        bootstrap:bb_type="danger"
+        bootstrap:bb_size="large"
+        bootstrap:bb_roundedCorners="true"
+        />
 </LinearLayout>

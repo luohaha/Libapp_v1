@@ -17,6 +17,8 @@ import android.widget.RadioGroup;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
 
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.FontAwesomeText;
 import com.example.root.libapp_v1.Fragment.FragmentFactory;
 import com.example.root.libapp_v1.HeadBar.HeadBar;
 
@@ -28,7 +30,7 @@ public class MainActivity extends Activity implements OnClickListener {
     private HeadBar headBar;
     private Fragment fragment;
     private PopupWindow popupwindow;
-    private Button rightButton;
+    private FontAwesomeText rightButton;
     private View customView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +42,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
         fragmentManager = getFragmentManager();
         radioGroup = (RadioGroup) findViewById(R.id.rg_tab);
-        rightButton = (Button) findViewById(R.id.button_right);
+        rightButton = (FontAwesomeText) findViewById(R.id.button_right);
         actionBar = getActionBar();
         actionBar.hide();
         headBar = (HeadBar) findViewById(R.id.head_bar);
@@ -122,8 +124,8 @@ public class MainActivity extends Activity implements OnClickListener {
      });
 
      /** 在这里可以实现自定义视图的功能 */
-     Button btton2 = (Button) customView.findViewById(R.id.send_book);
-     Button btton3 = (Button) customView.findViewById(R.id.search_all);
+     BootstrapButton btton2 = (BootstrapButton) customView.findViewById(R.id.send_book);
+     BootstrapButton btton3 = (BootstrapButton) customView.findViewById(R.id.search_all);
      btton2.setOnClickListener((View.OnClickListener) this);
      btton3.setOnClickListener(this);
  }

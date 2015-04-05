@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.beardedhen.androidbootstrap.FontAwesomeText;
 import com.example.root.libapp_v1.R;
 
 /**
@@ -20,7 +21,8 @@ import com.example.root.libapp_v1.R;
 public class HeadBar extends FrameLayout {
 
     private Button leftButton;
-    private Button rightButton;
+   // private Button rightButton;
+    private FontAwesomeText rightButton;
 
     private TextView titleText;
 
@@ -31,7 +33,7 @@ public class HeadBar extends FrameLayout {
         LayoutInflater.from(context).inflate(R.layout.head_title, this);
         titleText = (TextView) findViewById(R.id.title_text);
         leftButton = (Button) findViewById(R.id.button_left);
-        rightButton = (Button) findViewById(R.id.button_right);
+        rightButton = (FontAwesomeText) findViewById(R.id.button_right);
         leftButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,20 +73,22 @@ public class HeadBar extends FrameLayout {
         rightButton.setText(text);
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    public void setRightButtonBackground(Drawable drawable) {
-        if (sdk < Build.VERSION_CODES.JELLY_BEAN) {
-            rightButton.setBackgroundDrawable(drawable);
-        }
-        else {
-            rightButton.setBackground(drawable);
-        }
+    /**
+     * @param icon : the awesome text icon which right button want to show
+     */
+    public void setRightButtonIcon(String icon) {
+        rightButton.setIcon(icon);
     }
-
+    /*
+    * stop show right button
+    * */
     public void setRightButtonNoused() {
         rightButton.setClickable(false);
         rightButton.setVisibility(View.GONE);
     }
+    /*
+    * set right button listener
+    * */
     public void setRightButtonListener(OnClickListener l) {
         rightButton.setOnClickListener(l);
     }

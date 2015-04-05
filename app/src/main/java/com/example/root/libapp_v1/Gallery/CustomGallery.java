@@ -118,6 +118,7 @@ public class CustomGallery extends Gallery {
      * 获取item上view的中心点
      *
      * @param v
+     *
      * @return
      */
     private int getViewCenterPoint(View v) {
