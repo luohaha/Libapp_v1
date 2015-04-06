@@ -1,12 +1,10 @@
 package com.example.root.libapp_v1.Fragment;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import com.example.root.libapp_v1.HeadBar.HeadBar;
 import com.example.root.libapp_v1.LyxListView.LyxListViewAdapter;
@@ -23,13 +21,13 @@ import java.util.*;
 public class FiveFragment extends FatherFragment {
     //
     private HeadBar headBar;
-    private View mListView;
+    private View mListViewItem;
     private List<Map<String, Object>> mapList;
-    private Drawable[] mBooks = new Drawable[]{R.drawable.book1, R.drawable.book2, R.drawable.book3,
-                    R.drawable.book4, R.drawable.book5, R.drawable.book6, R.drawable.book7
+    private Integer[] mBooks = new Integer[]{R.drawable.book1, R.drawable.book2, R.drawable.book3,
+                    R.drawable.book4, R.drawable.book5, R.drawable.book6, R.drawable.book7,
                     R.drawable.book8};
     private LyxListViewAdapter mAdapter;
-    private LinearLayout mLayout;
+    private ListView mListView;
     /**
      * it start when view need to be created
      * @param inflater
@@ -41,14 +39,30 @@ public class FiveFragment extends FatherFragment {
     {
         View view = inflater.inflate(R.layout.fragment5, null);
       //  TextView textView = (TextView) view.findViewById(R.id.txt_content);
-        headBar = (HeadBar)this.getActivity().findViewById(R.id.head_bar);
-        mLayout = (LinearLayout) view.findViewById(R.id.lyx_lv);
-        headBar.setTitleText("扫一扫");
-        mListView = inflater.inflate(R.layout.lyx_listview_item, null);
+        setHeadBar();
+        getView(view, inflater);
         setData();
         mAdapter = new LyxListViewAdapter(this.getActivity(), mapList);
-
+        mListView.setAdapter(mAdapter);
         return view;
+    }
+
+    /**
+     * get mListView and mListViewItem from layout.
+     * @param view it is the place we need to put our things into.
+     * @param inflater
+     */
+    private void getView(View view, LayoutInflater inflater) {
+        mListView = (ListView) view.findViewById(R.id.lyx_lv);
+        mListViewItem = inflater.inflate(R.layout.lyx_listview_item, null);
+    }
+    /**
+     * do some head bar setting jobs
+     */
+    private void setHeadBar() {
+        headBar = (HeadBar)this.getActivity().findViewById(R.id.head_bar);
+        headBar.setTitleText("扫一扫");
+
     }
 
     /**
