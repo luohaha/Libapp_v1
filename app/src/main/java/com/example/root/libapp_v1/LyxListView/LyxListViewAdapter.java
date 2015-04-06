@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,6 +86,7 @@ public class LyxListViewAdapter extends BaseAdapter {
             convertView.setTag(viewHolder);
         }
         //you also need to add here!
+        Log.i("the position is : ", Integer.toString(position));
         viewHolder.img.setBackgroundResource((Integer)mList.get(position).get("img"));
         viewHolder.title.setText((String) mList.get(position).get("title"));
         viewHolder.detal.setText((String) mList.get(position).get("detail"));

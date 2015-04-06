@@ -22,7 +22,7 @@ public class FiveFragment extends FatherFragment {
     //
     private HeadBar headBar;
     private View mListViewItem;
-    private List<Map<String, Object>> mapList;
+    private ArrayList<Map<String, Object>> mapList;
     private Integer[] mBooks = new Integer[]{R.drawable.book1, R.drawable.book2, R.drawable.book3,
                     R.drawable.book4, R.drawable.book5, R.drawable.book6, R.drawable.book7,
                     R.drawable.book8};
@@ -70,13 +70,15 @@ public class FiveFragment extends FatherFragment {
      *
      */
     private void setData() {
-        Map<String, Object> map = new HashMap<String, Object>();
+        mapList = new ArrayList<Map<String, Object>>(8);
+        Map<String, Object> map;
         String t = "NO.";
         String d = "You will like ";
         String im = "this is a great book!!";
         for (int i = 0; i < 8; i++) {
-            map.put("title", t+Integer.toString(i));
-            map.put("detail", d+t+Integer.toString(i));
+            map = new HashMap<String, Object>();
+            map.put("title", t+Integer.toString(i+1));
+            map.put("detail", d+t+Integer.toString(i+1));
             map.put("img", mBooks[i]);
             map.put("information", im);
             mapList.add(map);
