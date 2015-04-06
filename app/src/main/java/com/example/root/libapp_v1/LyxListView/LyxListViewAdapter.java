@@ -83,36 +83,24 @@ public class LyxListViewAdapter extends BaseAdapter {
             convertView.setTag(viewHolder);
         }
         else {
-            convertView.setTag(viewHolder);
+           // get an old one, and use it later.
+            viewHolder = (ViewHolder)convertView.getTag();
         }
         //you also need to add here!
-        if (viewHolder == null)
-        {
-            Log.i("haha : ", "it is null");
-        }
-        /*
-        * I have to add the try and catch the err and it work, i don't know why.
-        * If I don't do that, it will crash.
-        * So, don't touch the code, it is magic!!!
-        * */
-        try {
-            viewHolder.img.setBackgroundResource((Integer) mList.get(position).get("img"));
-            viewHolder.title.setText((String) mList.get(position).get("title"));
-            viewHolder.detal.setText((String) mList.get(position).get("detail"));
-            viewHolder.moreButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (v.getId() == R.id.lyx_lv_btn) {
-                        showMore((String) mList.get(position).get("information"));
-                    } else {
-                        //now, you have to know it won't happen
-                    }
+        viewHolder.img.setBackgroundResource((Integer) mList.get(position).get("img"));
+        viewHolder.title.setText((String) mList.get(position).get("title"));
+        viewHolder.detal.setText((String) mList.get(position).get("detail"));
+        viewHolder.moreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v.getId() == R.id.lyx_lv_btn) {
+                    showMore((String) mList.get(position).get("information"));
+                } else {
+                    //now, you have to know it won't happen
                 }
-            });
-        } catch (Exception e) {
-            //It will happen always, don't worry
-            Log.i("err", e.toString());
-        }
+            }
+        });
+
         return convertView;
     }
 
