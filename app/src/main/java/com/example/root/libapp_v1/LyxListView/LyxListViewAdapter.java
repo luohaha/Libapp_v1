@@ -85,9 +85,9 @@ public class LyxListViewAdapter extends BaseAdapter {
             convertView.setTag(viewHolder);
         }
         //you also need to add here!
-        viewHolder.img.setBackground((Drawable) mList.get(position).get("img"));
+        viewHolder.img.setBackgroundDrawable((Drawable) mList.get(position).get("img"));
         viewHolder.title.setText((String) mList.get(position).get("title"));
-        viewHolder.detal.setText((String) mList.get(position).get("detal"));
+        viewHolder.detal.setText((String) mList.get(position).get("detail"));
         viewHolder.moreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
