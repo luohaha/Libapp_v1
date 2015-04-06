@@ -40,7 +40,7 @@ public class FiveFragment extends FatherFragment {
         View view = inflater.inflate(R.layout.fragment5, null);
       //  TextView textView = (TextView) view.findViewById(R.id.txt_content);
         setHeadBar();
-        getView(view, inflater);
+        getAllView(view, inflater);
         setData();
         mAdapter = new LyxListViewAdapter(this.getActivity(), mapList);
         mListView.setAdapter(mAdapter);
@@ -52,9 +52,9 @@ public class FiveFragment extends FatherFragment {
      * @param view it is the place we need to put our things into.
      * @param inflater
      */
-    private void getView(View view, LayoutInflater inflater) {
+    private void getAllView(View view, LayoutInflater inflater) {
         mListView = (ListView) view.findViewById(R.id.lyx_lv);
-        mListViewItem = inflater.inflate(R.layout.lyx_listview_item, null);
+     //   mListViewItem = inflater.inflate(R.layout.lyx_listview_item, null);
     }
     /**
      * do some head bar setting jobs

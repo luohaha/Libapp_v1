@@ -35,6 +35,6 @@
         android:text="more"
         bootstrap:bb_icon_right="fa-android"
         bootstrap:bb_type="success"
-        android:layout_gravity="bottom|right"
+        android:layout_alignParentRight="true"
         />
 </LinearLayout>
