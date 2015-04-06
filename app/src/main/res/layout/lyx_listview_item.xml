@@ -1,30 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:bootstrap="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal" android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="8.0dip"
+    android:background="@color/white"
+    android:minHeight="72.0dip"
+    android:padding="12.0dip">
     <ImageView
         android:id="@+id/lyx_lv_img"
         android:layout_width="80dip"
         android:layout_height="100dip"
-        android:layout_margin="5px"/>
+        android:layout_alignParentLeft="true"
+        android:scaleType="centerCrop"
+        />
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/lyx_lv_img">
         <TextView
             android:id="@+id/lyx_lv_title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#FFFFFFFF"
-            android:textSize="22px" />
+            android:textColor="@color/black"
+            android:textSize="@dimen/abc_text_size_large_material" />
         <TextView
             android:id="@+id/lyx_lv_detal"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#FFFFFFFF"
-            android:textSize="13px" />
+            android:textColor="@color/black"
+            android:textSize="@dimen/abc_text_size_medium_material" />
     </LinearLayout>
 
     <com.beardedhen.androidbootstrap.BootstrapButton
@@ -32,9 +43,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="more"
-        bootstrap:bb_icon_right="fa-android"
+        android:text=""
+        bootstrap:bb_icon_right="fa-plus-circle"
         bootstrap:bb_type="success"
         android:layout_alignParentRight="true"
         />
-</LinearLayout>
+</RelativeLayout>
+
+</FrameLayout>

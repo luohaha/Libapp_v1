@@ -37,7 +37,7 @@
         android:layout_alignParentRight="true"
         android:layout_height="match_parent"
         android:layout_marginRight="5dp"
-        fontawesometext:fa_icon="fa-list-ul"
+        fontawesometext:fa_icon="fa-ellipsis-v"
         android:layout_margin="10dp"
         android:textSize="32sp"
         />
