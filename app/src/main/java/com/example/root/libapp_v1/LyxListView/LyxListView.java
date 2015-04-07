@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
  *  finish the function of LyxListView, it contains push down refresh function.
  *  ps, where?
  */
-public class LyxListView extends LinearLayout implements OnTouchListener {
+public abstract class LyxListView extends LinearLayout implements OnTouchListener {
     /**
     * the status when you pull down
     * */
@@ -61,7 +61,7 @@ public class LyxListView extends LinearLayout implements OnTouchListener {
     /**
      * interface of pull to refresh listener
      * */
-     
+
      public LyxListView(Context context, AttributeSet attrs) {
         super(context, attrs);
 

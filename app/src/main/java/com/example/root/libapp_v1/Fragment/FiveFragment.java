@@ -1,12 +1,14 @@
 package com.example.root.libapp_v1.Fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.example.root.libapp_v1.HeadBar.HeadBar;
+import com.example.root.libapp_v1.ListView.FreshListView;
+import com.example.root.libapp_v1.ListView.FreshListView.IReflashListener;
 import com.example.root.libapp_v1.LyxListView.LyxListViewAdapter;
 import com.example.root.libapp_v1.R;
 
@@ -18,7 +20,7 @@ import java.util.*;
  *  the fifth fragment of main activity
  *  ps, I like that girl
  */
-public class FiveFragment extends FatherFragment {
+public class FiveFragment extends FatherFragment implements IReflashListener {
     //
     private HeadBar headBar;
     private View mListViewItem;
@@ -27,7 +29,7 @@ public class FiveFragment extends FatherFragment {
                     R.drawable.book4, R.drawable.book5, R.drawable.book6, R.drawable.book7,
                     R.drawable.book8};
     private LyxListViewAdapter mAdapter;
-    private ListView mListView;
+    private FreshListView mListView;
     /**
      * it start when view need to be created
      * @param inflater
@@ -42,19 +44,29 @@ public class FiveFragment extends FatherFragment {
         setHeadBar();
         getAllView(view, inflater);
         setData();
-        mAdapter = new LyxListViewAdapter(this.getActivity(), mapList);
-        mListView.setAdapter(mAdapter);
+
         return view;
     }
 
+    /**
+     * begin to show the data in mList
+     */
+    private void showList() {
+        if (mAdapter == null) {
+            mListView.setInterface(this);
+            mAdapter = new LyxListViewAdapter(this.getActivity(), mapList);
+            mListView.setAdapter(mAdapter);
+        } else {
+            mAdapter.onDateChange(mapList);
+        }
+    }
     /**
      * get mListView and mListViewItem from layout.
      * @param view it is the place we need to put our things into.
      * @param inflater
      */
     private void getAllView(View view, LayoutInflater inflater) {
-        mListView = (ListView) view.findViewById(R.id.lyx_lv);
-     //   mListViewItem = inflater.inflate(R.layout.lyx_listview_item, null);
+        mListView = (FreshListView) view.findViewById(R.id.lyx_lv);
     }
     /**
      * do some head bar setting jobs
@@ -83,5 +95,72 @@ public class FiveFragment extends FatherFragment {
             map.put("information", im);
             mapList.add(map);
         }
+    }
+
+    /**
+     * refresh the new data into mList,
+     * I just test it now!!
+     */
+    private void setRefreshData() {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("title", "the new gay");
+        map.put("detail", "heyheyhey");
+        map.put("img", mBooks[2]);
+        map.put("informaion", "it sucks");
+        mapList.add(0, map);
+    }
+
+    /**
+     * reload the new data into mList,
+     * just a test
+     */
+    private void setLoadData() {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("title", "the new gay");
+        map.put("detail", "heyheyhey");
+        map.put("img", mBooks[2]);
+        map.put("informaion", "it sucks");
+        mapList.add(0, map);
+    }
+    /**
+     * finish the interface function onReflash()
+     * */
+    @Override
+    public void onReflash() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                //获取最新数据
+                setRefreshData();
+                //通知界面显示
+                showList();
+                //通知listview 刷新数据完毕；
+                mListView.reflashComplete();
+            }
+        }, 2000);
+    }
+
+    /**
+     * finish the interface function onLoad()
+     */
+    @Override
+    public void onLoad() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                //获取最新数据
+                setLoadData();
+                //通知界面显示
+                showList();
+                //通知listview 刷新数据完毕；
+                mListView.reflashComplete();
+            }
+        }, 2000);
     }
 }

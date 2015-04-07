@@ -38,6 +38,14 @@ public class LyxListViewAdapter extends BaseAdapter {
     }
 
     /**
+     * change the date when need it
+     * @param list
+     */
+    public void onDateChange(List<Map<String, Object>> list) {
+        this.mList = list;
+        this.notifyDataSetChanged();
+    }
+    /**
      * @return the size of mList
      */
     @Override
@@ -58,6 +66,7 @@ public class LyxListViewAdapter extends BaseAdapter {
      * @param position
      * @return
      */
+
     @Override
     public long getItemId(int position) {
         return position;
