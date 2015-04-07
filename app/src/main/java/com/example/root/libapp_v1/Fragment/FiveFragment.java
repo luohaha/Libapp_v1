@@ -44,7 +44,7 @@ public class FiveFragment extends FatherFragment implements IReflashListener {
         setHeadBar();
         getAllView(view, inflater);
         setData();
-
+        showList();
         return view;
     }
 
@@ -120,7 +120,7 @@ public class FiveFragment extends FatherFragment implements IReflashListener {
         map.put("detail", "heyheyhey");
         map.put("img", mBooks[2]);
         map.put("informaion", "it sucks");
-        mapList.add(0, map);
+        mapList.add(map);
     }
     /**
      * finish the interface function onReflash()
@@ -159,7 +159,7 @@ public class FiveFragment extends FatherFragment implements IReflashListener {
                 //通知界面显示
                 showList();
                 //通知listview 刷新数据完毕；
-                mListView.reflashComplete();
+                mListView.loadComplete();
             }
         }, 2000);
     }
