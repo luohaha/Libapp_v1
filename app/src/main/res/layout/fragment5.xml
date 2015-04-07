@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E6E6E6">
-    <com.example.root.libapp_v1.ListView.FreshListView
+    <com.example.root.libapp_v1.PullRefreshListView.FreshListView
         android:id="@+id/lyx_lv"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        </com.example.root.libapp_v1.ListView.FreshListView>
+        </com.example.root.libapp_v1.PullRefreshListView.FreshListView>
 
 </LinearLayout>

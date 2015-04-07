@@ -4,19 +4,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
 import java.util.ArrayList;
 
-import android.app.Activity;
-import android.os.Bundle;
 import android.os.Handler;
 
 import com.example.root.libapp_v1.HeadBar.HeadBar;
-import com.example.root.libapp_v1.ListView.FreshListView;
+import com.example.root.libapp_v1.PullRefreshListView.FreshListView;
 import com.example.root.libapp_v1.ListView.ApkEntry;
 import com.example.root.libapp_v1.ListView.MyAdapter;
 import com.example.root.libapp_v1.R;
-import com.example.root.libapp_v1.ListView.FreshListView.IReflashListener;
+import com.example.root.libapp_v1.PullRefreshListView.FreshListView.IReflashListener;
 
 /**
  * author : Yixin Luo

@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.root.libapp_v1.HeadBar.HeadBar;
-import com.example.root.libapp_v1.ListView.FreshListView;
-import com.example.root.libapp_v1.ListView.FreshListView.IReflashListener;
+import com.example.root.libapp_v1.PullRefreshListView.FreshListView;
+import com.example.root.libapp_v1.PullRefreshListView.FreshListView.IReflashListener;
 import com.example.root.libapp_v1.LyxListView.LyxListViewAdapter;
 import com.example.root.libapp_v1.R;
 
