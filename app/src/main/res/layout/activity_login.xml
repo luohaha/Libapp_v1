@@ -27,7 +27,7 @@
         android:paddingLeft="50dip"
         android:layout_below="@id/myImage"
         android:inputType="number"
-        android:background="@drawable/qqnum_edit"/>
+        android:background="@drawable/login_editview_shape"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -49,7 +49,7 @@
         android:layout_marginLeft="30dip"
         android:layout_marginRight="30dip"
         android:layout_below="@id/login_user_number"
-        android:background="@drawable/qqnum_edit"/>
+        android:background="@drawable/login_editview_shape"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -93,7 +93,7 @@
         android:layout_alignRight="@id/login_user_number"
         android:layout_marginTop="20dip"
 
-        android:background="@drawable/login_button_back"
+        android:background="@drawable/login_editview_shape"
         android:text="登录"
         android:textColor="@android:color/white"/>
     <TextView
