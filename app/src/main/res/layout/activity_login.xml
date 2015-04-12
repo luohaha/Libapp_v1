@@ -65,7 +65,7 @@
     <!--the image button is showed on the right side of the edit view. And we show the down button
         first, and when push the button then show the delete button.-->
     <ImageButton
-        android:id="@+id/qqListIndicator"
+        android:id="@+id/down_button"
         android:layout_width="22dip"
         android:layout_height="20dip"
         android:layout_marginBottom="8dip"
@@ -74,18 +74,18 @@
         android:layout_alignRight="@+id/login_user_number"
         android:background="@drawable/down_button" />
     <ImageButton
-        android:id="@+id/delete_button_edit"
+        android:id="@+id/delete_button"
         android:layout_width="18dip"
         android:layout_height="18dip"
         android:layout_marginBottom="8dip"
         android:layout_marginRight="3dip"
         android:layout_alignBottom="@+id/login_user_number"
-        android:layout_toLeftOf="@id/qqListIndicator"
+        android:layout_toLeftOf="@id/down_button"
         android:background="@drawable/delete_button"
         android:visibility="gone"/>
     <!-- the login in button-->
-    <Button
-        android:id="@+id/qqLoginButton"
+    <BootstrapButton
+        android:id="@+id/login_button"
         android:layout_width="match_parent"
         android:layout_height="35dip"
         android:layout_below="@id/login_user_password"
@@ -103,7 +103,7 @@
 
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/qqLoginButton"
+        android:layout_below="@id/login_button"
         android:layout_marginLeft="45dip"
         android:text="找回密码"
         android:textSize="7pt"
@@ -114,7 +114,7 @@
         android:id="@+id/registQQ"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/qqLoginButton"
+        android:layout_below="@id/login_button"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginRight="45dip"
@@ -127,7 +127,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/qqLoginButton"
+        android:layout_below="@id/login_button"
         android:text="|"
         android:textSize="7pt"
         android:layout_alignParentBottom="true"

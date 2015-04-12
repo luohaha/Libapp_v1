@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +22,7 @@ import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.FontAwesomeText;
 import com.example.root.libapp_v1.Fragment.FragmentFactory;
 import com.example.root.libapp_v1.HeadBar.HeadBar;
+import com.example.root.libapp_v1.UserLogin.LoginActivity;
 
 
 public class MainActivity extends Activity implements OnClickListener {
@@ -126,10 +128,17 @@ public class MainActivity extends Activity implements OnClickListener {
      /** 在这里可以实现自定义视图的功能 */
      BootstrapButton btton2 = (BootstrapButton) customView.findViewById(R.id.send_book);
      BootstrapButton btton3 = (BootstrapButton) customView.findViewById(R.id.search_all);
-     btton2.setOnClickListener((View.OnClickListener) this);
+     BootstrapButton btton4 = (BootstrapButton) customView.findViewById(R.id.login_logout);
+
+     btton4.setOnClickListener(this);
+     btton2.setOnClickListener(this);
      btton3.setOnClickListener(this);
  }
 
+    /**
+     * when click on the right side button
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -138,6 +147,10 @@ public class MainActivity extends Activity implements OnClickListener {
                 break;
             case R.id.search_all :
                 Toast.makeText(this, "button push!", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.login_logout :
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
                 break;
         }
     }

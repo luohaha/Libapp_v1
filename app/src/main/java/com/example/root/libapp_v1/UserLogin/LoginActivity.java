@@ -8,6 +8,8 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.root.libapp_v1.R;
+
 /**
  * Created by Yixin Luo on 15-4-12.
  * Today is a beautiful day!!
@@ -38,6 +40,6 @@ public class LoginActivity extends Activity {
      @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+        setContentView(R.layout.activity_login);
     }
 }
