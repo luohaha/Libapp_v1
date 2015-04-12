@@ -1,5 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bootstrap="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -17,7 +18,7 @@
         android:layout_centerHorizontal="true"
         android:background="@drawable/ic_launcher"/>
     <!-- the edit text is used to enter user number-->
-    <EditText
+    <com.beardedhen.androidbootstrap.BootstrapEditText
         android:id="@+id/login_user_number"
         android:layout_width="match_parent"
         android:layout_height="40dip"
@@ -27,7 +28,8 @@
         android:paddingLeft="50dip"
         android:layout_below="@id/myImage"
         android:inputType="number"
-        android:background="@drawable/login_editview_shape"/>
+        bootstrap:be_roundedCorners="true"
+        bootstrap:be_state="success"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -41,7 +43,7 @@
         android:layout_marginLeft="3dip"/>
 
     <!-- the edit text is used to enter user password-->
-    <EditText
+    <com.beardedhen.androidbootstrap.BootstrapEditText
         android:id="@+id/login_user_password"
         android:layout_width="match_parent"
         android:layout_height="40dip"
@@ -49,7 +51,9 @@
         android:layout_marginLeft="30dip"
         android:layout_marginRight="30dip"
         android:layout_below="@id/login_user_number"
-        android:background="@drawable/login_editview_shape"/>
+        android:background="@drawable/login_editview_shape"
+        bootstrap:be_roundedCorners="true"
+        bootstrap:be_state="success"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -84,18 +88,20 @@
         android:background="@drawable/delete_button"
         android:visibility="gone"/>
     <!-- the login in button-->
-    <BootstrapButton
+    <com.beardedhen.androidbootstrap.BootstrapButton
         android:id="@+id/login_button"
         android:layout_width="match_parent"
-        android:layout_height="35dip"
+        android:layout_height="wrap_content"
         android:layout_below="@id/login_user_password"
         android:layout_alignLeft="@id/login_user_number"
         android:layout_alignRight="@id/login_user_number"
         android:layout_marginTop="20dip"
-
-        android:background="@drawable/login_editview_shape"
         android:text="登录"
-        android:textColor="@android:color/white"/>
+        bootstrap:bb_icon_right="fa-sign-in"
+        bootstrap:bb_type="success"
+
+        bootstrap:bb_roundedCorners="true"
+        />
     <TextView
         android:id="@+id/fetchPassword"
         android:layout_width="wrap_content"
