@@ -11,7 +11,7 @@
     android:background="#dde1ee" >
     <!-- the picture of person head-->
     <ImageView
-        android:id="@+id/myImage"
+        android:id="@+id/head_image"
         android:layout_width="70dip"
         android:layout_height="70dip"
         android:layout_marginTop="65dip"
@@ -26,7 +26,7 @@
         android:layout_marginRight="30dip"
         android:layout_marginTop="15dip"
         android:paddingLeft="50dip"
-        android:layout_below="@id/myImage"
+        android:layout_below="@id/head_image"
         android:inputType="number"
         bootstrap:be_roundedCorners="true"
         bootstrap:be_state="success"/>
@@ -103,7 +103,7 @@
         bootstrap:bb_roundedCorners="true"
         />
     <TextView
-        android:id="@+id/fetchPassword"
+        android:id="@+id/get_password_back_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
@@ -117,7 +117,7 @@
         android:gravity="bottom"/>
 
     <TextView
-        android:id="@+id/registQQ"
+        android:id="@+id/regist_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/login_button"
@@ -144,7 +144,7 @@
         android:id="@+id/loginQQList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/registQQ"
+        android:layout_above="@id/regist_textview"
         android:layout_alignLeft="@id/login_user_number"
         android:layout_alignRight="@id/login_user_number"
         android:layout_below="@id/login_user_number"
