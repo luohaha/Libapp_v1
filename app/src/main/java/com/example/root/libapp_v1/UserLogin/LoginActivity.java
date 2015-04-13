@@ -1,6 +1,7 @@
 package com.example.root.libapp_v1.UserLogin;
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -53,7 +54,11 @@ public class LoginActivity extends Activity {
      * an array for list view
      * */
     ArrayList<HashMap<String, Object>> mList;
-
+    /**
+     * test data, you can get them for internet
+     * */
+    Integer[] mHeads = new Integer[]{R.drawable.book7, R.drawable.book8, R.drawable.book5};
+    String[] mNumber = new String[] {"123456", "741852", "852963"};
     /**
      * @param savedInstanceState
      */
@@ -97,14 +102,26 @@ public class LoginActivity extends Activity {
             }
         });
         /**
+         * add some data to array list
+         * */
+         for (int i = 0; i < 2; i++) {
+             HashMap<String, Object> map = new HashMap<String, Object>();
+             map.put("userImage", mHeads[i]);
+             map.put("userNumber", mNumber[i]);
+             map.put("button", R.drawable.delete_button);
+             mList.add(map);
+         }
+         /**
          * decide which head's image to show
          * */
         if (mItemPosition == -1) {
             mHeadImage.setImageResource(R.drawable.ic_launcher);
             mUserNumberEditText.setText("");
         } else {
-            mHeadImage.setImageResource((Integer) mList.get(mItemPosition).get(""));
-            mUserNumberEditText.setText(mList.get(mItemPosition).get("userNumber"));
+            mHeadImage.setImageResource((Integer) mList.get(mItemPosition).get("userImage"));
+            mUserNumberEditText.setText((String)mList.get(mItemPosition).get("userNumber"));
         }
+
+
     }
 }
