@@ -2,6 +2,7 @@ package com.example.root.libapp_v1.UserLogin;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -97,6 +98,19 @@ public class LoginActivity extends Activity {
             }
         });
         /**
+         * when we delete all word, then the head's image change to default one
+         * */
+        mUserNumberEditText.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_DEL &&
+                        mUserNumberEditText.getText().toString().equals("") == true) {
+                    mHeadImage.setImageResource(R.drawable.ic_launcher);
+                }
+                return false;
+            }
+        });
+        /**
          * when we push the delete button
          * */
         mDeleteButton.setOnClickListener(new OnClickListener() {
@@ -105,6 +119,7 @@ public class LoginActivity extends Activity {
                 mUserNumberEditText.setText("");
                 mCurrentItemPosition = -1;
                 mDeleteButton.setVisibility(View.GONE);
+                mHeadImage.setImageResource(R.drawable.ic_launcher);
             }
         });
         /**
