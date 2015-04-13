@@ -46,7 +46,7 @@ public class LoginActivity extends Activity {
      * the list view and it's item's position which is selected
      * */
     private ListView mListView;
-    private int mItemPosition = -1;
+    private int mCurrentItemPosition = -1;
 
     private boolean isListViewVisiable;
     private boolean isDownButtonUp;
@@ -97,7 +97,7 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View v) {
                 mUserNumberEditText.setText("");
-                mItemPosition = -1;
+                mCurrentItemPosition = -1;
                 mDeleteButton.setVisibility(View.GONE);
             }
         });
@@ -114,12 +114,12 @@ public class LoginActivity extends Activity {
          /**
          * decide which head's image to show
          * */
-        if (mItemPosition == -1) {
+        if (mCurrentItemPosition == -1) {
             mHeadImage.setImageResource(R.drawable.ic_launcher);
             mUserNumberEditText.setText("");
         } else {
-            mHeadImage.setImageResource((Integer) mList.get(mItemPosition).get("userImage"));
-            mUserNumberEditText.setText((String)mList.get(mItemPosition).get("userNumber"));
+            mHeadImage.setImageResource((Integer) mList.get(mCurrentItemPosition).get("userImage"));
+            mUserNumberEditText.setText((String)mList.get(mCurrentItemPosition).get("userNumber"));
         }
 
 

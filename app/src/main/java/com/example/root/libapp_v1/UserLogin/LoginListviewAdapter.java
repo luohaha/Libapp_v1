@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.example.root.libapp_v1.R;
 
 import java.util.ArrayList;
@@ -23,6 +24,9 @@ public class LoginListviewAdapter extends BaseAdapter{
     private Context mContext;
     private ArrayList<HashMap<String, Object>> mList;
     private int mItemLayout;
+    private int mCurrentItemPosition;
+    private ImageView mCurrentHeadImage;
+    private BootstrapEditText mCurrentNumber;
     /**
      * get the user's number and image
      * */
@@ -30,13 +34,17 @@ public class LoginListviewAdapter extends BaseAdapter{
     private Integer[] mGetImage;
 
     public LoginListviewAdapter(Context mContext, ArrayList<HashMap<String, Object>> arrayList,
-                                int itemLayout, String[] getNumber, Integer[] getImage) {
+                                int itemLayout, String[] getNumber, Integer[] getImage,
+                                int currentItemPosition, ImageView headImage,
+                                BootstrapEditText currentNumber) {
         this.mContext = mContext;
         this.mList = arrayList;
         this.mItemLayout = itemLayout;
         this.mGetImage = getImage;
         this.mGetNumber = getNumber;
-
+        this.mCurrentItemPosition = currentItemPosition;
+        this.mCurrentHeadImage = headImage;
+        this.mCurrentNumber = currentNumber;
     }
 
     @Override
@@ -61,7 +69,20 @@ public class LoginListviewAdapter extends BaseAdapter{
             @Override
             public void onClick(View v) {
                 mList.remove(position);
-                if (position)
+                /**
+                 * if the deleted position is showed currently, then set it empty
+                 *
+                 * else if the position is higher than the current one,
+                 * */
+                if (position == mCurrentItemPosition) {
+                    mCurrentHeadImage.setImageResource(R.drawable.ic_launcher);
+                    mCurrentNumber.setText("");
+                    mCurrentItemPosition = -1;
+                } else if (position < mCurrentItemPosition) {
+                    mCurrentItemPosition--;
+                }
+
+                LoginListviewAdapter.this.notifyDataSetChanged();
             }
         });
         return convertView;
