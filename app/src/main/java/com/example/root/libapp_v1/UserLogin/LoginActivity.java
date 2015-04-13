@@ -1,10 +1,11 @@
 package com.example.root.libapp_v1.UserLogin;
 
 import android.app.Activity;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -48,8 +49,8 @@ public class LoginActivity extends Activity {
     private ListView mListView;
     private int mCurrentItemPosition = -1;
 
-    private boolean isListViewVisiable;
-    private boolean isDownButtonUp;
+    private boolean isListViewVisiable = false;
+    private boolean isDownButtonUp = false;
     /**
      * an array for list view
      * */
@@ -78,11 +79,16 @@ public class LoginActivity extends Activity {
         mHeadImage = (ImageView) findViewById(R.id.head_image);
         mUserNumberEditText = (BootstrapEditText) findViewById(R.id.login_user_number);
         mUserPasswordEditText = (BootstrapEditText) findViewById(R.id.login_user_password);
+
         /**
-         * when we click the show more user button,
+         * initial the list view
+         * */
+        mListView = (ListView) findViewById(R.id.loginQQList);
+         /**
+         * when we click input number area,
          * if user input some number, then it will show more users which suit
          * */
-        mDownButton.setOnClickListener(new OnClickListener() {
+        mUserNumberEditText.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mUserNumberEditText.getText().toString().equals("") == false) {
@@ -121,7 +127,84 @@ public class LoginActivity extends Activity {
             mHeadImage.setImageResource((Integer) mList.get(mCurrentItemPosition).get("userImage"));
             mUserNumberEditText.setText((String)mList.get(mCurrentItemPosition).get("userNumber"));
         }
+        /**
+         * define a new adapter
+         * */
+        LoginListviewAdapter loginListviewAdapter = new LoginListviewAdapter(this, mList,
+                R.layout.login_list_item, mNumber, mHeads, mCurrentItemPosition,
+                mHeadImage, mUserNumberEditText);
+        mListView.setAdapter(loginListviewAdapter);
+         /**
+          * when we select an item from list view
+          * */
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                /**
+                 * use the selected image and number as the default input
+                 * */
+                mHeadImage.setImageResource((Integer) mList.get(position).get("userImage"));
+                mUserNumberEditText.setText((String) mList.get(position).get("userNumber"));
+                mCurrentItemPosition = position;
+                /**
+                 * when it finish, the list view disappear
+                 * */
+                mListView.setVisibility(View.GONE);
 
+             }
+        });
+        /**
+         * when we click the show more item button
+         * */
+        mDownButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /**
+                 * we can see list view now, so when we click the button, it disappear
+                 * */
+                if (isDownButtonUp) {
+                    isDownButtonUp = false;
+                    isListViewVisiable = false;
+                    mListView.setVisibility(View.GONE);
+                }
+                /**
+                 * we can't see list view, so when click, it show up
+                 * */
+                else {
+                    isDownButtonUp = true;
+                    isListViewVisiable = true;
+                    mListView.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+    }
+
+    /**
+     * when the list view show, and we scroll it out of range
+     * @param event
+     * @return
+     */
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        /**
+         * when we scroll it down and the list view is visible
+         * */
+        if (event.getAction() == MotionEvent.ACTION_DOWN && isListViewVisiable) {
+            /**
+             * get the list view's upper left corner's coordinate,
+             * */
+            int[] location = new int[2];
+            mListView.getLocationInWindow(location);
+            int x = (int)event.getX();
+            int y = (int)event.getY();
+            if (x < location[0] || x > location[0]+mListView.getWidth() || y < location[1] ||
+                    y > location[1]+mListView.getHeight()) {
+                isListViewVisiable = false;
+                isDownButtonUp = false;
+                mListView.setVisibility(View.GONE);
+            }
+         }
+        return super.onTouchEvent(event);
 
     }
 }

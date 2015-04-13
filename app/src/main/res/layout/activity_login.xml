@@ -20,6 +20,8 @@
     <!-- the edit text is used to enter user number-->
     <com.beardedhen.androidbootstrap.BootstrapEditText
         android:id="@+id/login_user_number"
+        android:textStyle="bold"
+        android:textColor="@color/black"
         android:layout_width="match_parent"
         android:layout_height="40dip"
         android:layout_marginLeft="30dip"
@@ -45,6 +47,8 @@
     <!-- the edit text is used to enter user password-->
     <com.beardedhen.androidbootstrap.BootstrapEditText
         android:id="@+id/login_user_password"
+        android:textStyle="bold"
+        android:textColor="@color/black"
         android:layout_width="match_parent"
         android:layout_height="40dip"
         android:paddingLeft="50dip"
