@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="70dip"
+    android:layout_height="wrap_content"
     android:background="#333" >
 
     <Button
@@ -10,7 +10,8 @@
         android:layout_width="50dp"
         android:layout_height="match_parent"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="5dip"
+        android:layout_marginTop="5dip"
         android:background="@drawable/back"
         android:textColor="#fff" />
 
@@ -19,6 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:layout_marginTop="5dip"
         android:text="This is Title"
         android:textColor="#fff"
         android:textSize="20sp" />
@@ -36,9 +38,9 @@
         android:layout_width="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_height="match_parent"
-        android:layout_marginRight="5dp"
+        android:layout_marginRight="5dip"
         fontawesometext:fa_icon="fa-ellipsis-v"
-        android:layout_margin="10dp"
+        android:layout_marginTop="5dip"
         android:textSize="32sp"
         />
 

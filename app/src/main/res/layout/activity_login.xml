@@ -9,6 +9,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity"
     android:background="#dde1ee" >
+    <com.example.root.libapp_v1.HeadBar.HeadBar
+        android:id="@+id/login_head_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dip">
+
+    </com.example.root.libapp_v1.HeadBar.HeadBar>
     <!-- the picture of person head-->
     <ImageView
         android:id="@+id/head_image"

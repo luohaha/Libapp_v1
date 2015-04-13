@@ -1,5 +1,6 @@
 package com.example.root.libapp_v1.UserLogin;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
+import com.example.root.libapp_v1.HeadBar.HeadBar;
 import com.example.root.libapp_v1.R;
 
 import java.util.ArrayList;
@@ -45,6 +47,11 @@ public class LoginActivity extends Activity {
     private BootstrapEditText mUserNumberEditText;
     private BootstrapEditText mUserPasswordEditText;
     /**
+     * define the head bar
+     * */
+    private HeadBar mHeadBar;
+    private ActionBar mActionBar;
+     /**
      * the list view and it's item's position which is selected
      * */
     private ListView mListView;
@@ -68,6 +75,9 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+         /**
+          * initial the components in login page
+          * */
         mLoginButton = (BootstrapButton) findViewById(R.id.login_button);
         mDownButton = (ImageButton) findViewById(R.id.down_button);
         mDeleteButton = (ImageButton) findViewById(R.id.delete_button);
@@ -80,8 +90,23 @@ public class LoginActivity extends Activity {
         mHeadImage = (ImageView) findViewById(R.id.head_image);
         mUserNumberEditText = (BootstrapEditText) findViewById(R.id.login_user_number);
         mUserPasswordEditText = (BootstrapEditText) findViewById(R.id.login_user_password);
-
         /**
+         * initial the head title
+         * */
+        mActionBar = getActionBar();
+        mActionBar.hide();
+        mHeadBar = (HeadBar) findViewById(R.id.login_head_bar);
+        mHeadBar.setTitleText("登陆");
+        mHeadBar.setLeftButtonListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /**
+                 * close this acitvity
+                 * */
+                LoginActivity.this.finish();
+             }
+        });
+         /**
          * initial the list view
          * */
         mListView = (ListView) findViewById(R.id.loginQQList);
