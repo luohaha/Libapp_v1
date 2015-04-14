@@ -20,7 +20,7 @@ import com.example.root.libapp_v1.R;
  */
 public class HeadBar extends FrameLayout {
 
-    private Button leftButton;
+    private FontAwesomeText leftButton;
    // private Button rightButton;
     private FontAwesomeText rightButton;
 
@@ -32,7 +32,7 @@ public class HeadBar extends FrameLayout {
         sdk = Build.VERSION.SDK_INT;
         LayoutInflater.from(context).inflate(R.layout.head_title, this);
         titleText = (TextView) findViewById(R.id.title_text);
-        leftButton = (Button) findViewById(R.id.button_left);
+        leftButton = (FontAwesomeText) findViewById(R.id.button_left);
         rightButton = (FontAwesomeText) findViewById(R.id.button_right);
         leftButton.setOnClickListener(new OnClickListener() {
             @Override

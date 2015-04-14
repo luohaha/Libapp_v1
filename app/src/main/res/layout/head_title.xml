@@ -5,14 +5,15 @@
     android:layout_height="wrap_content"
     android:background="#333" >
 
-    <Button
+    <com.beardedhen.androidbootstrap.FontAwesomeText
         android:id="@+id/button_left"
         android:layout_width="50dp"
         android:layout_height="match_parent"
         android:layout_centerVertical="true"
         android:layout_marginLeft="5dip"
         android:layout_marginTop="5dip"
-        android:background="@drawable/back"
+        fontawesometext:fa_icon="fa-close"
+        android:textSize="32sp"
         android:textColor="#fff" />
 
     <TextView
@@ -39,9 +40,10 @@
         android:layout_alignParentRight="true"
         android:layout_height="match_parent"
         android:layout_marginRight="5dip"
-        fontawesometext:fa_icon="fa-ellipsis-v"
+        fontawesometext:fa_icon="fa-chevron-down"
         android:layout_marginTop="5dip"
         android:textSize="32sp"
+        android:textColor="#fff"
         />
 
 

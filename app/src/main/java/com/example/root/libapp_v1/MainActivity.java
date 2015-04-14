@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -66,14 +67,20 @@ public class MainActivity extends Activity implements OnClickListener {
             @Override
             public void onClick(View v) {
                 if (v.getId() == R.id.button_right) {
-                    if (popupwindow != null && popupwindow.isShowing()) {
+ /*                   if (popupwindow != null && popupwindow.isShowing()) {
+                        headBar.setRightButtonIcon("fa-chevron-down");
                         popupwindow.dismiss();
                         return;
                     }
-                    else {
+                    else if (popupwindow == null){*/
+                        headBar.setRightButtonIcon("fa-chevron-up");
                         initmPopupWindowView();
                         popupwindow.showAsDropDown(v, 0, 3);
-                    }
+/*                    }
+                    else {
+                        headBar.setRightButtonIcon("fa-chevron-up");
+                        popupwindow.showAsDropDown(v, 0, 3);
+                    }*/
                 }
 
             }
@@ -116,11 +123,13 @@ public class MainActivity extends Activity implements OnClickListener {
 
          @Override
          public boolean onTouch(View v, MotionEvent event) {
-             if (popupwindow != null && popupwindow.isShowing()) {
+/*             if (popupwindow != null && popupwindow.isShowing()) {
                  popupwindow.dismiss();
+                 //change the icon when poppup window dismiss
+                 headBar.setRightButtonIcon("fa-chevron-down");
                  popupwindow = null;
              }
-
+*/
              return false;
          }
      });
@@ -153,5 +162,19 @@ public class MainActivity extends Activity implements OnClickListener {
                 startActivity(intent);
                 break;
         }
+    }
+
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            if (popupwindow != null && popupwindow.isShowing()) {
+                popupwindow.dismiss();
+                //change the icon when poppup window dismiss
+                headBar.setRightButtonIcon("fa-chevron-down");
+                popupwindow = null;
+            }
+        }
+        return super.onTouchEvent(event);
     }
 }
