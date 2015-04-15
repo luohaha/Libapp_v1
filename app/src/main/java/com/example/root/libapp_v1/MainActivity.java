@@ -67,49 +67,17 @@ public class MainActivity extends Activity implements OnClickListener {
             @Override
             public void onClick(View v) {
                 if (v.getId() == R.id.button_right) {
- /*                   if (popupwindow != null && popupwindow.isShowing()) {
-                        headBar.setRightButtonIcon("fa-chevron-down");
-                        popupwindow.dismiss();
-                        return;
-                    }
-                    else if (popupwindow == null){*/
-                        headBar.setRightButtonIcon("fa-chevron-up");
-                        initmPopupWindowView();
-                        popupwindow.showAsDropDown(v, 0, 3);
-/*                    }
-                    else {
-                        headBar.setRightButtonIcon("fa-chevron-up");
-                        popupwindow.showAsDropDown(v, 0, 3);
-                    }*/
+
+                    headBar.setRightButtonIcon("fa-chevron-up");
+                    initmPopupWindowView();
+                    popupwindow.showAsDropDown(v, 0, 3);
+
                 }
 
             }
         });
     }
 
-
- /*   @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }*/
  private void initmPopupWindowView() {
 
      // // 获取自定义布局文件pop.xml的视图
@@ -123,13 +91,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
          @Override
          public boolean onTouch(View v, MotionEvent event) {
-/*             if (popupwindow != null && popupwindow.isShowing()) {
-                 popupwindow.dismiss();
-                 //change the icon when poppup window dismiss
-                 headBar.setRightButtonIcon("fa-chevron-down");
-                 popupwindow = null;
-             }
-*/
+
              return false;
          }
      });
