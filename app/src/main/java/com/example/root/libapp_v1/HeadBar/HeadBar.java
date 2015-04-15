@@ -16,7 +16,7 @@ import com.beardedhen.androidbootstrap.FontAwesomeText;
 import com.example.root.libapp_v1.R;
 
 /**
- * Created by root on 15-4-1.
+ * Created by YIxin on 15-4-1.
  */
 public class HeadBar extends FrameLayout {
 
