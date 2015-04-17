@@ -20,17 +20,20 @@ import java.util.Map;
 /**
  * Created by root on 15-4-17.
  */
-public class ZhujiListviewAdater extends BaseAdapter {
+public class ZhujiListviewAdapter extends BaseAdapter {
 
     private Context mContext;
     private ArrayList<Map<String, Object>> mList;
     private LayoutInflater mInflater;
-    public ZhujiListviewAdater(Context context, ArrayList<Map<String, Object>> list) {
+    public ZhujiListviewAdapter(Context context, ArrayList<Map<String, Object>> list) {
         this.mContext = context;
         this.mList = list;
         this.mInflater = LayoutInflater.from(context);
     }
-
+    public void onDateChange(ArrayList<Map<String, Object>> apk_list) {
+        this.mList = apk_list;
+        this.notifyDataSetChanged();
+    }
     @Override
     public int getCount() {
         return mList.size();
@@ -78,11 +81,18 @@ public class ZhujiListviewAdater extends BaseAdapter {
             viewHolder = (ZhujiViewHolder) convertView.getTag();
         }
         viewHolder.zhujiMainImg.setImageResource((Integer)mList.get(position).get("mainImg"));
-        viewHolder.zhujiHeadImg.setImage((Integer)mList.get(position).get("headImg"));
-        viewHolder.zhujiName.setText((String)mList.get(position).get("name"));
+        viewHolder.zhujiHeadImg.setImage((Integer) mList.get(position).get("headImg"));
+        viewHolder.zhujiName.setText((String) mList.get(position).get("name"));
         viewHolder.zhujiUpdateTime.setText((String)mList.get(position).get("updateTime"));
-        viewHolder.zhujiMoreButton.setIcon((String)mList.get(position).get("moreButton"));
-        viewHolder.zhujiMainText.setText((String)mList.get(position).get("mainText"));
+        viewHolder.zhujiMoreButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /**
+                 * when push the show more button
+                 * */
+            }
+        });
+        viewHolder.zhujiMainText.setText((String) mList.get(position).get("mainText"));
         viewHolder.zhujiTagText.setText((String)mList.get(position).get("tagText"));
         viewHolder.zhujiZhanButton.setOnClickListener(new OnClickListener() {
             @Override
