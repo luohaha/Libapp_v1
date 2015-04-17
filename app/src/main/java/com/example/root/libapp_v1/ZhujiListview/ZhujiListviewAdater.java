@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.LayoutInflater;
+import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,11 +13,9 @@ import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapCircleThumbnail;
 import com.beardedhen.androidbootstrap.FontAwesomeText;
 import com.example.root.libapp_v1.R;
-import com.example.root.libapp_v1.UserLogin.ViewHolder;
 
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * Created by root on 15-4-17.
@@ -80,7 +79,36 @@ public class ZhujiListviewAdater extends BaseAdapter {
         }
         viewHolder.zhujiMainImg.setImageResource((Integer)mList.get(position).get("mainImg"));
         viewHolder.zhujiHeadImg.setImage((Integer)mList.get(position).get("headImg"));
-        
-        return null;
+        viewHolder.zhujiName.setText((String)mList.get(position).get("name"));
+        viewHolder.zhujiUpdateTime.setText((String)mList.get(position).get("updateTime"));
+        viewHolder.zhujiMoreButton.setIcon((String)mList.get(position).get("moreButton"));
+        viewHolder.zhujiMainText.setText((String)mList.get(position).get("mainText"));
+        viewHolder.zhujiTagText.setText((String)mList.get(position).get("tagText"));
+        viewHolder.zhujiZhanButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            /**
+             * when zhan button push
+             * */
+            }
+        });
+        viewHolder.zhujiCommentButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            /**
+             * when comment button push
+             * */
+            }
+        });
+        viewHolder.zhujiShareButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            /**
+             * when share button push
+             * */
+            }
+        });
+
+        return convertView;
     }
 }
