@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:bootstrap="http://schemas.android.com/apk/res-auto"
     xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_margin="8.0dip"
+    >
     <!--main image-->
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="200dip"
+        android:layout_height="wrap_content"
         android:id="@+id/zhuji_main_img"/>
     <LinearLayout
         android:layout_width="match_parent"
@@ -61,12 +67,12 @@
         <!--the main text and tag text-->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dip"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dip"
+                android:layout_margin="1dip"
                 android:text="Print this page to PDF for the complete set of vectors. Or to use on the desktop, install FontAwesome.otf, set it as the font in your application, and copy and paste the icons (not the unicode) directly from this page into your designs. "
                 android:id="@+id/zhuji_main_text"/>
             <LinearLayout
@@ -92,7 +98,7 @@
             <com.beardedhen.androidbootstrap.BootstrapButton
                 android:id="@+id/zhuji_zhan_button"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dip"
                 android:layout_below="@id/login_user_password"
                 android:layout_alignLeft="@id/login_user_number"
                 android:layout_alignRight="@id/login_user_number"
@@ -106,7 +112,7 @@
             <com.beardedhen.androidbootstrap.BootstrapButton
                 android:id="@+id/zhuji_comment_button"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dip"
                 android:layout_below="@id/login_user_password"
                 android:layout_alignLeft="@id/login_user_number"
                 android:layout_alignRight="@id/login_user_number"
@@ -120,7 +126,7 @@
             <com.beardedhen.androidbootstrap.BootstrapButton
                 android:id="@+id/zhuji_share_button"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dip"
                 android:layout_below="@id/login_user_password"
                 android:layout_alignLeft="@id/login_user_number"
                 android:layout_alignRight="@id/login_user_number"
@@ -134,3 +140,4 @@
             </LinearLayout>
     </LinearLayout>
 </LinearLayout>
+</FrameLayout>

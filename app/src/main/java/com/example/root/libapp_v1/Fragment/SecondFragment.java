@@ -13,12 +13,9 @@ import android.os.Handler;
 
 import com.example.root.libapp_v1.HeadBar.HeadBar;
 import com.example.root.libapp_v1.PullRefreshListView.FreshListView;
-import com.example.root.libapp_v1.ListView.ApkEntry;
-import com.example.root.libapp_v1.ListView.MyAdapter;
 import com.example.root.libapp_v1.R;
 import com.example.root.libapp_v1.PullRefreshListView.FreshListView.IReflashListener;
 import com.example.root.libapp_v1.ZhujiListview.ZhujiListviewAdapter;
-import com.example.root.libapp_v1.ZhujiListview.ZhujiViewHolder;
 
 /**
  * author : Yixin Luo
