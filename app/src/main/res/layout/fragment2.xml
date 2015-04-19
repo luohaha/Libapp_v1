@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e3e2e7"
+    >
 
     <com.example.root.libapp_v1.PullRefreshListView.FreshListView
         android:id="@+id/listview"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:layout_margin="10dip"
+        android:background="@drawable/listview_standard_background"
         android:cacheColorHint="#00000000"
-        android:dividerHeight="5dip" />
+        android:dividerHeight="1px"
+        android:divider="#cccccc"/>
 </LinearLayout>
