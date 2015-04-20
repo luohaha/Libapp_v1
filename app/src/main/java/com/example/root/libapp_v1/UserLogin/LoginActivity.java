@@ -93,8 +93,8 @@ public class LoginActivity extends Activity {
         /**
          * initial the head title
          * */
-        mActionBar = getActionBar();
-        mActionBar.hide();
+   //     mActionBar = getActionBar();
+   //     mActionBar.hide();
         mHeadBar = (HeadBar) findViewById(R.id.login_head_bar);
         mHeadBar.setTitleText("登陆");
         mHeadBar.setLeftButtonListener(new OnClickListener() {

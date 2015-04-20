@@ -46,8 +46,8 @@ public class MainActivity extends Activity implements OnClickListener {
         fragmentManager = getFragmentManager();
         radioGroup = (RadioGroup) findViewById(R.id.rg_tab);
         rightButton = (FontAwesomeText) findViewById(R.id.button_right);
-        actionBar = getActionBar();
-        actionBar.hide();
+//        actionBar = getActionBar();
+//        actionBar.hide();
         headBar = (HeadBar) findViewById(R.id.head_bar);
         headBar.setLeftButtonNoused();
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
