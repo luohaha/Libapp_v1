@@ -7,11 +7,12 @@
     >
 
     <com.example.root.libapp_v1.PullRefreshListView.FreshListView
-        android:id="@+id/listview"
+        android:id="@+id/zhuji_listview"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dip"
         android:background="#e3e2e7"
+        android:divider="#e3e2e7"
+        android:dividerHeight="10dip"
         />
 
 </LinearLayout>
