@@ -13,6 +13,7 @@ import android.widget.ImageView;
 
 import com.example.root.libapp_v1.Gallery.CustomGallery;
 import com.example.root.libapp_v1.Gallery.ImageUtil;
+import com.example.root.libapp_v1.HeadBar.HeadBar;
 import com.example.root.libapp_v1.R;
 
 /**
@@ -26,6 +27,7 @@ public class ThirdFragment extends FatherFragment {
     private int[] imageResIDs;
     private String[] imageStrings;
     private CustomGallery customGallery;
+    private HeadBar mHeadBar;
     public View view;
 
     /**
@@ -58,9 +60,15 @@ public class ThirdFragment extends FatherFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // 生成动态数组，并且传入数据
-
+        setHeadBar();
     }
-
+    /**
+     * set the head bar title
+     * */
+    private void setHeadBar() {
+        mHeadBar = (HeadBar)this.getActivity().findViewById(R.id.head_bar);
+        mHeadBar.setTitleText("阅览室");
+    }
     /**
      * define the ImageAdapter which match the customgallery
      */

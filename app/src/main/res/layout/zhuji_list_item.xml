@@ -7,16 +7,21 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="10dip"
     android:cacheColorHint="#00000000"
     android:background="@drawable/listview_standard_background"
     >
     <!--main image
-        android:dividerHeight="1px"
-    android:divider="#cccccc"-->
+        -->
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="170dip"
         android:id="@+id/zhuji_main_img"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="5dip"
+        android:background="@drawable/line"
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,6 +50,7 @@
                     android:id="@+id/zhuji_name"
                     android:text="Luohaha"
                     android:textStyle="bold"
+                    android:textColor="@color/black"
                     android:textSize="15sp"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -63,7 +69,11 @@
                 android:textColor="@color/black"
                 android:layout_weight="2"/>
             </LinearLayout>
-
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="5dip"
+            android:background="@drawable/line"
+            />
         <!--the main text and tag text-->
         <LinearLayout
             android:layout_width="match_parent"
@@ -73,6 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="1dip"
+                android:textColor="@color/black"
                 android:text="Print this page to PDF for the complete set of vectors. Or to use on the desktop, install FontAwesome.otf, set it as the font in your application, and copy and paste the icons (not the unicode) directly from this page into your designs. "
                 android:id="@+id/zhuji_main_text"/>
             <LinearLayout
@@ -86,14 +97,20 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/red"
                     android:id="@+id/zhuji_tag_text"
                     android:text="haha"/>
                 </LinearLayout>
             </LinearLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="5dip"
+            android:background="@drawable/line"
+            />
         <!--the buttons-->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dip"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
             <com.beardedhen.androidbootstrap.BootstrapButton
                 android:id="@+id/zhuji_zhan_button"
