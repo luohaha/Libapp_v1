@@ -10,7 +10,8 @@ import com.example.root.libapp_v1.HeadBar.HeadBar;
 import com.example.root.libapp_v1.R;
 
 /**
- * Created by root on 15-3-26.
+ * Created by Yixin on 15-3-26.
+ * 我的
  */
 public class FourFragment extends FatherFragment {
     //public String initContent() {

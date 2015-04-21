@@ -22,6 +22,7 @@ import com.example.root.libapp_v1.ZhujiListview.ZhujiListviewAdapter;
  * Date : 2015-3-26.
  *  this is the second fragment of main acitvity
  *  now it's used to show the social group function in app
+ *  书友会
  */
 public class SecondFragment extends FatherFragment implements IReflashListener {
     /*

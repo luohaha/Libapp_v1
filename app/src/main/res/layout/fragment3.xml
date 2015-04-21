@@ -1,12 +1,14 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black" >
-
-    <com.example.root.libapp_v1.Gallery.CustomGallery
-        android:id="@+id/customgallery"
+    android:background="#E6E6E6">
+    <com.example.root.libapp_v1.PullRefreshListView.FreshListView
+        android:id="@+id/lyx_lv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-    </com.example.root.libapp_v1.Gallery.CustomGallery>
-</RelativeLayout>
+        android:layout_height="match_parent">
+
+    </com.example.root.libapp_v1.PullRefreshListView.FreshListView>
+
+</LinearLayout>

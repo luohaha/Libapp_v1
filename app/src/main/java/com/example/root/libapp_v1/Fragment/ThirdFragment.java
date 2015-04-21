@@ -1,37 +1,38 @@
 package com.example.root.libapp_v1.Fragment;
 
-import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.Gallery.LayoutParams;
-import android.widget.ImageView;
 
-import com.example.root.libapp_v1.Gallery.CustomGallery;
-import com.example.root.libapp_v1.Gallery.ImageUtil;
 import com.example.root.libapp_v1.HeadBar.HeadBar;
+import com.example.root.libapp_v1.PullRefreshListView.FreshListView;
+import com.example.root.libapp_v1.PullRefreshListView.FreshListView.IReflashListener;
+import com.example.root.libapp_v1.LyxListView.LyxListViewAdapter;
 import com.example.root.libapp_v1.R;
+
+import java.util.*;
 
 /**
  * author : Yixin Luo
  * date : 2015-3-26
- *
- *  the third fragment of main activity
+ *  the fifth fragment of main activity
+ *  ps, I like that girl
+ *  阅览室
  */
-public class ThirdFragment extends FatherFragment {
-
-    private int[] imageResIDs;
-    private String[] imageStrings;
-    private CustomGallery customGallery;
-    private HeadBar mHeadBar;
-    public View view;
-
+public class ThirdFragment extends FatherFragment implements IReflashListener {
+    //
+    private HeadBar headBar;
+    private View mListViewItem;
+    private ArrayList<Map<String, Object>> mapList;
+    private Integer[] mBooks = new Integer[]{R.drawable.book1, R.drawable.book2, R.drawable.book3,
+            R.drawable.book4, R.drawable.book5, R.drawable.book6, R.drawable.book7,
+            R.drawable.book8};
+    private LyxListViewAdapter mAdapter;
+    private FreshListView mListView;
     /**
-     *
+     * it start when view need to be created
      * @param inflater
      * @param container
      * @param savedInstanceState
@@ -39,82 +40,128 @@ public class ThirdFragment extends FatherFragment {
      */
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        view = inflater.inflate(R.layout.fragment3, null);
-        //the ids of books
-        imageResIDs = new int[] {R.drawable.book8, R.drawable.book7,R.drawable.book6
-                        ,R.drawable.book5, R.drawable.book4, R.drawable.book3, R.drawable.book2,
-                        R.drawable.book1};
-        //the descriptions of books
-        imageStrings = new String[] {"NO.1", "NO.2", "NO.3", "NO.4", "NO.5", "NO.6", "NO.7", "NO.8"};
-        //
-        customGallery = (CustomGallery) view.findViewById(R.id.customgallery);
-        ImageAdapter adapter = new ImageAdapter();
-        customGallery.setAdapter(adapter);
+        View view = inflater.inflate(R.layout.fragment3, null);
+        //  TextView textView = (TextView) view.findViewById(R.id.txt_content);
+        setHeadBar();
+        getAllView(view, inflater);
+        setData();
+        showList();
         return view;
     }
 
     /**
-     * @param savedInstanceState
+     * begin to show the data in mList
+     */
+    private void showList() {
+        if (mAdapter == null) {
+            mListView.setInterface(this);
+            mAdapter = new LyxListViewAdapter(this.getActivity(), mapList);
+            mListView.setAdapter(mAdapter);
+        } else {
+            mAdapter.onDateChange(mapList);
+        }
+    }
+    /**
+     * get mListView and mListViewItem from layout.
+     * @param view it is the place we need to put our things into.
+     * @param inflater
+     */
+    private void getAllView(View view, LayoutInflater inflater) {
+        mListView = (FreshListView) view.findViewById(R.id.lyx_lv);
+    }
+    /**
+     * do some head bar setting jobs
+     */
+    private void setHeadBar() {
+        headBar = (HeadBar)this.getActivity().findViewById(R.id.head_bar);
+        headBar.setTitleText("阅览室");
+
+    }
+
+    /**
+     * put the data into mList
+     *
+     */
+    private void setData() {
+        mapList = new ArrayList<Map<String, Object>>(8);
+        Map<String, Object> map;
+        String t = "NO.";
+        String d = "You will like ";
+        String im = "this is a great book!!";
+        for (int i = 0; i < 8; i++) {
+            map = new HashMap<String, Object>();
+            map.put("title", t+Integer.toString(i+1));
+            map.put("detail", d+t+Integer.toString(i+1));
+            map.put("img", mBooks[i]);
+            map.put("information", im);
+            mapList.add(map);
+        }
+    }
+
+    /**
+     * refresh the new data into mList,
+     * I just test it now!!
+     */
+    private void setRefreshData() {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("title", "the new gay");
+        map.put("detail", "heyheyhey");
+        map.put("img", mBooks[2]);
+        map.put("informaion", "it sucks");
+        mapList.add(0, map);
+    }
+
+    /**
+     * reload the new data into mList,
+     * just a test
+     */
+    private void setLoadData() {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("title", "the new gay");
+        map.put("detail", "heyheyhey");
+        map.put("img", mBooks[2]);
+        map.put("informaion", "it sucks");
+        mapList.add(map);
+    }
+    /**
+     * finish the interface function onReflash()
+     * */
+    @Override
+    public void onReflash() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                //获取最新数据
+                setRefreshData();
+                //通知界面显示
+                showList();
+                //通知listview 刷新数据完毕；
+                mListView.reflashComplete();
+            }
+        }, 2000);
+    }
+
+    /**
+     * finish the interface function onLoad()
      */
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // 生成动态数组，并且传入数据
-        setHeadBar();
-    }
-    /**
-     * set the head bar title
-     * */
-    private void setHeadBar() {
-        mHeadBar = (HeadBar)this.getActivity().findViewById(R.id.head_bar);
-        mHeadBar.setTitleText("阅览室");
-    }
-    /**
-     * define the ImageAdapter which match the customgallery
-     */
-    public class ImageAdapter extends BaseAdapter {
+    public void onLoad() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
 
-        @Override
-        public int getCount() {
-            // TODO Auto-generated method stub
-            return imageResIDs.length;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            // TODO Auto-generated method stub
-            return imageResIDs[position];
-        }
-
-        @Override
-        public long getItemId(int position) {
-            // TODO Auto-generated method stub
-            return position;
-        }
-
-        /**
-         * @param position
-         * @param convertView
-         * @param parent
-         * @return
-         */
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            // TODO Auto-generated method stub
-            ImageView imageView;
-            if (convertView != null) {
-                imageView = (ImageView) convertView;
-            } else {
-                imageView = new ImageView(view.getContext());
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                //获取最新数据
+                setLoadData();
+                //通知界面显示
+                showList();
+                //通知listview 刷新数据完毕；
+                mListView.loadComplete();
             }
-            Bitmap bitmap = ImageUtil.getImageBitmap(getResources(),
-                    imageResIDs[position]);
-            BitmapDrawable drawable = new BitmapDrawable(bitmap);
-            drawable.setAntiAlias(true); // 消除锯齿
-            imageView.setImageDrawable(drawable);
-            LayoutParams params = new LayoutParams(240, 320);
-            imageView.setLayoutParams(params);
-            return imageView;
-        }
+        }, 2000);
     }
 }
