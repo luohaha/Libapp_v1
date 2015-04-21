@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrap="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/personbook_comment_more_pop"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.beardedhen.androidbootstrap.BootstrapButton
+        android:id="@+id/personbook_comment_edit_button"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:text="编辑"
+        android:layout_weight="1"
+        bootstrap:bb_icon_left="fa-edit"
+        bootstrap:bb_type="default" />
+    <com.beardedhen.androidbootstrap.BootstrapButton
+        android:id="@+id/personbook_comment_share_button"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="分享"
+        android:layout_weight="1"
+        bootstrap:bb_icon_left="fa-share"
+        bootstrap:bb_type="default"
+        />
+</LinearLayout>

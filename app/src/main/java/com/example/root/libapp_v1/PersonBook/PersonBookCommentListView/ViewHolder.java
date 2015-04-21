@@ -3,6 +3,7 @@ package com.example.root.libapp_v1.PersonBook.PersonBookCommentListView;
 import android.widget.TextView;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.FontAwesomeText;
 
 /**
  * Created by Yixin on 15-4-21.
@@ -10,6 +11,5 @@ import com.beardedhen.androidbootstrap.BootstrapButton;
 class ViewHolder {
     public TextView lastUpdateTime;
     public TextView commentTitle;
-    public BootstrapButton editComment;
-    public BootstrapButton shareComment;
+    public FontAwesomeText moreComment;
 }
