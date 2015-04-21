@@ -19,7 +19,7 @@
         android:id="@+id/zhuji_main_img"/>
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="5dip"
+        android:layout_height="1px"
         android:background="@drawable/line"
         />
     <LinearLayout
@@ -73,7 +73,7 @@
             </LinearLayout>
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="5dip"
+            android:layout_height="1px"
             android:background="@drawable/line"
             />
         <!--the main text and tag text-->
@@ -109,7 +109,7 @@
             </LinearLayout>
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="5dip"
+            android:layout_height="1px"
             android:background="@drawable/line"
             />
         <!--the buttons-->

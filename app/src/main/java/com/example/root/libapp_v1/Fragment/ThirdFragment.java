@@ -1,12 +1,16 @@
 package com.example.root.libapp_v1.Fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.example.root.libapp_v1.HeadBar.HeadBar;
+import com.example.root.libapp_v1.PersonBook.PersonBookActivity;
 import com.example.root.libapp_v1.PullRefreshListView.FreshListView;
 import com.example.root.libapp_v1.PullRefreshListView.FreshListView.IReflashListener;
 import com.example.root.libapp_v1.LyxListView.LyxListViewAdapter;
@@ -68,6 +72,19 @@ public class ThirdFragment extends FatherFragment implements IReflashListener {
      */
     private void getAllView(View view, LayoutInflater inflater) {
         mListView = (FreshListView) view.findViewById(R.id.lyx_lv);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                /**
+                 * you can get the item's information here by parent, and send it to the server
+                 *
+                 * ListView listView = (ListView)parent;
+                 * HashMap<String, String> map = (HashMap<String, String>) listView.getItemAtPosition(position);
+                 * */
+                Intent intent = new Intent(getActivity(), PersonBookActivity.class);
+                startActivity(intent);
+             }
+        });
     }
     /**
      * do some head bar setting jobs
@@ -164,4 +181,5 @@ public class ThirdFragment extends FatherFragment implements IReflashListener {
             }
         }, 2000);
     }
+
 }

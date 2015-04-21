@@ -19,7 +19,9 @@
         <activity android:name=".UserLogin.LoginActivity" >
 
         </activity>
+        <activity android:name=".PersonBook.PersonBookActivity" >
 
+        </activity>
     </application>
 
 </manifest>
