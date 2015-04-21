@@ -8,7 +8,7 @@ import android.widget.TextView;
  * Created by Yixin Luo on 15-4-13.
  * hahaha
  */
-public class ViewHolder {
+class ViewHolder {
     public ImageView userImage;
     public TextView userNumber;
     public ImageButton userButton;
