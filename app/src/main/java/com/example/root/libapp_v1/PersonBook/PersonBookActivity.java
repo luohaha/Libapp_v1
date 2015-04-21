@@ -2,7 +2,10 @@ package com.example.root.libapp_v1.PersonBook;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.example.root.libapp_v1.HeadBar.HeadBar;
@@ -13,6 +16,7 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.zip.Inflater;
 
 /**
  * Created by Yixin on 15-4-21.
@@ -27,13 +31,31 @@ public class PersonBookActivity extends Activity {
     HeadBar mHeadBar;
     ArrayList<HashMap<String, Object>> mList;
     ListView mListView;
+    LinearLayout mLinearLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personbook);
-        mListView = (ListView)findViewById(R.id.personbook_listview);
         setHeadBar();
         setData();
+        initListView();
+    }
+
+    /**
+     * initial the listview
+     * */
+    private void initListView() {
+        mListView = (ListView)findViewById(R.id.personbook_listview);
+        LayoutInflater layoutInflater = LayoutInflater.from(this);
+        View view = layoutInflater.inflate(R.layout.personbook_comment_item, null);
+        mLinearLayout = (LinearLayout) view.findViewById(R.id.personbook_comment_hide_button);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mLinearLayout.setVisibility(View.GONE);
+            }
+        });
         CommentListviewAdapter adapter = new CommentListviewAdapter(this, mList,
                 R.layout.personbook_comment_item);
         mListView.setAdapter(adapter);
