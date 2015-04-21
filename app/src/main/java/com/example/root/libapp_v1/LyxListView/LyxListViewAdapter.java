@@ -86,7 +86,6 @@ public class LyxListViewAdapter extends BaseAdapter {
             viewHolder.title = (TextView)convertView.findViewById(R.id.lyx_lv_title);
             viewHolder.detal = (TextView)convertView.findViewById(R.id.lyx_lv_detal);
             viewHolder.img = (ImageView)convertView.findViewById(R.id.lyx_lv_img);
-            viewHolder.moreButton = (BootstrapButton) convertView.findViewById(R.id.lyx_lv_btn);
             convertView.setTag(viewHolder);
         }
         else {
@@ -97,16 +96,6 @@ public class LyxListViewAdapter extends BaseAdapter {
         viewHolder.img.setBackgroundResource((Integer) mList.get(position).get("img"));
         viewHolder.title.setText((String) mList.get(position).get("title"));
         viewHolder.detal.setText((String) mList.get(position).get("detail"));
-        viewHolder.moreButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (v.getId() == R.id.lyx_lv_btn) {
-                    showMore((String) mList.get(position).get("information"));
-                } else {
-                    //now, you have to know it won't happen
-                }
-            }
-        });
 
         return convertView;
     }

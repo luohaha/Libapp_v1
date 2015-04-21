@@ -51,12 +51,14 @@
                     android:text="Luohaha"
                     android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:textSize="15sp"/>
+                    android:typeface="sans"
+                    android:textSize="18sp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/zhuji_update_time"
                     android:text="I not stupid"
+                    android:typeface="monospace"
                     android:textSize="10sp"/>
                 </LinearLayout>
             <com.beardedhen.androidbootstrap.FontAwesomeText
@@ -84,6 +86,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="1dip"
                 android:textColor="@color/black"
+                android:typeface="serif"
+                android:textSize="12sp"
                 android:text="Print this page to PDF for the complete set of vectors. Or to use on the desktop, install FontAwesome.otf, set it as the font in your application, and copy and paste the icons (not the unicode) directly from this page into your designs. "
                 android:id="@+id/zhuji_main_text"/>
             <LinearLayout
@@ -98,6 +102,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/red"
+                    android:textSize="12sp"
                     android:id="@+id/zhuji_tag_text"
                     android:text="haha"/>
                 </LinearLayout>

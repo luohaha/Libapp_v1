@@ -11,7 +11,7 @@
     android:layout_margin="8.0dip"
     android:background="@color/white"
     android:minHeight="72.0dip"
-    android:padding="12.0dip">
+    android:padding="10dip">
     <ImageView
         android:id="@+id/lyx_lv_img"
         android:layout_width="80dip"
@@ -23,31 +23,24 @@
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="20dip"
         android:layout_toRightOf="@+id/lyx_lv_img">
         <TextView
             android:id="@+id/lyx_lv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:textSize="@dimen/abc_text_size_large_material" />
+            android:typeface="sans"
+            android:textSize="18sp" />
         <TextView
             android:id="@+id/lyx_lv_detal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textSize="@dimen/abc_text_size_medium_material" />
+            android:textColor="@color/gray"
+            android:typeface="serif"
+            android:textSize="12sp" />
     </LinearLayout>
 
-    <com.beardedhen.androidbootstrap.BootstrapButton
-        android:id="@+id/lyx_lv_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text=""
-        bootstrap:bb_icon_right="fa-plus-circle"
-        bootstrap:bb_type="success"
-        android:layout_alignParentRight="true"
-        />
 </RelativeLayout>
 
 </FrameLayout>
