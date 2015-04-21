@@ -25,4 +25,11 @@
         <item name="android:windowExitAnimation">@anim/popup</item>
     </style>
 
+    <style name="PersonBookAnimationFade">
+
+        <!-- PopupWindow左右弹出的效果 -->
+        <item name="android:windowEnterAnimation">@anim/personbook_popdown</item>
+        <item name="android:windowExitAnimation">@anim/personbook_popup</item>
+    </style>
+
 </resources>

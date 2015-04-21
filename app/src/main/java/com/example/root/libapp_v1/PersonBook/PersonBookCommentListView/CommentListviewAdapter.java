@@ -2,6 +2,7 @@ package com.example.root.libapp_v1.PersonBook.PersonBookCommentListView;
 
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -80,7 +81,7 @@ public class CommentListviewAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 initmPopupWindowView(position);
-                mPopupwindow.showAsDropDown(v, 0, -3);
+                mPopupwindow.showAsDropDown(v, 0, -100);
             }
         });
         return convertView;
@@ -93,7 +94,7 @@ public class CommentListviewAdapter extends BaseAdapter {
         mPopupwindow = new PopupWindow(mView, 300, 100, true);
         mPopupwindow.setBackgroundDrawable(new BitmapDrawable());
         // 设置动画效果 [R.style.AnimationFade 是自己事先定义好的]
-        mPopupwindow.setAnimationStyle(R.style.AnimationFade);
+        mPopupwindow.setAnimationStyle(R.style.PersonBookAnimationFade);
         // 自定义view添加触摸事件
         mView.setOnTouchListener(new View.OnTouchListener() {
 

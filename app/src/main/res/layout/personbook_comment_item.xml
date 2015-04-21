@@ -52,6 +52,7 @@
         android:layout_height="match_parent"
         android:gravity="right"
         android:layout_weight="1"
+        android:padding="10dip"
         android:orientation="horizontal"
         >
         <com.beardedhen.androidbootstrap.FontAwesomeText
