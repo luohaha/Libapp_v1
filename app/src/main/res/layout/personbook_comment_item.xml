@@ -46,14 +46,17 @@
 
         </LinearLayout>
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="right"
         android:orientation="vertical">
         <com.beardedhen.androidbootstrap.BootstrapButton
             android:id="@+id/personbook_comment_edit_button"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:text="编辑"
+            android:layout_weight="1"
             bootstrap:bb_icon_left="fa-edit"
             bootstrap:bb_type="default" />
         <com.beardedhen.androidbootstrap.BootstrapButton
@@ -61,6 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="分享"
+            android:layout_weight="1"
             bootstrap:bb_icon_left="fa-share"
             bootstrap:bb_type="default"
             />
