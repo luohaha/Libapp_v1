@@ -9,7 +9,7 @@
     <com.example.root.libapp_v1.HeadBar.HeadBar
         android:id="@+id/login_head_bar"
         android:layout_width="match_parent"
-        android:layout_height="50dip">
+        android:layout_height="wrap_content">
 
     </com.example.root.libapp_v1.HeadBar.HeadBar>
     <!-- the picture of person head-->

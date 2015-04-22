@@ -6,15 +6,16 @@
     <com.example.root.libapp_v1.HeadBar.HeadBar
         android:id="@+id/personbook_head_bar"
         android:layout_width="match_parent"
-        android:layout_height="50dip">
+        android:layout_height="wrap_content">
 
     </com.example.root.libapp_v1.HeadBar.HeadBar>
 
     <LinearLayout
         android:id="@+id/linearLayout1"
-        android:layout_width="fill_parent"
-        android:layout_height="60dp"
-        android:background="#FFFFFF" >
+        android:layout_width="match_parent"
+        android:layout_height="30dip"
+        android:layout_margin="0dip"
+        android:background="@color/card_back" >
 
         <TextView
             android:id="@+id/personbook_tab1_tv"
@@ -22,7 +23,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1.0"
             android:gravity="center"
-            android:text="红色" />
+            android:typeface="serif"
+            android:textColor="@color/black"
+            android:background="@color/white"
+            android:text="图书信息" />
 
         <TextView
             android:id="@+id/personbook_tab2_tv"
@@ -30,7 +34,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1.0"
             android:gravity="center"
-            android:text="蓝色"/>
+            android:textColor="@color/gray"
+            android:typeface="serif"
+            android:text="个人笔记"/>
 
     </LinearLayout>
 
