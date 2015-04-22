@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/card_back"
+    android:orientation="vertical">
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dip"
@@ -18,28 +23,87 @@
             android:padding="5dip"
             android:orientation="vertical">
             <!-- name of the book-->
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/card_back"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_margin="10dip"
+            android:orientation="horizontal">
+            <com.beardedhen.androidbootstrap.FontAwesomeText
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="10dip"
+                fontawesometext:fa_icon="fa-chevron-left"
+                android:textSize="15sp"
+                android:textColor="#fff" />
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/personbook_name"
-                android:text="不用的资源"
-                android:gravity="center"
+                android:id="@+id/personbook_book_intro"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="10dip"
                 android:textSize="18sp"
-                android:textColor="@color/black"/>
-            <!--the detail of the book-->
+                android:typeface="sans"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:text="内容简介"/>
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_margin="10dip"
+            android:orientation="horizontal">
+            <com.beardedhen.androidbootstrap.FontAwesomeText
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="10dip"
+                fontawesometext:fa_icon="fa-chevron-left"
+                android:textSize="15sp"
+                android:textColor="#fff" />
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/personbook_detail"
-                android:textColor="@color/gray"
-                android:text="androidstdio 快速删除不用的资源"
-                android:textSize="12sp"/>
+                android:id="@+id/personbook_writer_intro"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="10dip"
+                android:textSize="18sp"
+                android:typeface="sans"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:text="作者简介"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_margin="10dip"
+            android:orientation="horizontal">
+            <com.beardedhen.androidbootstrap.FontAwesomeText
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="10dip"
+                fontawesometext:fa_icon="fa-chevron-left"
+                android:textSize="15sp"
+                android:textColor="#fff" />
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/personbook_progress"
-                android:textColor="@color/red"
-                android:text="已经阅读20%"
-                android:textSize="12sp"/>
+                android:id="@+id/personbook_book_catalog"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="10dip"
+                android:textSize="18sp"
+                android:typeface="sans"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:text="目录"/>
+        </LinearLayout>
+
         </LinearLayout>
 </LinearLayout>
