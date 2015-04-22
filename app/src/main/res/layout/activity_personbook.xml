@@ -9,6 +9,7 @@
         android:layout_height="50dip">
 
     </com.example.root.libapp_v1.HeadBar.HeadBar>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

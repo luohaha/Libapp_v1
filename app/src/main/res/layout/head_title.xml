@@ -7,13 +7,11 @@
 
     <com.beardedhen.androidbootstrap.FontAwesomeText
         android:id="@+id/button_left"
-        android:layout_width="50dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="5dip"
-        android:layout_marginTop="5dip"
-        fontawesometext:fa_icon="fa-close"
-        android:textSize="32sp"
+        android:layout_margin="10dip"
+        fontawesometext:fa_icon="fa-chevron-left"
+        android:textSize="15sp"
         android:textColor="#fff" />
 
     <TextView
@@ -24,25 +22,17 @@
         android:layout_marginTop="5dip"
         android:text="This is Title"
         android:textColor="#fff"
-        android:textSize="20sp" />
+        android:typeface="monospace"
+        android:textSize="18sp" />
 
-  <!--  <Button
-        android:id="@+id/button_right"
-        android:layout_width="50dp"
-        android:layout_height="match_parent"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="5dp"
-        android:background="@drawable/more"
-        android:textColor="#fff" /> -->
     <com.beardedhen.androidbootstrap.FontAwesomeText
         android:id="@+id/button_right"
         android:layout_width="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_height="match_parent"
-        android:layout_marginRight="5dip"
-        fontawesometext:fa_icon="fa-chevron-down"
-        android:layout_marginTop="5dip"
-        android:textSize="32sp"
+        fontawesometext:fa_icon="fa-plus"
+        android:layout_margin="10dip"
+        android:textSize="15sp"
         android:textColor="#fff"
         />
 

@@ -15,6 +15,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.PopupWindow;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
@@ -29,6 +30,7 @@ import com.example.root.libapp_v1.UserLogin.LoginActivity;
 public class MainActivity extends Activity implements OnClickListener {
     private FragmentManager fragmentManager;
     private RadioGroup radioGroup;
+    private RadioButton deaultButton;
     private ActionBar actionBar;
     private HeadBar headBar;
     private Fragment fragment;
@@ -45,6 +47,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
         fragmentManager = getFragmentManager();
         radioGroup = (RadioGroup) findViewById(R.id.rg_tab);
+        deaultButton = (RadioButton) findViewById(R.id.radiobution_1);
         rightButton = (FontAwesomeText) findViewById(R.id.button_right);
 //        actionBar = getActionBar();
 //        actionBar.hide();
@@ -63,12 +66,16 @@ public class MainActivity extends Activity implements OnClickListener {
                 }
             }
         });
+        /**
+         * set the default checked button
+         * */
+        deaultButton.setChecked(true);
         headBar.setRightButtonListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (v.getId() == R.id.button_right) {
 
-                    headBar.setRightButtonIcon("fa-chevron-up");
+
                     initmPopupWindowView();
                     popupwindow.showAsDropDown(v, 0, 3);
 
@@ -132,8 +139,6 @@ public class MainActivity extends Activity implements OnClickListener {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             if (popupwindow != null && popupwindow.isShowing()) {
                 popupwindow.dismiss();
-                //change the icon when poppup window dismiss
-                headBar.setRightButtonIcon("fa-chevron-down");
                 popupwindow = null;
             }
         }
