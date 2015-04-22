@@ -10,7 +10,7 @@
     <com.example.root.libapp_v1.HeadBar.HeadBar
         android:id="@+id/head_bar"
         android:layout_width="match_parent"
-        android:layout_height="50dip">
+        android:layout_height="wrap_content">
 
         </com.example.root.libapp_v1.HeadBar.HeadBar>
 
@@ -24,38 +24,38 @@
         android:id="@+id/rg_tab"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_weibo_listab">
+        android:layout_height="60dip"
+        android:background="#fff">
 
         <RadioButton
             style="@style/weibo_tab"
             android:id="@+id/radiobution_1"
             android:drawableTop="@drawable/weibolist_attention_selector"
-            android:text="飞书馆" />
+             />
 
         <RadioButton
             style="@style/weibo_tab"
             android:id="@+id/radiobution_3"
             android:drawableTop="@drawable/weibolist_comment_selector"
-            android:text="阅览室" />
+             />
 
         <RadioButton
             style="@style/weibo_tab"
             android:id="@+id/radiobution_5"
             android:drawableTop="@drawable/weibolist_global_selector"
-            android:text="扫一扫" />
+             />
 
         <RadioButton
             style="@style/weibo_tab"
             android:id="@+id/radiobution_2"
             android:drawableTop="@drawable/weibolist_atme_selector"
-            android:text="书友会" />
+             />
 
         <RadioButton
             style="@style/weibo_tab"
             android:id="@+id/radiobution_4"
             android:drawableTop="@drawable/weibolist_mylist_selector"
-            android:text="我的" />
+             />
 
     </RadioGroup>
 </LinearLayout>

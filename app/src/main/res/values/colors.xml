@@ -7,4 +7,6 @@
     <color name="weibo_listtab_off">#8d8d8d</color>
     <color name="gray">#808080</color>
     <color name="red">#F01F1F</color>
+    <color name="greyback">#333</color>
+    <color name="card_back">#e3e2e7</color>
 </resources>
