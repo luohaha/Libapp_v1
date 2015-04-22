@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dip"
+        android:layout_margin="10dip"
+        android:background="@color/white"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="160dip"
+            android:layout_height="200dip"
+            android:background="@drawable/book2"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dip"
+            android:orientation="vertical">
+            <!-- name of the book-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/personbook_name"
+                android:text="不用的资源"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:textColor="@color/black"/>
+            <!--the detail of the book-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/personbook_detail"
+                android:textColor="@color/gray"
+                android:text="androidstdio 快速删除不用的资源"
+                android:textSize="12sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/personbook_progress"
+                android:textColor="@color/red"
+                android:text="已经阅读20%"
+                android:textSize="12sp"/>
+        </LinearLayout>
+</LinearLayout>
