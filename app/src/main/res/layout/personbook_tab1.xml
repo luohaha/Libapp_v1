@@ -1,28 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
+    android:id="@+id/ScrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    >
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/card_back"
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dip"
         android:padding="5dip"
-        android:layout_margin="10dip"
         android:background="@color/white"
         android:orientation="horizontal">
         <ImageView
-            android:layout_width="160dip"
-            android:layout_height="200dip"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@drawable/book2"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dip"
+            android:layout_weight="1"
             android:orientation="vertical">
             <!-- name of the book-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dip"
+                android:orientation="horizontal">
+                <com.beardedhen.androidbootstrap.FontAwesomeText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dip"
+                    fontawesometext:fa_icon="fa-book"
+                    android:textSize="15sp"
+                    android:textColor="@color/red" />
+                <TextView
+                    android:id="@+id/personbook_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dip"
+                    android:textSize="15sp"
+                    android:typeface="serif"
+                    android:textColor="@color/black"
+                    android:text="你要内心强大"/>
+
+                </LinearLayout>
+            <ImageView
+                android:layout_marginTop="20dip"
+                android:layout_marginBottom="20dip"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/card_back"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dip"
+                android:orientation="horizontal">
+                <com.beardedhen.androidbootstrap.FontAwesomeText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dip"
+                    fontawesometext:fa_icon="fa-bookmark"
+                    android:textSize="15sp"
+                    android:textColor="@color/red" />
+                <TextView
+                    android:id="@+id/personbook_process"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dip"
+                    android:textSize="15sp"
+                    android:typeface="serif"
+                    android:textColor="@color/black"
+                    android:text="已完成50%"/>
+
+                </LinearLayout>
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
@@ -34,17 +91,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:layout_margin="10dip"
+            android:layout_marginTop="10dip"
             android:orientation="horizontal">
             <com.beardedhen.androidbootstrap.FontAwesomeText
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_margin="10dip"
-                fontawesometext:fa_icon="fa-chevron-left"
+                fontawesometext:fa_icon="fa-file-text-o"
                 android:textSize="15sp"
-                android:textColor="#fff" />
+                android:textColor="@color/red" />
             <TextView
-                android:id="@+id/personbook_book_intro"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_margin="10dip"
@@ -54,22 +110,51 @@
                 android:textColor="@color/black"
                 android:text="内容简介"/>
             </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/white"
+            android:layout_marginTop="0dip">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/card_back"/>
+            <TextView
+                android:id="@+id/personbook_book_intro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dip"
+                android:textSize="12sp"
+                android:typeface="monospace"
+                android:textColor="@color/black"
+                android:text="
+
+从2009年1月起，青年学者石勇以ID “发帖回帖专用马甲”在天涯杂谈陆续开帖《在这个险恶的世界，你需要在心理上变得强大》及《装13社会，博弈法则》，围绕如何让自己心理强大这个主题，通过通俗风趣的语言、犀利深入的分析，并融入心理学、哲学等常识，如庖丁的解牛刀，刀刀剥开社会、人际、 性格、自我心理的种种外衣，提出实用有效的应对之道，大受网友喜爱。帖子点击总量过百万，几万条留言，上百名网友专门给作者写长信反馈，说这两个帖子是“天涯难得一见的好帖”、“非常受益”、“从深层次上改变了自己”。
+
+随后作者花一年多时间，把两个帖子融合、重组、整理，并加入更多案例、观点和分析，及和网友的互动，并尝试更加通俗易懂的语言风格，重新写成本书。
+
+本书不是摇旗呐喊的励志书，不是呼吁读者出世、看透的佛家故事，不是不痛不痒的心灵鸡汤，而是以积极入世的思路，另辟蹊径的解读，让读者从思维方式和心理结构上“重装系统”，由弱小一步步走向强大。"
+
+                />
+
+            </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:layout_margin="10dip"
+            android:layout_marginTop="10dip"
             android:orientation="horizontal">
             <com.beardedhen.androidbootstrap.FontAwesomeText
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_margin="10dip"
-                fontawesometext:fa_icon="fa-chevron-left"
+                fontawesometext:fa_icon="fa-user"
                 android:textSize="15sp"
-                android:textColor="#fff" />
+                android:textColor="@color/green" />
             <TextView
-                android:id="@+id/personbook_writer_intro"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_margin="10dip"
@@ -83,18 +168,55 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:background="@color/white"
-            android:layout_margin="10dip"
+            android:layout_marginTop="0dip">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/card_back"/>
+            <TextView
+                android:id="@+id/personbook_writer_intro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dip"
+                android:textSize="12sp"
+                android:typeface="monospace"
+                android:textColor="@color/black"
+                android:text="
+
+石勇，
+
+青年学者，
+
+给国内多家权威媒体撰稿，
+
+出版有《被遮蔽的真相》、《心理危机》等心理、社会、政治分析著作。
+
+关注当代中国精神危机、思想论争及民主转型。
+
+一只眼睛盯着等级制度的暴力，另一只眼睛盯着歧视性观念的暴力，
+
+用心理分析之刀准确地插入中国社会。"
+
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_marginTop="10dip"
             android:orientation="horizontal">
             <com.beardedhen.androidbootstrap.FontAwesomeText
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_margin="10dip"
-                fontawesometext:fa_icon="fa-chevron-left"
+                fontawesometext:fa_icon="fa-list-alt"
                 android:textSize="15sp"
-                android:textColor="#fff" />
+                android:textColor="@color/blue" />
             <TextView
-                android:id="@+id/personbook_book_catalog"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_margin="10dip"
@@ -105,5 +227,53 @@
                 android:text="目录"/>
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/white"
+            android:layout_marginTop="0dip">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/card_back"/>
+            <TextView
+                android:id="@+id/personbook_book_catalog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dip"
+                android:textSize="12sp"
+                android:typeface="monospace"
+                android:textColor="@color/black"
+                android:text="自序：从今天起，做强大自我的主人 4
+第一章 建立自己的心理优势 5 5
+1、出问题的往往不是一个人的能力，而是他的心理 6
+2、内心强大就是一个人在别人面前有无法被摧毁的心理优势 7
+3、很多人的成熟只就混社会而言，但在心理上他从来没有长大 10
+第二章 那些内心强大的人们 13
+1、内心强大的人更容易看透别人的心思 13
+2、控制自己的情绪，是控制自己命运的起点 14
+22
+第三章 到底是哪些东西让人内心弱小？ 23
+1、不了解游戏规则的人，在社会中只能迷路 23
+2、每个人的面前都有一条河 29
+3、是什么在操纵我们
+4、事实是什么并不重要，重要的是它在我们的心理上是什么样 31
+第四章 打破社会价值排序 35
+1、社会价值排序就是一种心理食物链：大鱼吃小鱼，小鱼吃虾米 35
+2、社会价值排序能玩下去的秘密：必须不把人当人 36
+3、剥去对方的社会包装，你在心灵上即获得了解放 39
+41
+第五章 跟真正的自我在黑暗中相会 47
+1、 一个人帮你的前提是，他在心理上要帮自己 47
+2、不是你在看自己，而是他人和社会借你的眼睛在看你 47
+3、智力结构是强大的“软猬甲”
+68"
+
+                />
+
         </LinearLayout>
+
 </LinearLayout>
+</LinearLayout>
+</ScrollView>

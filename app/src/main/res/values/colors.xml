@@ -9,4 +9,9 @@
     <color name="red">#F01F1F</color>
     <color name="greyback">#333</color>
     <color name="card_back">#e3e2e7</color>
+    <color name="green">#149640</color>
+    <color name="blue">#1A13AA</color>
+    <color name="yellow">#CBD814</color>
+    <color name="pink">#D70FD0</color>
+    <color name="light_blue">#0FD7BF</color>
 </resources>
