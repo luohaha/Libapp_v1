@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!--first block-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/card_back"
+        android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:layout_marginTop="10dip"
+                    android:orientation="horizontal">
+                    <com.beardedhen.androidbootstrap.FontAwesomeText
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dip"
+                        fontawesometext:fa_icon="fa-paperclip"
+                        android:textSize="18sp"
+                        android:textColor="@color/light_blue" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dip"
+                        android:textSize="18sp"
+                        android:typeface="sans"
+                        android:layout_gravity="center"
+                        android:textColor="@color/black"
+                        android:text="书评标题"/>
+                </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/card_back"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+            android:id="@+id/writecomment_title"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dip"
+            android:hint="您的书评标题"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:typeface="sans"
+            bootstrapbutton:be_roundedCorners="false"
+            android:gravity="center"
+            bootstrapbutton:be_state="default"
+            />
+        </LinearLayout>
+        </LinearLayout>
+
+    <!--the second block-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+            <com.beardedhen.androidbootstrap.FontAwesomeText
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="10dip"
+                fontawesometext:fa_icon="fa-pencil-square-o"
+                android:textSize="18sp"
+                android:textColor="@color/light_blue" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="10dip"
+                android:textSize="18sp"
+                android:typeface="sans"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:text="书评内容"/>
+            </LinearLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/card_back"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+            <com.beardedhen.androidbootstrap.BootstrapEditText
+                android:id="@+id/writecomment_msg"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="150dip"
+                android:layout_margin="10dip"
+                android:hint="您的书评内容"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:typeface="sans"
+                bootstrapbutton:be_roundedCorners="false"
+                android:gravity="center"
+                bootstrapbutton:be_state="default"
+                />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

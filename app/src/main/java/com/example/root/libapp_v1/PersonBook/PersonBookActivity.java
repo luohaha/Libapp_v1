@@ -1,6 +1,7 @@
 package com.example.root.libapp_v1.PersonBook;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
@@ -22,6 +23,7 @@ import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.example.root.libapp_v1.HeadBar.HeadBar;
 import com.example.root.libapp_v1.PersonBook.PersonBookCommentListView.CommentListviewAdapter;
 import com.example.root.libapp_v1.R;
+import com.example.root.libapp_v1.WriteCommentActivity.WriteCommentActivity;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -136,7 +138,8 @@ public class PersonBookActivity extends Activity implements View.OnClickListener
                 Toast.makeText(this, "send books!", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.personbook_write_comment :
-                Toast.makeText(this, "send books!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(PersonBookActivity.this, WriteCommentActivity.class);
+                startActivity(intent);
                 break;
         }
     }
