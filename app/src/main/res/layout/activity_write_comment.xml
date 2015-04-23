@@ -3,21 +3,30 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
     xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:bootstrap="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="@color/card_back"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <com.example.root.libapp_v1.HeadBar.HeadBar
+        android:id="@+id/writecomment_head_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.example.root.libapp_v1.HeadBar.HeadBar>
     <!--first block-->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/card_back"
+        android:layout_marginBottom="10dip"
         android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:layout_marginTop="10dip"
                     android:orientation="horizontal">
                     <com.beardedhen.androidbootstrap.FontAwesomeText
                         android:layout_width="wrap_content"
@@ -43,21 +52,21 @@
             android:background="@color/card_back"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dip"
             android:background="@color/white">
         <com.beardedhen.androidbootstrap.BootstrapEditText
             android:id="@+id/writecomment_title"
-            android:background="@color/white"
+            android:background="@null"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dip"
-            android:hint="您的书评标题"
+            android:layout_height="match_parent"
+            android:hint="说点啥～～"
             android:textSize="18sp"
+            android:layout_marginBottom="10dip"
             android:textColor="@color/black"
             android:typeface="sans"
             bootstrapbutton:be_roundedCorners="false"
             android:gravity="center"
-            bootstrapbutton:be_state="default"
+            bootstrapbutton:be_state="warning"
             />
         </LinearLayout>
         </LinearLayout>
@@ -68,6 +77,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
+        android:layout_marginBottom="10dip"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
@@ -96,22 +106,56 @@
             android:background="@color/card_back"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="210dip"
             android:background="@color/white">
             <com.beardedhen.androidbootstrap.BootstrapEditText
                 android:id="@+id/writecomment_msg"
-                android:background="@color/white"
+                android:background="@null"
                 android:layout_width="match_parent"
-                android:layout_height="150dip"
-                android:layout_margin="10dip"
-                android:hint="您的书评内容"
+                android:layout_height="match_parent"
+                android:inputType="textMultiLine"
+                android:minLines="6"
+                android:gravity="top|left"
+                android:hint="说点啥～～"
+                android:layout_marginBottom="10dip"
                 android:textSize="18sp"
                 android:textColor="@color/black"
                 android:typeface="sans"
                 bootstrapbutton:be_roundedCorners="false"
-                android:gravity="center"
-                bootstrapbutton:be_state="default"
+                bootstrapbutton:be_state="danger"
                 />
         </LinearLayout>
+    </LinearLayout>
+
+    <!--the buttons block-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/writecomment_send_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:layout_weight="4"
+            android:text="完成"
+            bootstrap:bb_icon_left="fa-upload"
+            bootstrap:bb_type="default"
+            bootstrap:bb_size="large"
+            />
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/writecomment_clear_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:text="置空"
+            bootstrap:bb_icon_left="fa-trash"
+            bootstrap:bb_type="default"
+            bootstrap:bb_size="large"
+            />
+
     </LinearLayout>
 </LinearLayout>
