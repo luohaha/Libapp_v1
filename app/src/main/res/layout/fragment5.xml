@@ -3,6 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/black" >
+    <!--
+    扫一扫 模块界面
+    -->
 
     <com.example.root.libapp_v1.Gallery.CustomGallery
         android:id="@+id/customgallery"
