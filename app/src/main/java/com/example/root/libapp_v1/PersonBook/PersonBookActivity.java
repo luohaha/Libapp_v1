@@ -3,17 +3,22 @@ package com.example.root.libapp_v1.PersonBook;
 import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewParent;
 import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.example.root.libapp_v1.HeadBar.HeadBar;
 import com.example.root.libapp_v1.PersonBook.PersonBookCommentListView.CommentListviewAdapter;
 import com.example.root.libapp_v1.R;
@@ -30,7 +35,7 @@ import java.util.zip.Inflater;
  * this acitivty is to show the personal books reading status.
  * And also he can send a book comment here.
  */
-public class PersonBookActivity extends Activity {
+public class PersonBookActivity extends Activity implements View.OnClickListener {
     /**
      * define var
      */
@@ -43,7 +48,8 @@ public class PersonBookActivity extends Activity {
     private ViewPager mViewPager;
     private ArrayList<View> mViewList;
     private TextView firstTab, secondTab;
-    private int mCurrentView = 0;
+    private PopupWindow popupwindow;
+    private View mPopView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +92,53 @@ public class PersonBookActivity extends Activity {
                 PersonBookActivity.this.finish();
             }
         });
+        mHeadBar.setRightButtonListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initmPopupWindowView();
+                popupwindow.showAsDropDown(v);
+            }
+        });
+    }
+    /**
+     * init the popup window, so we can use it in setting hear bar.
+     * */
+    private void initmPopupWindowView() {
+
+        // // 获取自定义布局文件pop.xml的视图
+        // 创建PopupWindow实例,200,150分别是宽度和高度
+        LayoutInflater layoutInflater = LayoutInflater.from(this);
+        mPopView = layoutInflater.inflate(R.layout.personbook_popview, null);
+        popupwindow = new PopupWindow(mPopView, 200, 300, true);
+        popupwindow.setBackgroundDrawable(new BitmapDrawable());
+        // 设置动画效果 [R.style.AnimationFade 是自己事先定义好的]
+        popupwindow.setAnimationStyle(R.style.AnimationFade);
+        // 自定义view添加触摸事件
+        mPopView.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                return false;
+            }
+        });
+
+        /** 在这里可以实现自定义视图的功能 */
+        BootstrapButton sendButton = (BootstrapButton) mPopView.findViewById(R.id.personbook_send_book);
+        BootstrapButton writeButton = (BootstrapButton) mPopView.findViewById(R.id.personbook_write_comment);
+
+        sendButton.setOnClickListener(this);
+        writeButton.setOnClickListener(this);
+    }
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.personbook_send_book :
+                Toast.makeText(this, "send books!", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.personbook_write_comment :
+                Toast.makeText(this, "send books!", Toast.LENGTH_SHORT).show();
+                break;
+        }
     }
 
     /**
