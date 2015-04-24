@@ -106,6 +106,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dip"
                 android:textSize="15sp"
+                android:typeface="serif"
                 android:textColor="@color/black"
                 android:text="Beijing, China"
                 />
@@ -132,6 +133,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dip"
                 android:textSize="15sp"
+                android:typeface="serif"
                 android:textColor="@color/black"
                 android:text="965166527@qq.com"
                 />
@@ -159,6 +161,7 @@
                 android:layout_margin="10dip"
                 android:textSize="15sp"
                 android:textColor="@color/black"
+                android:typeface="serif"
                 android:text="18812345678"
                 />
         </LinearLayout>
@@ -169,6 +172,86 @@
         android:layout_height="1px"
         android:layout_marginBottom="10dip"
         android:background="@color/card_back"/>
+
+    <!--block three-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:id="@+id/personpage_books_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/personpage_linearlayout_back"
+            android:orientation="horizontal">
+            <com.beardedhen.androidbootstrap.FontAwesomeText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dip"
+                fontawesometext:fa_icon="fa-folder-open"
+                android:textSize="25sp"
+                android:textColor="@color/light_red"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dip"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:text="收藏图书 : "
+                android:typeface="serif"
+                />
+            <TextView
+                android:id="@+id/personpage_books_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dip"
+                android:textSize="15sp"
+                android:typeface="monospace"
+                android:textColor="@color/red"
+                android:text="10"/>
+
+            </LinearLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/card_back"/>
+        <LinearLayout
+            android:id="@+id/personpage_record_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/personpage_linearlayout_back"
+            android:orientation="horizontal">
+            <com.beardedhen.androidbootstrap.FontAwesomeText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dip"
+                fontawesometext:fa_icon="fa-database"
+                android:textSize="25sp"
+                android:textColor="@color/light_green"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dip"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:typeface="serif"
+                android:text="飞书记录 : "
+                />
+            <TextView
+                android:id="@+id/personpage_record_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dip"
+                android:textSize="15sp"
+                android:typeface="monospace"
+                android:textColor="@color/red"
+                android:text="15"/>
+
+            </LinearLayout>
+        </LinearLayout>
 
 
 </LinearLayout>
