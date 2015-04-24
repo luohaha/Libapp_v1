@@ -34,6 +34,7 @@ public class MainActivity extends Activity implements OnClickListener {
     private ActionBar actionBar;
     private HeadBar headBar;
     private Fragment fragment;
+    private Fragment nowFragment;
     private PopupWindow popupwindow;
     private FontAwesomeText rightButton;
     private View customView;
@@ -59,8 +60,17 @@ public class MainActivity extends Activity implements OnClickListener {
                 try {
                     FragmentTransaction transaction = fragmentManager.beginTransaction();
                     fragment = FragmentFactory.getInstanceByIndex(checkedId);
-                    transaction.replace(R.id.content, fragment);
-                    transaction.commit();
+                    nowFragment = fragmentManager.findFragmentById(R.id.content);
+                    if (!fragment.isAdded()) {
+                        if (nowFragment == null)
+                            transaction.add(R.id.content, fragment).commit();
+                        else
+                            transaction.hide(nowFragment).add(R.id.content, fragment).commit();
+                    } else {
+                        transaction.hide(nowFragment).show(fragment).commit();
+                    }
+                  //  transaction.replace(R.id.content, fragment);
+                  //  transaction.commit();
                 } catch (Exception e) {
                     Log.i("fuck", e.toString());
                 }

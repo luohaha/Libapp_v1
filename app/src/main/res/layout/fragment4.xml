@@ -183,6 +183,7 @@
 
         <LinearLayout
             android:id="@+id/personpage_books_detail"
+            android:clickable="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/personpage_linearlayout_back"
@@ -223,6 +224,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/personpage_linearlayout_back"
+            android:clickable="true"
             android:orientation="horizontal">
             <com.beardedhen.androidbootstrap.FontAwesomeText
                 android:layout_width="wrap_content"
