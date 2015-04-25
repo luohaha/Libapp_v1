@@ -19,10 +19,12 @@ import java.util.HashMap;
 public class FirstFragmentAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<HashMap<String, Object>> mList;
+    private int mItemView;
 
-    public FirstFragmentAdapter(Context mContext, ArrayList<HashMap<String, Object>> mList) {
+    public FirstFragmentAdapter(Context mContext, ArrayList<HashMap<String, Object>> mList, int view) {
         this.mContext = mContext;
         this.mList = mList;
+        this.mItemView = view;
     }
 
     @Override
@@ -30,7 +32,7 @@ public class FirstFragmentAdapter extends BaseAdapter {
         FirstFragmentViewHolder firstFragmentViewHolder = null;
         if (convertView == null) {
             firstFragmentViewHolder = new FirstFragmentViewHolder();
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.small_item, null);
+            convertView = LayoutInflater.from(mContext).inflate(mItemView, null);
             firstFragmentViewHolder.imageView = (ImageView) convertView
                     .findViewById(R.id.firstfragment_imageview);
             firstFragmentViewHolder.textView = (TextView) convertView
