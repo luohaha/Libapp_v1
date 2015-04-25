@@ -5,14 +5,11 @@
     android:layout_height="match_parent"
     android:background="#e3e2e7"
     >
-
+    <!--书友会-->
     <com.example.root.libapp_v1.PullRefreshListView.FreshListView
         android:id="@+id/zhuji_listview"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#e3e2e7"
-        android:divider="#e3e2e7"
-        android:dividerHeight="10dip"
         />
 
 </LinearLayout>

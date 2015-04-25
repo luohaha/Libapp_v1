@@ -63,8 +63,6 @@ public class ZhujiListviewAdapter extends BaseAdapter {
                     .findViewById(R.id.zhuji_name);
             viewHolder.zhujiUpdateTime = (TextView) convertView
                     .findViewById(R.id.zhuji_update_time);
-            viewHolder.zhujiMoreButton = (FontAwesomeText) convertView
-                    .findViewById(R.id.zhuji_more_button);
             viewHolder.zhujiMainText = (TextView) convertView
                     .findViewById(R.id.zhuji_main_text);
             viewHolder.zhujiTagText = (TextView) convertView
@@ -84,14 +82,7 @@ public class ZhujiListviewAdapter extends BaseAdapter {
         viewHolder.zhujiHeadImg.setImage((Integer) mList.get(position).get("headImg"));
         viewHolder.zhujiName.setText((String) mList.get(position).get("name"));
         viewHolder.zhujiUpdateTime.setText((String)mList.get(position).get("updateTime"));
-        viewHolder.zhujiMoreButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /**
-                 * when push the show more button
-                 * */
-            }
-        });
+
         viewHolder.zhujiMainText.setText((String) mList.get(position).get("mainText"));
         viewHolder.zhujiTagText.setText((String)mList.get(position).get("tagText"));
         viewHolder.zhujiZhanButton.setOnClickListener(new OnClickListener() {
