@@ -12,14 +12,20 @@
         android:layout_width="match_parent"
         android:src="@drawable/book4"
         />
-
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="5dip"
+        android:layout_marginBottom="5dip"
+        android:background="@color/card_back"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:typeface="serif"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:textSize="12sp"
         android:id="@+id/firstfragment_textview" />
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/card_back"/>
+
 </LinearLayout>

@@ -3,7 +3,7 @@
     xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="40dip"
-    android:background="#333" >
+    android:background="@color/greyback" >
 
     <com.beardedhen.androidbootstrap.FontAwesomeText
         android:id="@+id/button_left"
@@ -11,8 +11,10 @@
         android:layout_height="match_parent"
         android:layout_margin="10dip"
         fontawesometext:fa_icon="fa-chevron-left"
-        android:textSize="15sp"
-        android:textColor="#fff" />
+        android:textSize="18sp"
+        android:textColor="#fff"
+        android:background="@drawable/headbar_button_press_back"
+        />
 
     <TextView
         android:id="@+id/title_text"
@@ -22,7 +24,7 @@
         android:layout_marginTop="5dip"
         android:text="This is Title"
         android:textColor="#fff"
-        android:typeface="monospace"
+        android:typeface="serif"
         android:textSize="18sp" />
 
     <com.beardedhen.androidbootstrap.FontAwesomeText
@@ -32,8 +34,9 @@
         android:layout_height="match_parent"
         fontawesometext:fa_icon="fa-plus"
         android:layout_margin="10dip"
-        android:textSize="15sp"
+        android:textSize="18sp"
         android:textColor="#fff"
+        android:background="@drawable/headbar_button_press_back"
         />
 
 
