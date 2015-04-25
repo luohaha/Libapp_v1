@@ -25,7 +25,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="60dip"
-        android:background="#fff">
+        android:background="@color/white">
 
         <RadioButton
             style="@style/weibo_tab"

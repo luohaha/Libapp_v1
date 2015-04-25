@@ -3,7 +3,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/card_back"
+    android:orientation="vertical"
     android:id="@+id/water_fall">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dip"
+        android:orientation="horizontal">
+        <RadioGroup
+            android:layout_width="150dip"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:background="@color/card_back">
+            <RadioButton
+                style="@style/firstfragment_head_tab"
+                android:id="@+id/firstfragment_tab1"
+                android:text="全部飞书"/>
+            <RadioButton
+                style="@style/firstfragment_head_tab"
+                android:id="@+id/firstfragment_tab2"
+                android:text="好友飞书"/>
+            </RadioGroup>
+        </LinearLayout>
 
     <GridView
         android:id="@+id/publicbook_gridview"
