@@ -10,7 +10,7 @@
     android:background="@drawable/more_item_press">
     <ImageView
         android:layout_height="100dip"
-        android:id="@+id/ItemImage"
+        android:id="@+id/firstfragment_imageview"
         android:layout_width="fill_parent"
         android:src="@drawable/book4"
         />
@@ -19,5 +19,5 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:id="@+id/ItemText" />
+        android:id="@+id/firstfragment_textview" />
 </LinearLayout>

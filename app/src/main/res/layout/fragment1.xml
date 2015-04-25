@@ -5,10 +5,16 @@
     android:layout_height="match_parent"
     android:id="@+id/water_fall">
 
-    <com.example.root.libapp_v1.waterfall.StaggeredGridView
-        android:id="@+id/staggeredGridView1"
-        staggered:numColumns="2"
-        staggered:drawSelectorOnTop="true"
+    <GridView
+        android:id="@+id/publicbook_gridview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:numColumns="2"
+        android:horizontalSpacing="10dip"
+        android:verticalSpacing="10dip"
+        android:stretchMode="columnWidth"
+        android:gravity="center"
+        >
+
+        </GridView>
 </LinearLayout>
