@@ -186,7 +186,7 @@
             android:clickable="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/personpage_linearlayout_back"
+            android:background="@drawable/standard_view_press_back"
             android:orientation="horizontal">
             <com.beardedhen.androidbootstrap.FontAwesomeText
                 android:layout_width="wrap_content"
@@ -223,7 +223,7 @@
             android:id="@+id/personpage_record_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/personpage_linearlayout_back"
+            android:background="@drawable/standard_view_press_back"
             android:clickable="true"
             android:orientation="horizontal">
             <com.beardedhen.androidbootstrap.FontAwesomeText
