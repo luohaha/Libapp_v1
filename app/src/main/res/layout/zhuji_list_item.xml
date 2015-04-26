@@ -7,149 +7,115 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dip"
     android:background="@color/white"
     >
-    <!--main image
-        -->
+    <!--first block, the head img, name and time-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+            android:id="@+id/thumbnailOneTest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            bootstrap:bct_image="@drawable/face"
+            bootstrap:bct_size="small"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/zhuji_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:typeface="serif"/>
+            <TextView
+                android:id="@+id/zhuji_update_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:typeface="monospace"/>
+            </LinearLayout>
+
+        </LinearLayout>
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="170dip"
-        android:id="@+id/zhuji_main_img"/>
-    <ImageView
-        android:layout_width="wrap_content"
         android:layout_height="1px"
-        android:layout_marginTop="5dip"
-        android:layout_marginBottom="5dip"
         android:background="@color/card_back"
-        />
+        android:layout_marginTop="10dip"
+        android:layout_marginBottom="10dip"/>
+    <!--second block , contains main textview and gridview of pictures-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="70dip"
-            android:orientation="horizontal">
-            <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                android:id="@+id/zhuji_head_img"
-                android:layout_width="50dip"
-                android:layout_height="50dip"
-                android:layout_margin="5dip"
-                bootstrap:bct_image="@drawable/face"
-                bootstrap:bct_size="small"
-                android:layout_weight="2"/>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_weight="10"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/zhuji_name"
-                    android:text="Luohaha"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:typeface="serif"
-                    android:textSize="18sp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/zhuji_update_time"
-                    android:text="I not stupid"
-                    android:typeface="monospace"
-                    android:textSize="10sp"/>
-                </LinearLayout>
-            </LinearLayout>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="1px"
-            android:layout_marginTop="5dip"
-            android:layout_marginBottom="5dip"
-            android:background="@color/card_back"
-            />
-        <!--the main text and tag text-->
-        <LinearLayout
+
+        <TextView
+            android:id="@+id/zhuji_main_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dip"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:typeface="serif"
-                android:textSize="12sp"
-                android:text="Print this page to PDF for the complete set of vectors. Or to use on the desktop, install FontAwesome.otf, set it as the font in your application, and copy and paste the icons (not the unicode) directly from this page into your designs. "
-                android:id="@+id/zhuji_main_text"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="5dip"
-                android:padding="5dip">
-                <com.beardedhen.androidbootstrap.FontAwesomeText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    fontawesometext:fa_icon="fa-tags"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/red"
-                    android:textSize="12sp"
-                    android:id="@+id/zhuji_tag_text"
-                    android:text="haha"/>
-                </LinearLayout>
-            </LinearLayout>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="1px"
-            android:layout_marginTop="5dip"
-            android:layout_marginBottom="5dip"
-            android:background="@color/card_back"
-            />
-        <!--the buttons-->
-        <LinearLayout
+            android:textColor="@color/black"
+            android:typeface="sans"
+            android:textSize="12sp"/>
+        <GridView
+            android:id="@+id/zhuji_main_picture"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <com.beardedhen.androidbootstrap.BootstrapButton
-                android:id="@+id/zhuji_zhan_button"
-                android:layout_width="match_parent"
-                android:layout_height="50dip"
-                android:layout_below="@id/login_user_password"
-                android:layout_alignLeft="@id/login_user_number"
-                android:layout_alignRight="@id/login_user_number"
-                android:text="赞"
-                bootstrap:bb_icon_left="fa-heart-o"
-                bootstrap:bb_type="default"
-                android:layout_weight="1"
-                />
-            <com.beardedhen.androidbootstrap.BootstrapButton
-                android:id="@+id/zhuji_comment_button"
-                android:layout_width="match_parent"
-                android:layout_height="50dip"
-                android:layout_below="@id/login_user_password"
-                android:layout_alignLeft="@id/login_user_number"
-                android:layout_alignRight="@id/login_user_number"
-                android:text="评论"
-                bootstrap:bb_icon_left="fa-comment-o"
-                bootstrap:bb_type="default"
-                android:layout_weight="1"
-                />
-            <com.beardedhen.androidbootstrap.BootstrapButton
-                android:id="@+id/zhuji_share_button"
-                android:layout_width="match_parent"
-                android:layout_height="50dip"
-                android:layout_below="@id/login_user_password"
-                android:layout_alignLeft="@id/login_user_number"
-                android:layout_alignRight="@id/login_user_number"
-                android:text="分享"
-                bootstrap:bb_icon_left="fa-share"
-                bootstrap:bb_type="default"
-                android:layout_weight="1"
-                />
-            </LinearLayout>
-    </LinearLayout>
+            android:numColumns="3"
+            android:horizontalSpacing="2dip"
+            android:verticalSpacing="2dip"
+            android:stretchMode="columnWidth"
+            android:gravity="center">
+
+            </GridView>
+
+        </LinearLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/card_back"
+        android:layout_marginTop="10dip"
+        android:layout_marginBottom="10dip"/>
+    <!--third block contains buttons-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/zhuji_share_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:text="转发"
+            bootstrap:bb_icon_right="fa-search"
+            bootstrap:bb_type="default"
+            bootstrap:bb_size="small"
+            bootstrap:bb_roundedCorners="true"
+            />
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/zhuji_nice_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:text="赞"
+            bootstrap:bb_icon_right="fa-search"
+            bootstrap:bb_type="default"
+            bootstrap:bb_size="small"
+            bootstrap:bb_roundedCorners="true"
+            />
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/zhuji_comment_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:text="评论"
+            bootstrap:bb_icon_right="fa-search"
+            bootstrap:bb_type="default"
+            bootstrap:bb_size="small"
+            bootstrap:bb_roundedCorners="true"
+            />
+        </LinearLayout>
+
 </LinearLayout>

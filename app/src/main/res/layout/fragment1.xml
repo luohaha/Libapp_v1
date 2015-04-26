@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
     xmlns:bootstrap="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/card_back"
@@ -44,6 +45,15 @@
             android:textSize="8sp"
             android:typeface="monospace"
             android:layout_marginLeft="10dip"
+            />
+        <com.beardedhen.androidbootstrap.FontAwesomeText
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            fontawesometext:fa_icon="fa-chevron-down"
+            android:textSize="10sp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:background="@color/white"
             />
         <com.beardedhen.androidbootstrap.BootstrapEditText
             android:id="@+id/firstfragment_search_text"
