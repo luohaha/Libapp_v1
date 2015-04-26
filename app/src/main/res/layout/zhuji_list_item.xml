@@ -8,7 +8,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="10dip"
-    android:cacheColorHint="#00000000"
     android:background="@color/white"
     >
     <!--main image
@@ -30,18 +29,19 @@
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dip"
+            android:layout_height="70dip"
             android:orientation="horizontal">
             <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
                 android:id="@+id/zhuji_head_img"
                 android:layout_width="50dip"
                 android:layout_height="50dip"
+                android:layout_margin="5dip"
                 bootstrap:bct_image="@drawable/face"
                 bootstrap:bct_size="small"
                 android:layout_weight="2"/>
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="50dip"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:layout_weight="10"
                 >
