@@ -52,11 +52,11 @@ public class SecondFragment extends FatherFragment implements IReflashListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
    {
        View view = inflater.inflate(R.layout.fragment2, null);
-       listview = (FreshListView) view.findViewById(R.id.zhuji_listview);
+      // listview = (FreshListView) view.findViewById(R.id.zhuji_listview);
        headBar = (HeadBar)this.getActivity().findViewById(R.id.head_bar);
        headBar.setTitleText("书友会");
-       setData();//push the new data into apk_list when it is first time
-       showList(mList);// push the aok_list into the adapter and show the apk_list
+     //  setData();//push the new data into apk_list when it is first time
+     //  showList(mList);// push the aok_list into the adapter and show the apk_list
        return view;
    }
 

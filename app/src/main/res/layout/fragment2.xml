@@ -6,10 +6,10 @@
     android:background="@color/card_back"
     >
     <!--书友会-->
-    <com.example.root.libapp_v1.PullRefreshListView.FreshListView
+  <!--  <com.example.root.libapp_v1.PullRefreshListView.FreshListView
         android:id="@+id/zhuji_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
+        /> -->
 
 </LinearLayout>

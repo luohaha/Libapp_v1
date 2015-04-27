@@ -19,6 +19,8 @@ import java.util.Map;
 
 /**
  * Created by root on 15-4-17.
+ *
+ * bug: unfinished !!!
  */
 public class ZhujiListviewAdapter extends BaseAdapter {
 
@@ -55,20 +57,14 @@ public class ZhujiListviewAdapter extends BaseAdapter {
         if (convertView == null) {
             viewHolder = new ZhujiViewHolder();
             convertView = mInflater.inflate(R.layout.zhuji_list_item, null);
-            viewHolder.zhujiMainImg = (ImageView) convertView
-                    .findViewById(R.id.zhuji_main_img);
-            viewHolder.zhujiHeadImg = (BootstrapCircleThumbnail) convertView
-                    .findViewById(R.id.zhuji_head_img);
+
             viewHolder.zhujiName = (TextView) convertView
                     .findViewById(R.id.zhuji_name);
             viewHolder.zhujiUpdateTime = (TextView) convertView
                     .findViewById(R.id.zhuji_update_time);
             viewHolder.zhujiMainText = (TextView) convertView
                     .findViewById(R.id.zhuji_main_text);
-            viewHolder.zhujiTagText = (TextView) convertView
-                    .findViewById(R.id.zhuji_tag_text);
-            viewHolder.zhujiZhanButton = (BootstrapButton) convertView
-                    .findViewById(R.id.zhuji_zhan_button);
+
             viewHolder.zhujiCommentButton = (BootstrapButton) convertView
                     .findViewById(R.id.zhuji_comment_button);
             viewHolder.zhujiShareButton = (BootstrapButton) convertView
