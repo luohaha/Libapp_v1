@@ -117,5 +117,46 @@
             bootstrap:bb_roundedCorners="true"
             />
         </LinearLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/card_back"
+        android:layout_marginTop="10dip"
+        android:layout_marginBottom="10dip"/>
+    <!--fourth block-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ListView
+            android:id="@+id/zhuji_comment_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+            </ListView>
+        <LinearLayout
+            android:id="@+id/zhuji_comment_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/zhuji_comment_editview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/zhuji_comment_send_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dp"
+                android:text="确定"
+                bootstrap:bb_icon_right="fa-search"
+                bootstrap:bb_type="default"
+                bootstrap:bb_size="small"
+                bootstrap:bb_roundedCorners="true"
+                />
+
+            </LinearLayout>
+
+        </LinearLayout>
 </LinearLayout>
