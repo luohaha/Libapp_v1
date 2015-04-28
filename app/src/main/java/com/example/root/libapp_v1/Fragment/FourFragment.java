@@ -1,6 +1,7 @@
 package com.example.root.libapp_v1.Fragment;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,18 +56,11 @@ public class FourFragment extends FatherFragment{
         initIds(view);
         initHeadBar();
         initLayout(view);
-        new Thread(loadDataFromHttp).start();
+        HttpTask httpTask = new HttpTask(view);
+        httpTask.execute();
         return view;
     }
-    /**
-     * load data from http's thread
-     * */
-    Runnable loadDataFromHttp = new Runnable() {
-        @Override
-        public void run() {
-            getDataFromHttp();
-        }
-    };
+
      /**
      * init the head bar
      * */
@@ -107,12 +102,11 @@ public class FourFragment extends FatherFragment{
         mPersonpagePhone = (TextView)view.findViewById(R.id.personpage_phone);
         mPersonpageBooksNumber = (TextView)view.findViewById(R.id.personpage_books_number);
         mPersonpageRecordNumber = (TextView)view.findViewById(R.id.personpage_record_number);
-
     }
     /**
      * refresh the data by getting from http
      * */
-    private void getDataFromHttp() {
+    private JSONObject getDataFromHttp() {
 
         try {
             JSONObject jsonObject = DoGetAndPost.doGet(mGetUrl);
@@ -121,10 +115,53 @@ public class FourFragment extends FatherFragment{
              * */
             JSONArray userInfo = jsonObject.getJSONArray("userInfo");
             JSONObject userOne = userInfo.getJSONObject(0);
-            mPersonpageName.setText((String)userOne.get("username"));
+            return userOne;
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
+    }
 
+    /**
+     * clss HttpTask : which using AsyncTask to open a new thread to download data in back.
+     */
+    private class HttpTask extends AsyncTask<String, Integer, JSONObject> {
+        private View view;
+        private HttpTask(View v) {
+            this.view = v;
+        }
+
+        @Override
+        protected JSONObject doInBackground(String... params) {
+            try {
+                JSONObject jsonObject = getDataFromHttp();
+                /**
+                 * using publicProgress() to update progress bar's status
+                 * */
+               // publishProgress(100);
+                return jsonObject;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject s) {
+            try {
+                mPersonpageName.setText((String)s.get("username"));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+        }
     }
  }
