@@ -29,11 +29,9 @@ public class DbOpenHelper extends SQLiteOpenHelper {
                 "record_number varchar(64))";
         db.execSQL(sql);
     }
-    /**
-     * change the database
-     * */
+
     @Override
-    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        //
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
     }
 }
