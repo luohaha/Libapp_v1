@@ -25,6 +25,10 @@
         <activity android:name=".WriteCommentActivity.WriteCommentActivity">
 
         </activity>
+        <provider
+            android:authorities="com.example.root.libapp_v1.SQLiteModule.Personpage.PersonpageProvider"
+            android:name=".SQLiteModule.Personpage.PersonpageProvider"
+            />
     </application>
     <!--  Internet Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
