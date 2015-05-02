@@ -1,4 +1,4 @@
-package com.example.root.libapp_v1.SQLiteModule.Personpage;
+package com.example.root.libapp_v1.SQLiteModule;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -18,10 +18,10 @@ import java.util.Map;
  *
  * I don't like any more.
  */
-public class PersonpageClient implements DatabaseService {
+public class DatabaseClient implements DatabaseService {
     private DbOpenHelper mDbOpenHelper = null;
 
-    public PersonpageClient(Context context) {
+    public DatabaseClient(Context context) {
         mDbOpenHelper = new DbOpenHelper(context);
     }
 
