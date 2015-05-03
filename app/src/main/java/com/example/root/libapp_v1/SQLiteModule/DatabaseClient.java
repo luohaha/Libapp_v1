@@ -35,7 +35,7 @@ public class DatabaseClient implements DatabaseService {
              * */
 
             database = mDbOpenHelper.getWritableDatabase();
-            id = database.insert("personpage", null, contentValues);
+            id = database.insert(tableName, null, contentValues);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

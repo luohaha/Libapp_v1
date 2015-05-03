@@ -23,7 +23,7 @@ public class HeadBar extends FrameLayout {
     private FontAwesomeText leftButton;
    // private Button rightButton;
     private FontAwesomeText rightButton;
-
+    private FontAwesomeText rightSecondButton;
     private TextView titleText;
 
     int sdk;
@@ -34,6 +34,7 @@ public class HeadBar extends FrameLayout {
         titleText = (TextView) findViewById(R.id.title_text);
         leftButton = (FontAwesomeText) findViewById(R.id.button_left);
         rightButton = (FontAwesomeText) findViewById(R.id.button_right);
+        rightSecondButton = (FontAwesomeText) findViewById(R.id.button_right_second);
         leftButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,4 +93,17 @@ public class HeadBar extends FrameLayout {
     public void setRightButtonListener(OnClickListener l) {
         rightButton.setOnClickListener(l);
     }
-}
+    /**
+     * stop show right second button
+     * */
+    public void setRightSecondButtonNoused() {
+        rightSecondButton.setClickable(false);
+        rightSecondButton.setVisibility(View.GONE);
+    }
+    /**
+     * set right second button's listener
+     * */
+    public void setRightSecondButtonListener(OnClickListener l) {
+        rightSecondButton.setOnClickListener(l);
+    }
+  }

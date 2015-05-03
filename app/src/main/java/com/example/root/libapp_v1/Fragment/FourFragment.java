@@ -1,6 +1,9 @@
 package com.example.root.libapp_v1.Fragment;
 
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +20,7 @@ import android.widget.Toast;
 import com.example.root.libapp_v1.HeadBar.HeadBar;
 import com.example.root.libapp_v1.HttpModule.DoGetAndPost;
 import com.example.root.libapp_v1.R;
+import com.example.root.libapp_v1.SQLiteModule.SQLiteModule;
 import com.example.root.libapp_v1.UserLogin.LoginActivity;
 
 import org.json.JSONArray;
@@ -56,8 +60,9 @@ public class FourFragment extends FatherFragment{
         initIds(view);
         initHeadBar();
         initLayout(view);
-        HttpTask httpTask = new HttpTask(view);
-        httpTask.execute();
+      //  HttpTask httpTask = new HttpTask(view);
+      //  httpTask.execute();
+        showDbData();
         return view;
     }
 
@@ -67,6 +72,14 @@ public class FourFragment extends FatherFragment{
     private void initHeadBar() {
         headBar = (HeadBar)this.getActivity().findViewById(R.id.head_bar);
         headBar.setTitleText("我的");
+        headBar.setRightSecondButtonListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SQLiteModule sqLiteModule = new SQLiteModule(getActivity());
+                sqLiteModule.insertDb();
+                Log.i("you suck!!", "yes");
+            }
+        });
     }
     private void initLayout(View v) {
         mBooksDetail = (LinearLayout) v.findViewById(R.id.personpage_books_detail);
@@ -104,6 +117,17 @@ public class FourFragment extends FatherFragment{
         mPersonpageRecordNumber = (TextView)view.findViewById(R.id.personpage_record_number);
     }
     /**
+     * show data using sqlite
+     * */
+    private void showDbData() {
+        ContentResolver contentResolver = getActivity().getContentResolver();
+        Uri uri = Uri.parse("content://com.example.root.libapp_v1.SQLiteModule.Personpage.PersonpageProvider/personpage/1");
+        Cursor cursor = contentResolver.query(uri, null, null, null, null);
+        while (cursor.moveToNext()) {
+            mPersonpageName.setText(cursor.getString(cursor.getColumnIndex("name")));
+        }
+    }
+     /**
      * refresh the data by getting from http
      * */
     private JSONObject getDataFromHttp() {

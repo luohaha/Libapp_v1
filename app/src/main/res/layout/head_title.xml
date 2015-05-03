@@ -26,7 +26,17 @@
         android:textColor="#fff"
         android:typeface="serif"
         android:textSize="18sp" />
-
+    <com.beardedhen.androidbootstrap.FontAwesomeText
+        android:id="@+id/button_right_second"
+        android:layout_width="wrap_content"
+        android:layout_toLeftOf="@+id/button_right"
+        android:layout_height="match_parent"
+        fontawesometext:fa_icon="fa-refresh"
+        android:layout_margin="10dip"
+        android:textSize="18sp"
+        android:textColor="#fff"
+        android:background="@drawable/headbar_button_press_back"
+        />
     <com.beardedhen.androidbootstrap.FontAwesomeText
         android:id="@+id/button_right"
         android:layout_width="wrap_content"

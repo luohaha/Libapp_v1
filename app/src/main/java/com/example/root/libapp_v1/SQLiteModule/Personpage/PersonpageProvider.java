@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
+import android.util.Log;
 
 import com.example.root.libapp_v1.SQLiteModule.DatabaseClient;
 
@@ -61,9 +62,11 @@ public class PersonpageProvider extends ContentProvider {
         switch (flag) {
             case ONE_ID :
                 type = "vnd.android.cursor.item/personpage";
+                Log.i(TAG, "----->>getType return item");
                 break;
             case ALL_ID :
                 type = "vnd.android.cursor.dir/personpages";
+                Log.i(TAG, "----->>getType return dir");
                 break;
         }
         return type;
