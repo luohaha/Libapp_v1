@@ -217,7 +217,16 @@ public class LoginActivity extends Activity {
                 }
             }
         });
-    }
+         /**
+          * when we push down the register button
+          * */
+        mRegister.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+     }
 
     /**
      * when the list view show, and we scroll it out of range
@@ -247,4 +256,5 @@ public class LoginActivity extends Activity {
         return super.onTouchEvent(event);
 
     }
+
 }
