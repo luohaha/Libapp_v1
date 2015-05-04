@@ -1,30 +1,20 @@
 package com.example.root.libapp_v1.Fragment;
 
 import android.content.ContentResolver;
-import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.root.libapp_v1.HeadBar.HeadBar;
-import com.example.root.libapp_v1.HttpModule.DoGetAndPost;
 import com.example.root.libapp_v1.R;
-import com.example.root.libapp_v1.SQLiteModule.SQLiteModule;
-import com.example.root.libapp_v1.UserLogin.LoginActivity;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
+import com.example.root.libapp_v1.SQLiteModule.Personpage.PersonpageModule;
 
 /**
  * Created by Yixin on 15-3-26.
@@ -32,10 +22,7 @@ import org.json.JSONObject;
  * bug : ui crash when start http
  */
 public class FourFragment extends FatherFragment{
-    /**
-     *the url we get from
-     */
-    private String mGetUrl = "http://192.168.0.153/check_user.php?username=admin&password=123";
+
     /**
      * define var
      * */
@@ -60,8 +47,7 @@ public class FourFragment extends FatherFragment{
         initIds(view);
         initHeadBar();
         initLayout(view);
-      //  HttpTask httpTask = new HttpTask(view);
-      //  httpTask.execute();
+
         showDbData();
         return view;
     }
@@ -75,8 +61,8 @@ public class FourFragment extends FatherFragment{
         headBar.setRightSecondButtonListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SQLiteModule sqLiteModule = new SQLiteModule(getActivity());
-                sqLiteModule.insertDb();
+                PersonpageModule sqLiteModule = new PersonpageModule(getActivity());
+                sqLiteModule.updateDb();
                 Log.i("you suck!!", "yes");
             }
         });
@@ -125,67 +111,14 @@ public class FourFragment extends FatherFragment{
         Cursor cursor = contentResolver.query(uri, null, null, null, null);
         while (cursor.moveToNext()) {
             mPersonpageName.setText(cursor.getString(cursor.getColumnIndex("name")));
+            mPersonpageQuote.setText(cursor.getString(cursor.getColumnIndex("quote")));
+            mPersonpageAddress.setText(cursor.getString(cursor.getColumnIndex("address")));
+            mPersonpageMailbox.setText(cursor.getString(cursor.getColumnIndex("mailbox")));
+            mPersonpagePhone.setText(cursor.getString(cursor.getColumnIndex("phone")));
+            mPersonpageBooksNumber.setText(cursor.getString(cursor.getColumnIndex("books_number")));
+            mPersonpageRecordNumber.setText(cursor.getString(cursor.getColumnIndex("record_number")));
         }
-    }
-     /**
-     * refresh the data by getting from http
-     * */
-    private JSONObject getDataFromHttp() {
-
-        try {
-            JSONObject jsonObject = DoGetAndPost.doGet(mGetUrl);
-            /**
-             * set the data which we get from http server
-             * */
-            JSONArray userInfo = jsonObject.getJSONArray("userInfo");
-            JSONObject userOne = userInfo.getJSONObject(0);
-            return userOne;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+        cursor.close();
     }
 
-    /**
-     * clss HttpTask : which using AsyncTask to open a new thread to download data in back.
-     */
-    private class HttpTask extends AsyncTask<String, Integer, JSONObject> {
-        private View view;
-        private HttpTask(View v) {
-            this.view = v;
-        }
-
-        @Override
-        protected JSONObject doInBackground(String... params) {
-            try {
-                JSONObject jsonObject = getDataFromHttp();
-                /**
-                 * using publicProgress() to update progress bar's status
-                 * */
-               // publishProgress(100);
-                return jsonObject;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-
-        }
-
-        @Override
-        protected void onPostExecute(JSONObject s) {
-            try {
-                mPersonpageName.setText((String)s.get("username"));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-        }
-    }
  }

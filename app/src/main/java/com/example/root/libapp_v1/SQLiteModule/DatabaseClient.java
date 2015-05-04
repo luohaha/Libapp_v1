@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.root.libapp_v1.SQLiteModule.DatabaseService;
 import com.example.root.libapp_v1.SQLiteModule.DbOpenHelper;
@@ -22,7 +23,7 @@ public class DatabaseClient implements DatabaseService {
     private DbOpenHelper mDbOpenHelper = null;
 
     public DatabaseClient(Context context) {
-        mDbOpenHelper = new DbOpenHelper(context);
+        mDbOpenHelper = DbOpenHelper.getInstance(context);
     }
 
     @Override
@@ -40,10 +41,8 @@ public class DatabaseClient implements DatabaseService {
             e.printStackTrace();
         } finally {
             /**
-             * don't happen please!
+             * don not close database now
              * */
-            if (database != null)
-                database.close();
         }
         return id;
     }
@@ -59,9 +58,9 @@ public class DatabaseClient implements DatabaseService {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (database != null) {
-                database.close();
-            }
+            /**
+             * don not close database now
+             * */
         }
         return count;
     }
@@ -81,9 +80,9 @@ public class DatabaseClient implements DatabaseService {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (sqLiteDatabase != null) {
-                sqLiteDatabase.close();
-            }
+            /**
+             * don not close database now
+             * */
         }
         return count;
     }
@@ -100,12 +99,23 @@ public class DatabaseClient implements DatabaseService {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (database != null) {
-                database.close();
-            }
+            /**
+             * don not close database now
+             * */
         }
         return cursor;
     }
 
+    private void close(SQLiteDatabase database) {
+        if (database != null && database.isOpen()) {
+            try {
+                database.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            Log.i("database", "already close");
+        }
+    }
 
 }

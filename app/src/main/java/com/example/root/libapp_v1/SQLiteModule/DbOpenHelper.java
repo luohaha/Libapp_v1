@@ -13,7 +13,16 @@ public class DbOpenHelper extends SQLiteOpenHelper {
      * */
     private static String mDataBaseName = "feishu.db";
     private static int mDataBaseVersion = 1;
-
+    private static DbOpenHelper mDbOpenHelper;
+    /**
+     * using the singleton
+     * */
+    public static synchronized DbOpenHelper getInstance (Context context) {
+        if (mDbOpenHelper == null) {
+            mDbOpenHelper = new DbOpenHelper(context.getApplicationContext());
+        }
+        return mDbOpenHelper;
+    }
     public DbOpenHelper(Context context) {
         super(context, mDataBaseName, null, mDataBaseVersion);
     }
