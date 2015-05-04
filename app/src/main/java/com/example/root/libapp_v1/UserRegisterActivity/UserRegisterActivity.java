@@ -87,7 +87,7 @@ public class UserRegisterActivity extends Activity {
                      * if the user's name isn't empty
                      * */
                     ContentResolver contentResolver = getContentResolver();
-                    Uri uri = Uri.parse("content://com.example.root.libapp_v1.SQLiteModule.Personpage.PersonpageProvider/personpage");
+                    Uri uri = Uri.parse("content://com.example.root.libapp_v1.SQLiteModule.Personpage.PersonpageProvider/personpage/1");
                     ContentValues contentValues = new ContentValues();
                     contentValues.put("name", mUserName.getText().toString());
                     contentValues.put("quote", mUserQuote.getText().toString());
@@ -96,8 +96,14 @@ public class UserRegisterActivity extends Activity {
                     contentValues.put("phone", mUserPhone.getText().toString());
                     contentValues.put("account_number", mAccountNumber.getText().toString());
                     contentValues.put("password", mUserPassword.getText().toString());
-                    Uri ret = contentResolver.insert(uri, contentValues);
-                    Log.i("new user register : ", ret.toString());
+                    /**
+                     * this place isn't right, because the server side don't finish yet, so I
+                     * insert the data to the local database instead.
+                     *
+                     * So the right solution is to upload the data
+                     * */
+                    int count = contentResolver.update(uri, contentValues, null, null);
+                    Log.i("new user register : ", String.valueOf(count));
                     Dialog dialog = new AlertDialog.Builder(UserRegisterActivity.this).setTitle("注册成功")
                             .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                                 @Override

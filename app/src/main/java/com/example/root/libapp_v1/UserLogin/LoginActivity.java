@@ -2,7 +2,13 @@ package com.example.root.libapp_v1.UserLogin;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -225,7 +231,29 @@ public class LoginActivity extends Activity {
         mLoginButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                /**
+                 * to judge if the user exit
+                 * */
+                ContentResolver contentResolver = getContentResolver();
+                Uri uri = Uri.parse("content://com.example.root.libapp_v1.SQLiteModule.Personpage.PersonpageProvider/personpage");
+                String[] args = {mUserNumberEditText.getText().toString()};
+                Cursor cursor = contentResolver.query(uri, null, "account_number=?", args, null);
+                if (!cursor.moveToFirst()) {
+                    //the cursor is empty
+                    cursor.close();
+                    Dialog dialog = new AlertDialog.Builder(LoginActivity.this).setTitle("失败")
+                            .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            }).create();
+                    dialog.show();
+                } else {
+                    cursor.close();
+                    finish();
 
+                }
             }
         });
           /**
@@ -250,6 +278,7 @@ public class LoginActivity extends Activity {
             String resultAccountNumber = data.getStringExtra("account_number");
             mUserNumberEditText.setText(resultAccountNumber);
             mUserPasswordEditText.setText(resultPassword);
+
         }
     }
 

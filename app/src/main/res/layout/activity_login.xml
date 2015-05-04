@@ -32,7 +32,6 @@
         android:layout_marginTop="15dip"
         android:paddingLeft="50dip"
         android:layout_below="@id/head_image"
-        android:inputType="number"
         bootstrap:be_roundedCorners="true"
         bootstrap:be_state="success"/>
 

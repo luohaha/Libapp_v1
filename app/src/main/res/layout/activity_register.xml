@@ -66,6 +66,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="只包含字母和数字"
+                android:inputType="textPersonName"
                 android:textSize="18sp"
                 android:layout_marginBottom="10dip"
                 android:textColor="@color/black"
@@ -179,6 +180,7 @@
                 android:typeface="sans"
                 bootstrapbutton:be_roundedCorners="false"
                 bootstrapbutton:be_state="warning"
+                android:inputType="textPassword"
                 />
         </LinearLayout>
     </LinearLayout>
@@ -283,6 +285,7 @@
                 android:textSize="18sp"
                 android:textColor="@color/black"
                 android:typeface="sans"
+                android:inputType="textEmailAddress"
                 bootstrapbutton:be_roundedCorners="false"
                 bootstrapbutton:be_state="warning"
                 />
@@ -332,6 +335,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="您的电话号码"
+                android:inputType="phone"
                 android:layout_marginBottom="10dip"
                 android:textSize="18sp"
                 android:textColor="@color/black"
