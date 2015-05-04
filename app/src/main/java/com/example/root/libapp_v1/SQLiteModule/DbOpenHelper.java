@@ -34,7 +34,7 @@ public class DbOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String sql = "create table personpage(id integer primary key autoincrement, name varchar(64)," +
                 "quote varchar(128), img varchar(64), address varchar(256)," +
-                "mailbox varchar(64), phone varchar(64), books_number varchar(64)," +
+                "mailbox varchar(64), password varchar(64), account_number varchar(64), phone varchar(64), books_number varchar(64)," +
                 "record_number varchar(64))";
         db.execSQL(sql);
     }

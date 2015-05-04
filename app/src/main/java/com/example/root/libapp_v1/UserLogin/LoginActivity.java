@@ -2,6 +2,7 @@ package com.example.root.libapp_v1.UserLogin;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -17,6 +18,7 @@ import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.example.root.libapp_v1.HeadBar.HeadBar;
 import com.example.root.libapp_v1.R;
+import com.example.root.libapp_v1.UserRegisterActivity.UserRegisterActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -217,16 +219,39 @@ public class LoginActivity extends Activity {
                 }
             }
         });
-         /**
-          * when we push down the register button
-          * */
-        mRegister.setOnClickListener(new OnClickListener() {
+        /**
+         * when login button is pushed !!!
+         * */
+        mLoginButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
         });
+          /**
+          * when we push down the register button
+          * */
+        mRegister.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, UserRegisterActivity.class);
+                startActivityForResult(intent, 1000);
+            }
+        });
      }
+    /**
+     * get the result intent from register activity
+     * */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1000 && resultCode == 1001) {
+            String resultPassword = data.getStringExtra("password");
+            String resultAccountNumber = data.getStringExtra("account_number");
+            mUserNumberEditText.setText(resultAccountNumber);
+            mUserPasswordEditText.setText(resultPassword);
+        }
+    }
 
     /**
      * when the list view show, and we scroll it out of range

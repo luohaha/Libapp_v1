@@ -24,6 +24,7 @@ import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.FontAwesomeText;
 import com.example.root.libapp_v1.Fragment.FragmentFactory;
 import com.example.root.libapp_v1.HeadBar.HeadBar;
+import com.example.root.libapp_v1.SQLiteModule.DatabaseClient;
 import com.example.root.libapp_v1.UserLogin.LoginActivity;
 
 
@@ -42,6 +43,7 @@ public class MainActivity extends Activity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initDatabaseModule();
         //get view customView
         LayoutInflater layoutInflater = LayoutInflater.from(this);
         customView = layoutInflater.inflate(R.layout.popview_item, null);
@@ -153,5 +155,11 @@ public class MainActivity extends Activity implements OnClickListener {
             }
         }
         return super.onTouchEvent(event);
+    }
+    /**
+     * init the database module
+     * */
+    private void initDatabaseModule() {
+        DatabaseClient databaseClient = new DatabaseClient(this);
     }
 }
