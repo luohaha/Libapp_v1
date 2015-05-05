@@ -8,6 +8,7 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,12 +16,26 @@ import android.view.View;
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.example.root.libapp_v1.HeadBar.HeadBar;
+import com.example.root.libapp_v1.HttpModule.DoGetAndPost;
 import com.example.root.libapp_v1.R;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Yixin on 15-5-4.
  */
 public class UserRegisterActivity extends Activity {
+    /**
+     * the url which we want to post to
+     * */
+    private String postUrl = "http://192.168.0.153/register_user.php";
+
     private HeadBar mHeadBar;
     private BootstrapEditText mAccountNumber;
     private BootstrapEditText mUserName;
@@ -82,29 +97,30 @@ public class UserRegisterActivity extends Activity {
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mUserName.getText().toString() != "") {
+                if (mUserName.getText().toString() != "" && mUserPassword.getText().toString() != ""
+                        && mAccountNumber.getText().toString() != "") {
                     /**
                      * if the user's name isn't empty
                      * */
-                    ContentResolver contentResolver = getContentResolver();
-                    Uri uri = Uri.parse("content://com.example.root.libapp_v1.SQLiteModule.Personpage.PersonpageProvider/personpage/1");
-                    ContentValues contentValues = new ContentValues();
-                    contentValues.put("name", mUserName.getText().toString());
-                    contentValues.put("quote", mUserQuote.getText().toString());
-                    contentValues.put("address", mUserAddress.getText().toString());
-                    contentValues.put("mailbox", mUserMailbox.getText().toString());
-                    contentValues.put("phone", mUserPhone.getText().toString());
-                    contentValues.put("account_number", mAccountNumber.getText().toString());
-                    contentValues.put("password", mUserPassword.getText().toString());
+
                     /**
-                     * this place isn't right, because the server side don't finish yet, so I
-                     * insert the data to the local database instead.
-                     *
-                     * So the right solution is to upload the data
+                     * upload the user's info to server side
                      * */
-                    int count = contentResolver.update(uri, contentValues, null, null);
-                    Log.i("new user register : ", String.valueOf(count));
-                    Dialog dialog = new AlertDialog.Builder(UserRegisterActivity.this).setTitle("注册成功")
+
+                    List<NameValuePair> list = new ArrayList<NameValuePair>();
+                    list.add(new BasicNameValuePair("name", mUserName.getText().toString()));
+                    list.add(new BasicNameValuePair("quote", mUserQuote.getText().toString()));
+                    list.add(new BasicNameValuePair("address", mUserAddress.getText().toString()));
+                    list.add(new BasicNameValuePair("mailbox", mUserMailbox.getText().toString()));
+                    list.add(new BasicNameValuePair("phone", mUserPhone.getText().toString()));
+                    list.add(new BasicNameValuePair("account_number", mAccountNumber.getText().toString()));
+                    list.add(new BasicNameValuePair("password", mUserPassword.getText().toString()));
+                    HttpTask httpTask = new HttpTask(list);
+                    httpTask.execute();
+
+                    try {
+
+                        Dialog dialog = new AlertDialog.Builder(UserRegisterActivity.this).setTitle("注册成功")
                             .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -116,8 +132,11 @@ public class UserRegisterActivity extends Activity {
                                     UserRegisterActivity.this.finish();
                                 }
                             }).create();
-                    dialog.show();
-                    clearAllEditText();
+                        dialog.show();
+                        clearAllEditText();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 } else {
                     /**
                      * if the user's name is empty
@@ -145,5 +164,67 @@ public class UserRegisterActivity extends Activity {
         mUserAddress.setText("");
         mUserMailbox.setText("");
         mUserPhone.setText("");
+    }
+    /**
+     * refresh the data by getting from http
+     * */
+    private JSONObject getDataFromHttp(List<NameValuePair> list) {
+
+        try {
+            JSONObject jsonObject = DoGetAndPost.doPost(postUrl, list);
+            Log.i("dasbb   hahahha  ->", jsonObject.toString());
+            /**
+             * set the data which we get from http server
+             * */
+
+            return jsonObject;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * clss HttpTask : which using AsyncTask to open a new thread to download data in back.
+     */
+    private class HttpTask extends AsyncTask<String, Integer, JSONObject> {
+        List<NameValuePair> list;
+        private HttpTask(List<NameValuePair> l) {
+            this.list = l;
+        }
+
+        @Override
+        protected JSONObject doInBackground(String... params) {
+            try {
+                JSONObject jsonObject = getDataFromHttp(this.list);
+                /**
+                 * using publicProgress() to update progress bar's status
+                 * */
+                // publishProgress(100);
+                return jsonObject;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject s) {
+            try {
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+        }
     }
 }

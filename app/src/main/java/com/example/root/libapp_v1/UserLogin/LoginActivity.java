@@ -234,6 +234,14 @@ public class LoginActivity extends Activity {
                 /**
                  * to judge if the user exit
                  * */
+                /**
+                 * first step : get the login_user.php, and get the result
+                 * second step : judge if the account_number and password is correct,
+                 *              if correct, it will return JSONObject with personpage's msg,
+                 *                  and we should update local personpage table's msg
+                 *              else it won't return msg
+                 * */
+
                 ContentResolver contentResolver = getContentResolver();
                 Uri uri = Uri.parse("content://com.example.root.libapp_v1.SQLiteModule.Personpage.PersonpageProvider/personpage");
                 String[] args = {mUserNumberEditText.getText().toString()};
