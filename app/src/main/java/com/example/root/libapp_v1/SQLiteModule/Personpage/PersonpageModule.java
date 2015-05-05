@@ -23,7 +23,7 @@ public class PersonpageModule {
     /**
      *the url we get from
      */
-    private String mGetUrl = "http://192.168.0.153/check_user.php?username=admin&password=123";
+    private String mGetUrl = "http://192.168.0.153/android/check_user.php?username=admin&password=123";
     public PersonpageModule(Context context){
         this.mContext = context;
     }

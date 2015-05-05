@@ -34,7 +34,7 @@ public class UserRegisterActivity extends Activity {
     /**
      * the url which we want to post to
      * */
-    private String postUrl = "http://192.168.0.153/register_user.php";
+    private String postUrl = "http://192.168.0.153/android/register_user.php";
 
     private HeadBar mHeadBar;
     private BootstrapEditText mAccountNumber;
@@ -97,8 +97,8 @@ public class UserRegisterActivity extends Activity {
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mUserName.getText().toString() != "" && mUserPassword.getText().toString() != ""
-                        && mAccountNumber.getText().toString() != "") {
+                if (mUserName.getText().toString().length() != 0 && mAccountNumber.getText().toString()
+                        .length() != 0 && mUserPassword.getText().toString().length() != 0) {
                     /**
                      * if the user's name isn't empty
                      * */
@@ -118,30 +118,12 @@ public class UserRegisterActivity extends Activity {
                     HttpTask httpTask = new HttpTask(list);
                     httpTask.execute();
 
-                    try {
 
-                        Dialog dialog = new AlertDialog.Builder(UserRegisterActivity.this).setTitle("注册成功")
-                            .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                    Intent intent = new Intent();
-                                    intent.putExtra("password", mUserPassword.getText().toString());
-                                    intent.putExtra("account_number", mAccountNumber.getText().toString());
-                                    setResult(1001, intent);
-                                    UserRegisterActivity.this.finish();
-                                }
-                            }).create();
-                        dialog.show();
-                        clearAllEditText();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
                 } else {
                     /**
                      * if the user's name is empty
                      * */
-                    Dialog dialog = new AlertDialog.Builder(UserRegisterActivity.this).setTitle("注册失败")
+                    Dialog dialog = new AlertDialog.Builder(UserRegisterActivity.this).setTitle("用户信息不全")
                             .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -217,6 +199,42 @@ public class UserRegisterActivity extends Activity {
         protected void onPostExecute(JSONObject s) {
             try {
 
+                if (s.getInt("success") == 0) {
+                    //register fail
+                    Dialog dialog = new AlertDialog.Builder(UserRegisterActivity.this).setTitle("注册失败"+s.getString("message"))
+                            .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            }).create();
+                    dialog.show();
+                }
+                else if (s.getInt("success") == 1){
+                    //register success
+                    try {
+
+                        Dialog dialog = new AlertDialog.Builder(UserRegisterActivity.this).setTitle("注册成功")
+                                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                        Intent intent = new Intent();
+                                        intent.putExtra("password", mUserPassword.getText().toString());
+                                        intent.putExtra("account_number", mAccountNumber.getText().toString());
+                                        setResult(1001, intent);
+                                        UserRegisterActivity.this.finish();
+                                    }
+                                }).create();
+                        dialog.show();
+                       // clearAllEditText();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    //I don't want to see this
+                    Log.i("the success code ------->>>", "err");
+                }
 
             } catch (Exception e) {
                 e.printStackTrace();
