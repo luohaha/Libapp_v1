@@ -32,8 +32,8 @@ public class BookpageModule {
         for (int i = 0; i < 20; i++) {
             ContentValues contentValues = new ContentValues();
             contentValues.put("name", "the book's name : "+String.valueOf(i));
-            contentValues.put("short_detail", "hey, I am no."+String.valueOf(i));
-            contentValues.put("img", "R.id.book1");
+            //contentValues.put("short_detail", "hey, I am no."+String.valueOf(i));
+            contentValues.put("img", "http://203club.com/wp-content/uploads/2015/04/shuping1.jpg");
             long id = databaseClient.insertData("bookpage", contentValues);
             Log.i("fuck you : ", String.valueOf(id));
         }

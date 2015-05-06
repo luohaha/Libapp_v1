@@ -1,6 +1,8 @@
 package com.example.root.libapp_v1.Fragment.FirstFragmentAdapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,8 +10,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.root.libapp_v1.MyUtil.DownLoadBitmap.DownLoadBitmap;
 import com.example.root.libapp_v1.R;
 
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -41,7 +47,8 @@ public class FirstFragmentAdapter extends BaseAdapter {
         } else {
             firstFragmentViewHolder = (FirstFragmentViewHolder) convertView.getTag();
         }
-        firstFragmentViewHolder.imageView.setImageResource((Integer)mList.get(position).get("image"));
+        firstFragmentViewHolder.imageView.setImageBitmap(DownLoadBitmap.downloadBitmap((String)mList
+                .get(position).get("image")));
         firstFragmentViewHolder.textView.setText((String) mList.get(position).get("text"));
 
         return convertView;
@@ -61,4 +68,6 @@ public class FirstFragmentAdapter extends BaseAdapter {
     public long getItemId(int position) {
         return position;
     }
+
+
 }
