@@ -106,6 +106,26 @@ public class DatabaseClient implements DatabaseService {
         return cursor;
     }
 
+    /**clear the table
+     * @param tableName
+     */
+    public void clearBookPage() {
+        SQLiteDatabase sqLiteDatabase = null;
+        try {
+            sqLiteDatabase = mDbOpenHelper.getWritableDatabase();
+            String sql = "drop table bookpage";
+            sqLiteDatabase.execSQL(sql);
+            sql = "create table bookpage(id integer primary key autoincrement, name varchar(64)," +
+                    " unique_id varchar(64), img varchar(64), detail_info varchar(512), short_detail varchar(64)," +
+                    "author_info varchar(512), catalog_info varchar(512))";
+            sqLiteDatabase.execSQL(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+        }
+    }
+
     private void close(SQLiteDatabase database) {
         if (database != null && database.isOpen()) {
             try {

@@ -90,7 +90,7 @@ public class FirstFragment extends FatherFragment {
             @Override
             public void onClick(View v) {
                 BookpageModule bookpageModule = new BookpageModule(getActivity());
-                bookpageModule.insertDb();
+                bookpageModule.refreshDb();
             }
         });
     }

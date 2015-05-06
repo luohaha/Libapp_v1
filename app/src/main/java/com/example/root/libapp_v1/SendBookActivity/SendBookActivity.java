@@ -27,7 +27,7 @@ import java.util.List;
  * Created by Yixin on 15-5-6.
  */
 public class SendBookActivity extends Activity {
-    private String url = "http://192.168.0.153/add_book.php";
+    private String url = "http://192.168.0.153/android/add_book.php";
     private BootstrapEditText mName;
     private BootstrapEditText mDetailInfo;
     private BootstrapEditText mAuthorInfo;

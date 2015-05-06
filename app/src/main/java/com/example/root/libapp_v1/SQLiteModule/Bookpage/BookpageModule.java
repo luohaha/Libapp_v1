@@ -21,42 +21,30 @@ public class BookpageModule {
     /**
      *the url we get from
      */
-    private String mGetUrl = "";
+    private String mGetUrl = "http://192.168.0.153/android/get_booklist.php?start=0&count=20";
     public BookpageModule(Context context){
         this.mContext = context;
     }
 
-    public void insertDb() {
-
+    public void refreshDb() {
         DatabaseClient databaseClient = new DatabaseClient(mContext);
-        for (int i = 0; i < 20; i++) {
-            ContentValues contentValues = new ContentValues();
-            contentValues.put("name", "the book's name : "+String.valueOf(i));
-            //contentValues.put("short_detail", "hey, I am no."+String.valueOf(i));
-            contentValues.put("img", "http://203club.com/wp-content/uploads/2015/04/shuping1.jpg");
-            long id = databaseClient.insertData("bookpage", contentValues);
-            Log.i("fuck you : ", String.valueOf(id));
-        }
-
-    }
-
-    public void updateDb() {
+        databaseClient.clearBookPage();
         HttpTask httpTask = new HttpTask();
         httpTask.execute();
     }
+
     /**
      * refresh the data by getting from http
      * */
-    private JSONObject getDataFromHttp() {
+    private JSONArray getDataFromHttp() {
 
         try {
             JSONObject jsonObject = DoGetAndPost.doGet(mGetUrl);
             /**
              * set the data which we get from http server
              * */
-            JSONArray userInfo = jsonObject.getJSONArray("userInfo");
-            JSONObject userOne = userInfo.getJSONObject(0);
-            return userOne;
+            JSONArray array = jsonObject.getJSONArray("books");
+            return array;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -66,14 +54,14 @@ public class BookpageModule {
     /**
      * clss HttpTask : which using AsyncTask to open a new thread to download data in back.
      */
-    private class HttpTask extends AsyncTask<String, Integer, JSONObject> {
+    private class HttpTask extends AsyncTask<String, Integer, JSONArray> {
         private HttpTask() {
         }
 
         @Override
-        protected JSONObject doInBackground(String... params) {
+        protected JSONArray doInBackground(String... params) {
             try {
-                JSONObject jsonObject = getDataFromHttp();
+                JSONArray jsonObject = getDataFromHttp();
                 /**
                  * using publicProgress() to update progress bar's status
                  * */
@@ -91,14 +79,18 @@ public class BookpageModule {
         }
 
         @Override
-        protected void onPostExecute(JSONObject s) {
+        protected void onPostExecute(JSONArray array) {
             try {
                 ContentResolver contentResolver = mContext.getContentResolver();
-                // mPersonpageName.setText((String)s.get("username"));
-                Uri uri = Uri.parse("content://com.example.root.libapp_v1.SQLiteModule.Personpage.PersonpageProvider/personpage/1");
-                ContentValues contentValues = new ContentValues();
-                contentValues.put("name", (String)s.get("username"));
-                contentResolver.update(uri, contentValues, null, null);
+                Uri uri = Uri.parse("content://com.example.root.libapp_v1.SQLiteModule.Bookpage.BookpageProvider/bookpage");
+                for (int i = 0; i < array.length(); i++) {
+                    ContentValues contentValues = new ContentValues();
+                    contentValues.put("name", array.getJSONObject(i).getString("name"));
+                    contentValues.put("detail_info", array.getJSONObject(i).getString("detail_info"));
+                    contentValues.put("author_info", array.getJSONObject(i).getString("author_info"));
+                    Uri tmp = contentResolver.insert(uri, contentValues);
+                    //Log.i("get book from http --> ", tmp.toString());
+                }
 
             } catch (Exception e) {
                 e.printStackTrace();
