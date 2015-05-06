@@ -40,6 +40,8 @@ public class DbOpenHelper extends SQLiteOpenHelper {
                 "mailbox varchar(64), password varchar(64), account_number varchar(64), phone varchar(64), books_number varchar(64)," +
                 "record_number varchar(64))";
         db.execSQL(sql);
+        sql = "insert into personpage (name, account_number, password) values ('not login yet', '0', '0')";
+        db.execSQL(sql);
         /**
          * create bookpage table
          * */
