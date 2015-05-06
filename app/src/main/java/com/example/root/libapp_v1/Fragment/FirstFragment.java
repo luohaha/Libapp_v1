@@ -78,9 +78,7 @@ public class FirstFragment extends FatherFragment {
      * init the radiobutton, and set check first tab
      * */
     private void initRadioButton(View view) {
-     /*   mAllButton = (RadioButton) view.findViewById(R.id.firstfragment_tab1);
-        mFriendButton = (RadioButton) view.findViewById(R.id.firstfragment_tab2);
-        mAllButton.setChecked(true);*/
+
     }
     /**
      * init the head bar

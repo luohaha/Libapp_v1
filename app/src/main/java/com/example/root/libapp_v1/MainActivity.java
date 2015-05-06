@@ -25,6 +25,7 @@ import com.beardedhen.androidbootstrap.FontAwesomeText;
 import com.example.root.libapp_v1.Fragment.FragmentFactory;
 import com.example.root.libapp_v1.HeadBar.HeadBar;
 import com.example.root.libapp_v1.SQLiteModule.DatabaseClient;
+import com.example.root.libapp_v1.SendBookActivity.SendBookActivity;
 import com.example.root.libapp_v1.UserLogin.LoginActivity;
 
 
@@ -133,14 +134,15 @@ public class MainActivity extends Activity implements OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.send_book :
-                Toast.makeText(this, "send books!", Toast.LENGTH_SHORT).show();
+                Intent sendBookIntent = new Intent(MainActivity.this, SendBookActivity.class);
+                startActivity(sendBookIntent);
                 break;
             case R.id.search_all :
                 Toast.makeText(this, "button push!", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.login_logout :
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intent);
+                Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(loginIntent);
                 break;
         }
     }

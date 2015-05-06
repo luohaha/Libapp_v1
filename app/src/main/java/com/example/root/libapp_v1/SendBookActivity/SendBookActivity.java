@@ -92,6 +92,15 @@ public class SendBookActivity extends Activity {
                     list.add(new BasicNameValuePair("author_info", mAuthorInfo.getText().toString()));
                     HttpTask httpTask = new HttpTask(list);
                     httpTask.execute();
+                } else {
+                    Dialog dialog = new AlertDialog.Builder(SendBookActivity.this).setTitle("失败:请完成图书信息")
+                            .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            }).create();
+                    dialog.show();
                 }
             }
         });

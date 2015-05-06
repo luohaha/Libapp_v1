@@ -28,6 +28,9 @@
         <activity android:name=".UserRegisterActivity.UserRegisterActivity">
 
         </activity>
+        <activity android:name=".SendBookActivity.SendBookActivity">
+
+        </activity>
         <provider
             android:authorities="com.example.root.libapp_v1.SQLiteModule.Personpage.PersonpageProvider"
             android:name=".SQLiteModule.Personpage.PersonpageProvider"
