@@ -2,6 +2,7 @@ package com.example.root.libapp_v1.Fragment;
 
 import android.content.ContentResolver;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.root.libapp_v1.HeadBar.HeadBar;
+import com.example.root.libapp_v1.MyUtil.DownLoadBitmap.AsyncBitmapLoader;
 import com.example.root.libapp_v1.R;
 import com.example.root.libapp_v1.SQLiteModule.Personpage.PersonpageModule;
 
@@ -49,6 +51,7 @@ public class FourFragment extends FatherFragment{
         initLayout(view);
 
         showDbData();
+        initImageView(view);
         return view;
     }
 
@@ -121,4 +124,20 @@ public class FourFragment extends FatherFragment{
         cursor.close();
     }
 
+    private void initImageView(View view) {
+        AsyncBitmapLoader asyncBitmapLoader = new AsyncBitmapLoader();
+        mPersonpageImg = (ImageView) view.findViewById(R.id.personpage_img);
+        String url = "http://demo.sc.chinaz.com/Files/pic/icons/2243/%E5%8D%A1%E9%80%9A%E4%BA%BA%E7%89%A9%E5%A4%B4%E5%83%8F%E5%9B%BE%E6%A0%87ddd%E4%B8%8B%E8%BD%BD22.png";
+        Bitmap bitmap = asyncBitmapLoader.loadBitmap(mPersonpageImg, url, new AsyncBitmapLoader.ImageCallBack() {
+            @Override
+            public void imageLoad(ImageView imageView, Bitmap bitmap) {
+                imageView.setImageBitmap(bitmap);
+            }
+        });
+        if (bitmap == null) {
+            mPersonpageImg.setImageResource(R.drawable.ic_launcher);
+        } else {
+            mPersonpageImg.setImageBitmap(bitmap);
+        }
+    }
  }
