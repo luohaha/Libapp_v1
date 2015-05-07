@@ -27,8 +27,6 @@ public class BookpageModule {
     }
 
     public void refreshDb() {
-        DatabaseClient databaseClient = new DatabaseClient(mContext);
-        databaseClient.clearBookPage();
         HttpTask httpTask = new HttpTask();
         httpTask.execute();
     }
@@ -40,9 +38,14 @@ public class BookpageModule {
 
         try {
             JSONObject jsonObject = DoGetAndPost.doGet(mGetUrl);
+            DatabaseClient databaseClient = new DatabaseClient(mContext);
             /**
-             * set the data which we get from http server
+             * if the return jsonObject is null, then don't clear the table
              * */
+            if (jsonObject != null) {
+                databaseClient.clearBookPage();
+            }
+
             JSONArray array = jsonObject.getJSONArray("books");
             return array;
         } catch (Exception e) {

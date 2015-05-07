@@ -22,6 +22,9 @@
         <activity android:name=".PersonBook.PersonBookActivity" >
 
         </activity>
+        <activity android:name=".PublicBookActivity.PublicBookActivity" >
+
+        </activity>
         <activity android:name=".WriteCommentActivity.WriteCommentActivity">
 
         </activity>

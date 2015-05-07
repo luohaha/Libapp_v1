@@ -3,12 +3,16 @@ package com.example.root.libapp_v1.SendBookActivity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
@@ -86,12 +90,35 @@ public class SendBookActivity extends Activity {
                     /**
                      * if books' info is not empty
                      * */
-                    List<NameValuePair> list = new ArrayList<NameValuePair>();
-                    list.add(new BasicNameValuePair("name", mName.getText().toString()));
-                    list.add(new BasicNameValuePair("detail_info" ,mDetailInfo.getText().toString()));
-                    list.add(new BasicNameValuePair("author_info", mAuthorInfo.getText().toString()));
-                    HttpTask httpTask = new HttpTask(list);
-                    httpTask.execute();
+                    String senderName = null;
+                    ContentResolver contentResolver = getContentResolver();
+                    Uri uri = Uri.parse("content://com.example.root.libapp_v1.SQLiteModule.Personpage.PersonpageProvider/personpage/1");
+                    Cursor cursor = contentResolver.query(uri, null, null, null, null);
+                    while (cursor.moveToNext()) {
+                        senderName = cursor.getString(cursor.getColumnIndex("name"));
+                    }
+                    /**
+                     * if the user not login, then it won't send book
+                     * */
+
+                    if (senderName.length() == 0) {
+                        Dialog dialog = new AlertDialog.Builder(SendBookActivity.this).setTitle("请先登陆!!!")
+                                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                }).create();
+                        dialog.show();
+                    } else {
+                        List<NameValuePair> list = new ArrayList<NameValuePair>();
+                        list.add(new BasicNameValuePair("name", mName.getText().toString()));
+                        list.add(new BasicNameValuePair("detail_info", mDetailInfo.getText().toString()));
+                        list.add(new BasicNameValuePair("author_info", mAuthorInfo.getText().toString()));
+                        list.add(new BasicNameValuePair("sender", senderName));
+                        HttpTask httpTask = new HttpTask(list);
+                        httpTask.execute();
+                    }
                 } else {
                     Dialog dialog = new AlertDialog.Builder(SendBookActivity.this).setTitle("失败:请完成图书信息")
                             .setPositiveButton("ok", new DialogInterface.OnClickListener() {

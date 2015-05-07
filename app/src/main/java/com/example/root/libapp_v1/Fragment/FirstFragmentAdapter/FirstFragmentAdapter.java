@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.root.libapp_v1.MyUtil.DownLoadBitmap.AsyncBitmapLoader;
 import com.example.root.libapp_v1.MyUtil.DownLoadBitmap.DownLoadBitmap;
 import com.example.root.libapp_v1.R;
 
@@ -26,11 +27,13 @@ public class FirstFragmentAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<HashMap<String, Object>> mList;
     private int mItemView;
+    private AsyncBitmapLoader mLoader;
 
     public FirstFragmentAdapter(Context mContext, ArrayList<HashMap<String, Object>> mList, int view) {
         this.mContext = mContext;
         this.mList = mList;
         this.mItemView = view;
+        this.mLoader = new AsyncBitmapLoader();
     }
 
     @Override
@@ -47,8 +50,23 @@ public class FirstFragmentAdapter extends BaseAdapter {
         } else {
             firstFragmentViewHolder = (FirstFragmentViewHolder) convertView.getTag();
         }
-        firstFragmentViewHolder.imageView.setImageBitmap(DownLoadBitmap.downloadBitmap((String)mList
-                .get(position).get("image")));
+        /**
+         * load bitmap
+         * */
+
+        Bitmap bitmap = mLoader.loadBitmap(firstFragmentViewHolder.imageView,
+                (String)mList.get(position).get("image"), new AsyncBitmapLoader.ImageCallBack() {
+                    @Override
+                    public void imageLoad(ImageView imageView, Bitmap bitmap) {
+                        imageView.setImageBitmap(bitmap);
+                    }
+                });
+        if (bitmap == null) {
+            firstFragmentViewHolder.imageView.setImageResource(R.drawable.ic_launcher);
+        } else {
+            firstFragmentViewHolder.imageView.setImageBitmap(bitmap);
+        }
+
         firstFragmentViewHolder.textView.setText((String) mList.get(position).get("text"));
 
         return convertView;
