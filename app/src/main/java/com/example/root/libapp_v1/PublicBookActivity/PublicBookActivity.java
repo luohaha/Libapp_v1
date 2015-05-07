@@ -1,12 +1,19 @@
 package com.example.root.libapp_v1.PublicBookActivity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -41,9 +48,15 @@ public class PublicBookActivity extends Activity {
     /**
      * define var
      */
-    HeadBar mHeadBar;
-    ArrayList<HashMap<String, Object>> mList;
-    ListView mListView;
+    private HeadBar mHeadBar;
+    private ArrayList<HashMap<String, Object>> mList;
+    private ListView mListView;
+    private TextView mTitle;
+    private TextView mOwner;
+    private TextView mSender;
+    private TextView mDetailInfo;
+    private TextView mAuthorInfo;
+    private TextView mCatalogInfo;
     /**
      * define the view pagerr
      */
@@ -72,7 +85,8 @@ public class PublicBookActivity extends Activity {
          * second step, put the first layout and list view both into viewpager
          * */
         initView();
-
+        getDataFromLocalDataBase();
+        mTitle.setText("qumina");
     }
     private void getBookName() {
         Intent intent = getIntent();
@@ -177,6 +191,7 @@ public class PublicBookActivity extends Activity {
      * inital the view pager
      */
     private void initView() {
+
         mViewPager = (ViewPager) findViewById(R.id.publicbook_viewpager);
         firstTab = (TextView) findViewById(R.id.publicbook_tab1_tv);
         secondTab = (TextView) findViewById(R.id.publicbook_tab2_tv);
@@ -197,6 +212,15 @@ public class PublicBookActivity extends Activity {
         firstTab.setOnClickListener(new MyClickListener(0));
         secondTab.setOnClickListener(new MyClickListener(1));
         mViewPager.setOnPageChangeListener(new MyOnPageChangeListener());
+
+        //LayoutInflater inflater = LayoutInflater.from(mInflater.inflate();
+        View view = inflater.inflate(R.layout.publicbook_tab1, null);
+        mTitle = (TextView) view.findViewById(R.id.publicbook_title);
+        mOwner = (TextView) view.findViewById(R.id.publicbook_owner);
+        mSender = (TextView) view.findViewById(R.id.publicbook_sender);
+        mDetailInfo = (TextView) view.findViewById(R.id.publicbook_book_intro);
+        mAuthorInfo = (TextView) view.findViewById(R.id.publicbook_writer_intro);
+        mCatalogInfo = (TextView) view.findViewById(R.id.publicbook_book_catalog);
     }
 
     /**
@@ -252,6 +276,31 @@ public class PublicBookActivity extends Activity {
      * get data from http and local database
      * */
     private void getDataFromLocalDataBase() {
-
+        ContentResolver contentResolver = getContentResolver();
+        Uri uri = Uri.parse("content://com.example.root.libapp_v1.SQLiteModule.Bookpage.BookpageProvider/bookpage");
+        String selection = "name=?";
+        String[] args = {new String(mBookName)};
+        Cursor cursor = contentResolver.query(uri, null, selection, args, null);
+        if (cursor != null) {
+            String s = "";
+            while (cursor.moveToNext()) {
+                s = cursor.getString(cursor.getColumnIndex("name"));
+                mHeadBar.setTitleText(cursor.getString(cursor.getColumnIndex("name")));
+                mDetailInfo.setText(cursor.getString(cursor.getColumnIndex("detail_info")));
+                mAuthorInfo.setText(cursor.getString(cursor.getColumnIndex("author_info")));
+                mCatalogInfo.setText(cursor.getString(cursor.getColumnIndex("catalog_info")));
+            }
+            //mTitle.setText(s);
+        } else {
+            Dialog dialog = new AlertDialog.Builder(this).setTitle("获取图书信息失败")
+                    .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).create();
+            dialog.show();
+        }
+        cursor.close();
     }
 }
