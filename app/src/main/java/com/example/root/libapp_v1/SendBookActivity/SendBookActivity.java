@@ -97,6 +97,7 @@ public class SendBookActivity extends Activity {
                     while (cursor.moveToNext()) {
                         senderName = cursor.getString(cursor.getColumnIndex("name"));
                     }
+                    cursor.close();
                     /**
                      * if the user not login, then it won't send book
                      * */

@@ -70,7 +70,7 @@
                         android:textSize="15sp"
                         android:textColor="@color/red" />
                     <TextView
-                        android:id="@+id/publicbook_process"
+                        android:id="@+id/publicbook_owner"
 
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -78,9 +78,40 @@
                         android:textSize="15sp"
                         android:typeface="serif"
                         android:textColor="@color/black"
-                        android:text="已完成50%"/>
+                        android:text="此书可以借阅"/>
 
                 </LinearLayout>
+                <ImageView
+                    android:layout_marginTop="20dip"
+                    android:layout_marginBottom="20dip"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/card_back"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dip"
+                    android:orientation="horizontal">
+                    <com.beardedhen.androidbootstrap.FontAwesomeText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dip"
+                        fontawesometext:fa_icon="fa-bookmark"
+                        android:textSize="15sp"
+                        android:textColor="@color/red" />
+                    <TextView
+                        android:id="@+id/publicbook_sender"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dip"
+                        android:textSize="15sp"
+                        android:typeface="serif"
+                        android:textColor="@color/black"
+                        android:text="null"/>
+
+                </LinearLayout>
+
             </LinearLayout>
         </LinearLayout>
         <LinearLayout

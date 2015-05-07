@@ -69,27 +69,28 @@ public class AsyncBitmapLoader {
          * */
         new Thread() {
             public void run() {
-                Bitmap httpBitmap = DownLoadBitmap.downloadBitmap(imageUrl);
-                imageCache.put(imageUrl, new SoftReference<Bitmap>(httpBitmap));
-                Message message = handler.obtainMessage(0, httpBitmap);
-                handler.sendMessage(message);
-
-                File dir = new File("/mnt/sdcard/feishu/");
-                if (!dir.exists()) {
-                    dir.mkdirs();
-                }
-
-                File bitmapFile = new File("/mnt/sdcard/feishu/"+imageUrl.substring(imageUrl.lastIndexOf("/")+1));
-                if (!bitmapFile.exists()) {
-                    try {
-                        bitmapFile.createNewFile();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                FileOutputStream fileOutputStream;
                 try {
+
+                    Bitmap httpBitmap = DownLoadBitmap.downloadBitmap(imageUrl);
+                    imageCache.put(imageUrl, new SoftReference<Bitmap>(httpBitmap));
+                    Message message = handler.obtainMessage(0, httpBitmap);
+                    handler.sendMessage(message);
+
+                    File dir = new File("/mnt/sdcard/feishu/");
+                    if (!dir.exists()) {
+                        dir.mkdirs();
+                    }
+
+                    File bitmapFile = new File("/mnt/sdcard/feishu/"+imageUrl.substring(imageUrl.lastIndexOf("/")+1));
+                    if (!bitmapFile.exists()) {
+                        try {
+                            bitmapFile.createNewFile();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    FileOutputStream fileOutputStream;
                     fileOutputStream = new FileOutputStream(bitmapFile);
                     httpBitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
                     fileOutputStream.close();

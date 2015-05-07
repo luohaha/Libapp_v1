@@ -1,9 +1,13 @@
 package com.example.root.libapp_v1.Fragment;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.LoaderManager;
 import android.content.ContentProvider;
 import android.content.ContentResolver;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
@@ -12,19 +16,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.example.root.libapp_v1.Fragment.FirstFragmentAdapter.FirstFragmentAdapter;
 import com.example.root.libapp_v1.HeadBar.HeadBar;
+import com.example.root.libapp_v1.PublicBookActivity.PublicBookActivity;
 import com.example.root.libapp_v1.R;
 import com.example.root.libapp_v1.SQLiteModule.Bookpage.BookpageModule;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+
 
 /**
  * author : Yixin Luo
@@ -114,7 +119,7 @@ public class FirstFragment extends FatherFragment {
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 HashMap<String, Object> map = new HashMap<String, Object>();
-                map.put("image", cursor.getString(cursor.getColumnIndex("img")));
+                map.put("image", "http://demo.sc.chinaz.com/Files/pic/icons/2243/%E5%8D%A1%E9%80%9A%E4%BA%BA%E7%89%A9%E5%A4%B4%E5%83%8F%E5%9B%BE%E6%A0%87ddd%E4%B8%8B%E8%BD%BD22.png");
                 map.put("text", cursor.getString(cursor.getColumnIndex("name")));
                 mList.add(map);
             }
@@ -123,6 +128,7 @@ public class FirstFragment extends FatherFragment {
              * */
             initGridView(view, mList);
         }
+        cursor.close();
     }
     /**
      * init the grid view and set adapter for it
@@ -132,11 +138,20 @@ public class FirstFragment extends FatherFragment {
                 /*
         * create a adapter
         * */
-
+        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView textView = (TextView)view.findViewById(R.id.firstfragment_textview);;
+                Intent intent = new Intent(getActivity(), PublicBookActivity.class);
+                intent.putExtra("bookname", textView.getText());
+                startActivity(intent);
+            }
+        });
         FirstFragmentAdapter simple = new FirstFragmentAdapter(getActivity(), mList,
                 R.layout.firstfragment_gridview_item);
         mGridView.setAdapter(simple);
 
     }
+
 
 }

@@ -91,6 +91,8 @@ public class BookpageModule {
                     contentValues.put("name", array.getJSONObject(i).getString("name"));
                     contentValues.put("detail_info", array.getJSONObject(i).getString("detail_info"));
                     contentValues.put("author_info", array.getJSONObject(i).getString("author_info"));
+                    contentValues.put("unique_id", array.getJSONObject(i).getString("id"));
+                    contentValues.put("catalog_info", array.getJSONObject(i).getString("catalog_info"));
                     Uri tmp = contentResolver.insert(uri, contentValues);
                     //Log.i("get book from http --> ", tmp.toString());
                 }
