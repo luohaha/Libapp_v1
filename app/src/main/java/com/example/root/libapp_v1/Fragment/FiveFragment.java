@@ -41,6 +41,7 @@ public class FiveFragment extends FatherFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         view = inflater.inflate(R.layout.fragment5, null);
+        setHeadBar();
         //the ids of books
         imageResIDs = new int[] {R.drawable.book8, R.drawable.book7,R.drawable.book6
                 ,R.drawable.book5, R.drawable.book4, R.drawable.book3, R.drawable.book2,
@@ -54,15 +55,6 @@ public class FiveFragment extends FatherFragment {
         return view;
     }
 
-    /**
-     * @param savedInstanceState
-     */
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // 生成动态数组，并且传入数据
-        setHeadBar();
-    }
     /**
      * set the head bar title
      * */

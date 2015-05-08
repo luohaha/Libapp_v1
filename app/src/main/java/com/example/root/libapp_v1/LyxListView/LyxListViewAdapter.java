@@ -3,6 +3,7 @@ package com.example.root.libapp_v1.LyxListView;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.example.root.libapp_v1.MyUtil.DownLoadBitmap.AsyncBitmapLoader;
 import com.example.root.libapp_v1.R;
 
 import java.util.*;
@@ -25,6 +27,7 @@ public class LyxListViewAdapter extends BaseAdapter {
     private LayoutInflater mLayoutInflater;
     private List<Map<String, Object>> mList;
     private Context mContext;
+    private AsyncBitmapLoader mLoader;
     /**
      * @param context the context, you know what it is
      * @param list the list of map which need to put into the adapter
@@ -33,6 +36,7 @@ public class LyxListViewAdapter extends BaseAdapter {
         this.mLayoutInflater = LayoutInflater.from(context);
         this.mList = list;
         this.mContext = context;
+        this.mLoader = new AsyncBitmapLoader();
     }
 
     /**
@@ -93,25 +97,22 @@ public class LyxListViewAdapter extends BaseAdapter {
             viewHolder = (ViewHolder)convertView.getTag();
         }
         //you also need to add here!
-        viewHolder.img.setBackgroundResource((Integer) mList.get(position).get("img"));
         viewHolder.title.setText((String) mList.get(position).get("title"));
         viewHolder.detal.setText((String) mList.get(position).get("detail"));
 
+        Bitmap bitmap = mLoader.loadBitmap(viewHolder.img, (String)mList.get(position).get("img"), new AsyncBitmapLoader.ImageCallBack(){
+            @Override
+            public void imageLoad(ImageView imageView, Bitmap bitmap) {
+                imageView.setImageBitmap(bitmap);
+            }
+        });
+        if (bitmap == null) {
+            viewHolder.img.setImageResource(R.drawable.ic_launcher);
+        } else {
+            viewHolder.img.setImageBitmap(bitmap);
+        }
         return convertView;
     }
 
-    /**
-     * when push the button more, it show a AlertDialog
-     *
-     * @param str it is the more information which need to show
-     */
-    private void showMore(String str) {
-        new AlertDialog.Builder(mContext).setTitle("详细信息").setMessage(str).
-                setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
 
-                    }
-                }).show();
-    }
 }

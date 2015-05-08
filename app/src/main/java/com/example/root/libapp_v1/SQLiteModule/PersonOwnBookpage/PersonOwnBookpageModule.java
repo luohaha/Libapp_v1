@@ -21,7 +21,7 @@ import org.json.JSONObject;
  * Created by Yixin on 15-5-8.
  */
 public class PersonOwnBookpageModule {
-    private String mUrl = "http://192.168.0.153/android/get_book?flag=owner";
+    private String mUrl = "http://192.168.0.153/android/get_book.php?flag=owner";
     private Context mContext;
     private String mOwner;
 
@@ -38,38 +38,27 @@ public class PersonOwnBookpageModule {
      * refresh the data by getting from http
      * */
     private JSONArray getDataFromHttp() {
-
         try {
-            DatabaseClient databaseClient = new DatabaseClient(mContext);
-            /**
-             * get the person name from table personpage
-             * */
-            String[] args = new String[] {"1"};
-            Cursor cursor = databaseClient.queryData("personpage", "id=?", args);
-            if (!cursor.moveToFirst()) {
-                mOwner = null;
-                Dialog dialog = new AlertDialog.Builder(mContext).setTitle("失败")
-                        .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        }).create();
-                dialog.show();
-            } else {
-                while (cursor.moveToNext()) {
-                    mOwner = cursor.getString(cursor.getColumnIndex("name"));
-                }
+            ContentResolver contentResolver = mContext.getContentResolver();
+            Uri uri = Uri.parse("content://com.example.root.libapp_v1.SQLiteModule.Personpage.PersonpageProvider/personpage/1");
+            Cursor cursor = contentResolver.query(uri, null, null, null, null);
+            String owner = "";
+            while (cursor.moveToNext()) {
+                owner = cursor.getString(cursor.getColumnIndex("name"));
             }
-            JSONObject jsonObject = DoGetAndPost.doGet(mUrl+"&param="+mOwner);
+            cursor.close();
+            JSONArray array = null;
+            JSONObject object = null;
+            DatabaseClient databaseClient = new DatabaseClient(mContext);
+            object = DoGetAndPost.doGet(mUrl+"&param="+owner);
             /**
              * if the return jsonObject is null, then don't clear the table
              * */
-            if (jsonObject != null) {
+            if (object != null) {
                 databaseClient.clearPersonOwnBookPage();
             }
 
-            JSONArray array = jsonObject.getJSONArray("book");
+            array = object.getJSONArray("book");
             return array;
         } catch (Exception e) {
             e.printStackTrace();

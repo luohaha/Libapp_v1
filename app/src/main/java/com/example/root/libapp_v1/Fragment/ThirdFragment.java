@@ -1,7 +1,9 @@
 package com.example.root.libapp_v1.Fragment;
 
-import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -23,7 +25,7 @@ import java.util.*;
  * author : Yixin Luo
  * date : 2015-3-26
  *  the fifth fragment of main activity
- *  ps, I like that girl
+ *  10.110
  *  阅览室
  */
 public class ThirdFragment extends FatherFragment implements IReflashListener {
@@ -93,6 +95,7 @@ public class ThirdFragment extends FatherFragment implements IReflashListener {
     private void setHeadBar() {
         headBar = (HeadBar)this.getActivity().findViewById(R.id.head_bar);
         headBar.setTitleText("阅览室");
+
         headBar.setRightSecondButtonListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,19 +110,27 @@ public class ThirdFragment extends FatherFragment implements IReflashListener {
      *
      */
     private void setData() {
-        mapList = new ArrayList<Map<String, Object>>(8);
-        Map<String, Object> map;
-        String t = "NO.";
-        String d = "You will like ";
-        String im = "this is a great book!!";
-        for (int i = 0; i < 8; i++) {
-            map = new HashMap<String, Object>();
-            map.put("title", t+Integer.toString(i+1));
-            map.put("detail", d+t+Integer.toString(i+1));
-            map.put("img", mBooks[i]);
-            map.put("information", im);
-            mapList.add(map);
+        mapList = new ArrayList<Map<String, Object>>();
+        ContentResolver contentResolver = getActivity().getContentResolver();
+        Uri uri = Uri.parse("content://com.example.root.libapp_v1.SQLiteModule.PersonOwnBookpage.PersonOwnBookpageProvider/personownbookpage");
+        Cursor cursor = contentResolver.query(uri, null, null, null, null);
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("title", cursor.getString(cursor.getColumnIndex("name")));
+                String detail = cursor.getString(cursor.getColumnIndex("detail_info"));
+                /**
+                 * if the detail info is more than 20, then split it
+                 * */
+                if (detail.length() > 20) {
+                    detail = detail.substring(0, 19);
+                }
+                map.put("detail", "简介 : "+detail+".....");
+                map.put("img", "http://demo.sc.chinaz.com/Files/pic/icons/2243/%E5%8D%A1%E9%80%9A%E4%BA%BA%E7%89%A9%E5%A4%B4%E5%83%8F%E5%9B%BE%E6%A0%87ddd%E4%B8%8B%E8%BD%BD22.png");
+                mapList.add(map);
+            }
         }
+        cursor.close();
     }
 
     /**
@@ -135,18 +146,6 @@ public class ThirdFragment extends FatherFragment implements IReflashListener {
         mapList.add(0, map);
     }
 
-    /**
-     * reload the new data into mList,
-     * just a test
-     */
-    private void setLoadData() {
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("title", "the new gay");
-        map.put("detail", "heyheyhey");
-        map.put("img", mBooks[2]);
-        map.put("informaion", "it sucks");
-        mapList.add(map);
-    }
     /**
      * finish the interface function onReflash()
      * */

@@ -32,7 +32,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dip"
+                    android:padding="2dip"
                     android:orientation="horizontal">
                     <com.beardedhen.androidbootstrap.FontAwesomeText
                         android:layout_width="wrap_content"
@@ -53,15 +53,14 @@
 
                 </LinearLayout>
                 <ImageView
-                    android:layout_marginTop="2dip"
-                    android:layout_marginBottom="2dip"
+
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:background="@color/card_back"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dip"
+                    android:padding="2dip"
                     android:orientation="horizontal">
                     <com.beardedhen.androidbootstrap.FontAwesomeText
                         android:layout_width="wrap_content"
@@ -94,15 +93,13 @@
 
                 </LinearLayout>
                 <ImageView
-                    android:layout_marginTop="2dip"
-                    android:layout_marginBottom="2dip"
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:background="@color/card_back"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dip"
+                    android:padding="2dip"
                     android:orientation="horizontal">
                     <com.beardedhen.androidbootstrap.FontAwesomeText
                         android:layout_width="wrap_content"

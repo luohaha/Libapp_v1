@@ -398,10 +398,10 @@ public class PublicBookActivity extends Activity {
                 } else {
                     mOwner.setVisibility(View.VISIBLE);
                     mBecomeOwner.setVisibility(View.GONE);
-                    mOwner.setText(owner);
+                    mOwner.setText("持有人:"+owner);
 
                 }
-                mSender.setText("发书人 : " + sender);
+                mSender.setText("发书人:" + sender);
 
             } catch (Exception e) {
                 e.printStackTrace();
