@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -11,6 +12,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -20,6 +22,7 @@ import android.view.View;
 import android.view.ViewParent;
 import android.view.animation.Animation;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -28,9 +31,14 @@ import android.widget.Toast;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.example.root.libapp_v1.HeadBar.HeadBar;
+import com.example.root.libapp_v1.HttpModule.DoGetAndPost;
 import com.example.root.libapp_v1.PersonBook.PersonBookCommentListView.CommentListviewAdapter;
 import com.example.root.libapp_v1.R;
+import com.example.root.libapp_v1.SQLiteModule.DatabaseClient;
 import com.example.root.libapp_v1.WriteCommentActivity.WriteCommentActivity;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -57,6 +65,8 @@ public class PublicBookActivity extends Activity {
     private TextView mDetailInfo;
     private TextView mAuthorInfo;
     private TextView mCatalogInfo;
+
+    private BootstrapButton mBecomeOwner;
     /**
      * define the view pagerr
      */
@@ -69,7 +79,12 @@ public class PublicBookActivity extends Activity {
      * this page's book name
      * */
     private String mBookName;
-
+    private String mPersonWantToBecomeOwner;
+    private String mUniqueId;
+    /**
+     * the url which we can get owner and sender
+     * */
+    private String mUrl = "http://192.168.0.153/android/get_book.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +101,7 @@ public class PublicBookActivity extends Activity {
          * */
         initView();
         getDataFromLocalDataBase();
-        mTitle.setText("qumina");
+        getOwner();
     }
     private void getBookName() {
         Intent intent = getIntent();
@@ -197,7 +212,16 @@ public class PublicBookActivity extends Activity {
         secondTab = (TextView) findViewById(R.id.publicbook_tab2_tv);
         mViewList = new ArrayList<View>();
         LayoutInflater mInflater = getLayoutInflater();
-        mViewList.add(mInflater.inflate(R.layout.publicbook_tab1, null));
+        View view = mInflater.inflate(R.layout.publicbook_tab1, null);
+
+        mTitle = (TextView) view.findViewById(R.id.publicbook_title);
+        mOwner = (TextView) view.findViewById(R.id.publicbook_owner);
+        mSender = (TextView) view.findViewById(R.id.publicbook_sender);
+        mDetailInfo = (TextView) view.findViewById(R.id.publicbook_book_intro);
+        mAuthorInfo = (TextView) view.findViewById(R.id.publicbook_writer_intro);
+        mCatalogInfo = (TextView) view.findViewById(R.id.publicbook_book_catalog);
+        mBecomeOwner = (BootstrapButton) view.findViewById(R.id.publicbook_become_owner);
+        mViewList.add(view);
         /**
          * notice : can not add R.layout.personbook_tab2 into mViewList,
          *          you must add listview into it.
@@ -213,14 +237,6 @@ public class PublicBookActivity extends Activity {
         secondTab.setOnClickListener(new MyClickListener(1));
         mViewPager.setOnPageChangeListener(new MyOnPageChangeListener());
 
-        //LayoutInflater inflater = LayoutInflater.from(mInflater.inflate();
-        View view = inflater.inflate(R.layout.publicbook_tab1, null);
-        mTitle = (TextView) view.findViewById(R.id.publicbook_title);
-        mOwner = (TextView) view.findViewById(R.id.publicbook_owner);
-        mSender = (TextView) view.findViewById(R.id.publicbook_sender);
-        mDetailInfo = (TextView) view.findViewById(R.id.publicbook_book_intro);
-        mAuthorInfo = (TextView) view.findViewById(R.id.publicbook_writer_intro);
-        mCatalogInfo = (TextView) view.findViewById(R.id.publicbook_book_catalog);
     }
 
     /**
@@ -282,13 +298,12 @@ public class PublicBookActivity extends Activity {
         String[] args = {new String(mBookName)};
         Cursor cursor = contentResolver.query(uri, null, selection, args, null);
         if (cursor != null) {
-            String s = "";
             while (cursor.moveToNext()) {
-                s = cursor.getString(cursor.getColumnIndex("name"));
-                mHeadBar.setTitleText(cursor.getString(cursor.getColumnIndex("name")));
+                mTitle.setText(cursor.getString(cursor.getColumnIndex("name")));
                 mDetailInfo.setText(cursor.getString(cursor.getColumnIndex("detail_info")));
                 mAuthorInfo.setText(cursor.getString(cursor.getColumnIndex("author_info")));
                 mCatalogInfo.setText(cursor.getString(cursor.getColumnIndex("catalog_info")));
+                mUniqueId = cursor.getString(cursor.getColumnIndex("unique_id"));
             }
             //mTitle.setText(s);
         } else {
@@ -301,6 +316,100 @@ public class PublicBookActivity extends Activity {
                     }).create();
             dialog.show();
         }
+        uri = Uri.parse("content://com.example.root.libapp_v1.SQLiteModule.Personpage.PersonpageProvider/personpage/1");
+        cursor = contentResolver.query(uri, null, null, null, null);
+        while (cursor.moveToNext()) {
+            mPersonWantToBecomeOwner = cursor.getString(cursor.getColumnIndex("name"));
+        }
         cursor.close();
+    }
+
+    /**
+     * get owner from http
+     * */
+    private void getOwner() {
+        HttpTask httpTask = new HttpTask();
+        httpTask.execute();
+    }
+
+    /**
+     * refresh the data by getting from http
+     * */
+    private JSONObject getDataFromHttp() {
+
+        try {
+            JSONObject jsonObject = DoGetAndPost.doGet(mUrl+"?flag=name"+"&param="+mTitle.getText());
+
+            return jsonObject;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * clss HttpTask : which using AsyncTask to open a new thread to download data in back.
+     */
+    private class HttpTask extends AsyncTask<String, Integer, JSONObject> {
+        private HttpTask() {
+        }
+
+        @Override
+        protected JSONObject doInBackground(String... params) {
+            try {
+                JSONObject jsonObject = getDataFromHttp();
+                /**
+                 * using publicProgress() to update progress bar's status
+                 * */
+                // publishProgress(100);
+                return jsonObject;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject object) {
+            try {
+                JSONArray array = object.getJSONArray("book");
+                String owner = "";
+                String sender = "";
+                for (int i = 0; i < array.length(); i++) {
+                    owner = array.getJSONObject(i).getString("owner");
+                    sender = array.getJSONObject(i).getString("sender");
+                }
+                if (owner == null || owner.length() == 0 || owner == "null") {
+                    mOwner.setVisibility(View.GONE);
+                    mBecomeOwner.setVisibility(View.VISIBLE);
+                    mBecomeOwner.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //Log.i("we get ------------->>>>>", mUniqueId+"  "+mPersonWantToBecomeOwner);
+                            UpdateOwner updateOwner = new UpdateOwner(mUniqueId, mPersonWantToBecomeOwner, PublicBookActivity.this);
+                            updateOwner.start();
+                        }
+                    });
+                } else {
+                    mOwner.setVisibility(View.VISIBLE);
+                    mBecomeOwner.setVisibility(View.GONE);
+                    mOwner.setText(owner);
+
+                }
+                mSender.setText("发书人 : " + sender);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+        }
     }
 }

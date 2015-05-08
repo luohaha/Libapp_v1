@@ -35,6 +35,7 @@ public class SendBookActivity extends Activity {
     private BootstrapEditText mName;
     private BootstrapEditText mDetailInfo;
     private BootstrapEditText mAuthorInfo;
+    private BootstrapEditText mCatalogInfo;
     private BootstrapButton mSubmitButton;
     private BootstrapButton mClearButton;
 
@@ -65,6 +66,7 @@ public class SendBookActivity extends Activity {
         mName = (BootstrapEditText) findViewById(R.id.sendbook_name);
         mDetailInfo = (BootstrapEditText) findViewById(R.id.sendbook_detail_info);
         mAuthorInfo = (BootstrapEditText) findViewById(R.id.sendbook_author_info);
+        mCatalogInfo = (BootstrapEditText) findViewById(R.id.sendbook_catalog_info);
     }
 
     private void initButtons() {
@@ -116,6 +118,7 @@ public class SendBookActivity extends Activity {
                         list.add(new BasicNameValuePair("name", mName.getText().toString()));
                         list.add(new BasicNameValuePair("detail_info", mDetailInfo.getText().toString()));
                         list.add(new BasicNameValuePair("author_info", mAuthorInfo.getText().toString()));
+                        list.add(new BasicNameValuePair("catalog_info", mCatalogInfo.getText().toString()));
                         list.add(new BasicNameValuePair("sender", senderName));
                         HttpTask httpTask = new HttpTask(list);
                         httpTask.execute();

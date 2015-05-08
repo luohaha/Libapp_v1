@@ -52,7 +52,7 @@ public class PersonBookActivity extends Activity implements View.OnClickListener
     private TextView firstTab, secondTab;
     private PopupWindow popupwindow;
     private View mPopView;
-
+    private TextView mTitle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -163,12 +163,14 @@ public class PersonBookActivity extends Activity implements View.OnClickListener
      * inital the view pager
      */
     private void initView() {
+
         mViewPager = (ViewPager) findViewById(R.id.personbook_viewpager);
         firstTab = (TextView) findViewById(R.id.personbook_tab1_tv);
         secondTab = (TextView) findViewById(R.id.personbook_tab2_tv);
         mViewList = new ArrayList<View>();
         LayoutInflater mInflater = getLayoutInflater();
-        mViewList.add(mInflater.inflate(R.layout.personbook_tab1, null));
+        View view = mInflater.inflate(R.layout.personbook_tab1, null);
+        mViewList.add(view);
         /**
          * notice : can not add R.layout.personbook_tab2 into mViewList,
          *          you must add listview into it.

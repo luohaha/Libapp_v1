@@ -152,7 +152,7 @@ public class ThirdFragment extends FatherFragment implements IReflashListener {
             public void run() {
                 // TODO Auto-generated method stub
                 //获取最新数据
-                setRefreshData();
+              //  setRefreshData();
                 //通知界面显示
                 showList();
                 //通知listview 刷新数据完毕；
@@ -166,6 +166,7 @@ public class ThirdFragment extends FatherFragment implements IReflashListener {
      */
     @Override
     public void onLoad() {
+
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
 
@@ -173,7 +174,7 @@ public class ThirdFragment extends FatherFragment implements IReflashListener {
             public void run() {
                 // TODO Auto-generated method stub
                 //获取最新数据
-                setLoadData();
+            //    setLoadData();
                 //通知界面显示
                 showList();
                 //通知listview 刷新数据完毕；

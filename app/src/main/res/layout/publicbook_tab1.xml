@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    xmlns:bootstrap="http://schemas.android.com/apk/res-auto"
     >
     <LinearLayout
         android:layout_width="match_parent"
@@ -79,6 +80,17 @@
                         android:typeface="serif"
                         android:textColor="@color/black"
                         android:text="此书可以借阅"/>
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/publicbook_become_owner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp"
+                        android:text="完成"
+                        bootstrap:bb_icon_left="fa-upload"
+                        bootstrap:bb_type="default"
+                        bootstrap:bb_size="small"
+                        android:visibility="gone"
+                        />
 
                 </LinearLayout>
                 <ImageView
