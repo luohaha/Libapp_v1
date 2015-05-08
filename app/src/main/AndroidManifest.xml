@@ -42,6 +42,10 @@
             android:authorities="com.example.root.libapp_v1.SQLiteModule.Bookpage.BookpageProvider"
             android:name=".SQLiteModule.Bookpage.BookpageProvider"
             />
+        <provider
+            android:authorities="com.example.root.libapp_v1.SQLiteModule.PersonOwnBookpage.PersonOwnBookpageProvider"
+            android:name=".SQLiteModule.PersonOwnBookpage.PersonOwnBookpageProvider"
+            />
     </application>
     <!--  Internet Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
