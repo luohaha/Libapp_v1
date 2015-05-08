@@ -15,6 +15,7 @@ import com.example.root.libapp_v1.PullRefreshListView.FreshListView;
 import com.example.root.libapp_v1.PullRefreshListView.FreshListView.IReflashListener;
 import com.example.root.libapp_v1.LyxListView.LyxListViewAdapter;
 import com.example.root.libapp_v1.R;
+import com.example.root.libapp_v1.SQLiteModule.PersonOwnBookpage.PersonOwnBookpageModule;
 
 import java.util.*;
 
@@ -92,7 +93,13 @@ public class ThirdFragment extends FatherFragment implements IReflashListener {
     private void setHeadBar() {
         headBar = (HeadBar)this.getActivity().findViewById(R.id.head_bar);
         headBar.setTitleText("阅览室");
-
+        headBar.setRightSecondButtonListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PersonOwnBookpageModule personOwnBookpageModule = new PersonOwnBookpageModule(getActivity());
+                personOwnBookpageModule.refreshDb();
+            }
+        });
     }
 
     /**
