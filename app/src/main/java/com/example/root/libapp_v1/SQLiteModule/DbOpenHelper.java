@@ -56,6 +56,12 @@ public class DbOpenHelper extends SQLiteOpenHelper {
                 " unique_id varchar(64), img varchar(64), detail_info varchar(512), short_detail varchar(64)," +
                 "author_info varchar(512), catalog_info varchar(512))";
         db.execSQL(sql);
+        /**
+         *  create personcommentpage
+         * */
+        sql = "create table personcommentpage(id integer primary key autoincrement, personname varchar(64)," +
+                " bookname varchar(64), title varchar(64), detail varchar(512), date varchar(64))";
+        db.execSQL(sql);
     }
 
     @Override

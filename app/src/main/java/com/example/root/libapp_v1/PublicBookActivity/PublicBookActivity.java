@@ -401,6 +401,10 @@ public class PublicBookActivity extends Activity {
                                         }
                                     }).create();
                             dialog.show();
+                            /**
+                             * refresh the view
+                             * */
+                            getOwner();
                         }
                     });
                 } else {

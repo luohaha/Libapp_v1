@@ -43,19 +43,31 @@ public class FourFragment extends FatherFragment{
     private TextView mPersonpageBooksNumber;//the number of books which person own
     private TextView mPersonpageRecordNumber;//the number of person records
 
+    private View mView;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View view = inflater.inflate(R.layout.fragment4, null);
-        initIds(view);
+        mView = inflater.inflate(R.layout.fragment4, null);
+        initIds(mView);
         initHeadBar();
-        initLayout(view);
+        initLayout(mView);
 
         showDbData();
-        initImageView(view);
-        return view;
+        initImageView(mView);
+        return mView;
     }
 
-     /**
+    /**
+     * the the fragment show again, and this function will be call
+     */
+    @Override
+    public void onResume() {
+        super.onResume();
+        showDbData();
+        initImageView(mView);
+    }
+
+    /**
      * init the head bar
      * */
     private void initHeadBar() {

@@ -15,6 +15,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
@@ -105,7 +106,7 @@ public class DoGetAndPost {
             /**
              *  an arraylist to contain NameValuePair
              * */
-            UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(param);
+            UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(param, HTTP.UTF_8);
             request.setEntity(formEntity);
             HttpResponse response = httpClient.execute(request);
             /**
