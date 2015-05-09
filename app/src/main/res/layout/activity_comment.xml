@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/card_back">
+    <com.example.root.libapp_v1.HeadBar.HeadBar
+        android:id="@+id/personbook_comment_activity_head_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.example.root.libapp_v1.HeadBar.HeadBar>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:id="@+id/personbook_comment_activity_title"
+        android:layout_marginTop="10dip"
+        android:typeface="monospace"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:text="haha"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/card_back"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginTop="10dip"
+        android:typeface="serif"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:text="hahahhahahahhaha"
+        android:id="@+id/personbook_comment_activity_detail"
+        android:padding="10dip"
+        />
+
+</LinearLayout>

@@ -32,6 +32,7 @@ import com.example.root.libapp_v1.PersonBook.PersonBookCommentListView.CommentLi
 import com.example.root.libapp_v1.PublicBookActivity.UpdateOwner;
 import com.example.root.libapp_v1.PullRefreshListView.FreshListView;
 import com.example.root.libapp_v1.R;
+import com.example.root.libapp_v1.WriteCommentActivity.CommentActivity;
 import com.example.root.libapp_v1.WriteCommentActivity.WriteCommentActivity;
 
 import java.text.DateFormat;
@@ -103,6 +104,15 @@ public class PersonBookActivity extends Activity implements FreshListView.IRefla
         LayoutInflater mInflater = getLayoutInflater();
         View mView = mInflater.inflate(R.layout.personbook_tab2, null);
         mListView = (FreshListView) mView.findViewById(R.id.personbook_listview);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView textView = (TextView) view.findViewById(R.id.personbook_comment_time);
+                Intent intent = new Intent(PersonBookActivity.this, CommentActivity.class);
+                intent.putExtra("date", textView.getText().toString());
+                startActivity(intent);
+            }
+        });
         showListview();
     }
     /**
@@ -360,4 +370,5 @@ public class PersonBookActivity extends Activity implements FreshListView.IRefla
     public void onLoad() {
         mListView.loadComplete();
     }
+
 }
