@@ -19,6 +19,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Yixin on 15-4-25.
@@ -35,7 +37,14 @@ public class FirstFragmentAdapter extends BaseAdapter {
         this.mItemView = view;
         this.mLoader = new AsyncBitmapLoader();
     }
-
+    /**
+     * change the date when need it
+     * @param list
+     */
+    public void onDataChange(ArrayList<HashMap<String, Object>> list) {
+        this.mList = list;
+        this.notifyDataSetChanged();
+    }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         FirstFragmentViewHolder firstFragmentViewHolder = null;

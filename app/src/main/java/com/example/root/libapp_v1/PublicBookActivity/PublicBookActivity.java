@@ -393,6 +393,14 @@ public class PublicBookActivity extends Activity {
                             //Log.i("we get ------------->>>>>", mUniqueId+"  "+mPersonWantToBecomeOwner);
                             UpdateOwner updateOwner = new UpdateOwner(mUniqueId, mPersonWantToBecomeOwner, PublicBookActivity.this);
                             updateOwner.start();
+                            Dialog dialog = new AlertDialog.Builder(PublicBookActivity.this).setTitle("订书成功")
+                                    .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    }).create();
+                            dialog.show();
                         }
                     });
                 } else {

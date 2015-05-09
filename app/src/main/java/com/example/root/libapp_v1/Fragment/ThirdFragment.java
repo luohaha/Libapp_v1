@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.TextView;
 
 import com.example.root.libapp_v1.HeadBar.HeadBar;
 import com.example.root.libapp_v1.PersonBook.PersonBookActivity;
@@ -84,7 +85,9 @@ public class ThirdFragment extends FatherFragment implements IReflashListener {
                  * ListView listView = (ListView)parent;
                  * HashMap<String, String> map = (HashMap<String, String>) listView.getItemAtPosition(position);
                  * */
+                TextView textView = (TextView) view.findViewById(R.id.lyx_lv_title);
                 Intent intent = new Intent(getActivity(), PersonBookActivity.class);
+                intent.putExtra("name", textView.getText());
                 startActivity(intent);
              }
         });
@@ -99,8 +102,8 @@ public class ThirdFragment extends FatherFragment implements IReflashListener {
         headBar.setRightSecondButtonListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PersonOwnBookpageModule personOwnBookpageModule = new PersonOwnBookpageModule(getActivity());
-                personOwnBookpageModule.refreshDb();
+//                PersonOwnBookpageModule personOwnBookpageModule = new PersonOwnBookpageModule(getActivity());
+//                personOwnBookpageModule.refreshDb();
             }
         });
     }
@@ -110,6 +113,8 @@ public class ThirdFragment extends FatherFragment implements IReflashListener {
      *
      */
     private void setData() {
+        PersonOwnBookpageModule personOwnBookpageModule = new PersonOwnBookpageModule(getActivity());
+        personOwnBookpageModule.refreshDb();
         mapList = new ArrayList<Map<String, Object>>();
         ContentResolver contentResolver = getActivity().getContentResolver();
         Uri uri = Uri.parse("content://com.example.root.libapp_v1.SQLiteModule.PersonOwnBookpage.PersonOwnBookpageProvider/personownbookpage");
@@ -159,20 +164,22 @@ public class ThirdFragment extends FatherFragment implements IReflashListener {
                 // TODO Auto-generated method stub
                 //获取最新数据
               //  setRefreshData();
+                setData();
                 //通知界面显示
                 showList();
                 //通知listview 刷新数据完毕；
                 mListView.reflashComplete();
             }
-        }, 2000);
+        }, 2);
     }
 
     /**
      * finish the interface function onLoad()
      */
+
     @Override
     public void onLoad() {
-
+/*
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
 
@@ -186,7 +193,8 @@ public class ThirdFragment extends FatherFragment implements IReflashListener {
                 //通知listview 刷新数据完毕；
                 mListView.loadComplete();
             }
-        }, 2000);
+        }, 2000);*/
+        mListView.loadComplete();
     }
 
 }

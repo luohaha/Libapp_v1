@@ -76,14 +76,7 @@ public class UpdateOwner {
         @Override
         protected void onPostExecute(JSONObject object) {
             try {
-                Dialog dialog = new AlertDialog.Builder(mContext).setTitle("订书成功")
-                        .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        }).create();
-                dialog.show();
+
 
             } catch (Exception e) {
                 e.printStackTrace();

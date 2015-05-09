@@ -1,10 +1,16 @@
 package com.example.root.libapp_v1.PersonBook;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -22,6 +28,7 @@ import android.widget.Toast;
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.example.root.libapp_v1.HeadBar.HeadBar;
 import com.example.root.libapp_v1.PersonBook.PersonBookCommentListView.CommentListviewAdapter;
+import com.example.root.libapp_v1.PublicBookActivity.UpdateOwner;
 import com.example.root.libapp_v1.R;
 import com.example.root.libapp_v1.WriteCommentActivity.WriteCommentActivity;
 
@@ -44,6 +51,10 @@ public class PersonBookActivity extends Activity implements View.OnClickListener
     HeadBar mHeadBar;
     ArrayList<HashMap<String, Object>> mList;
     ListView mListView;
+    private TextView mTitle;
+    private TextView mDetailInfo;
+    private TextView mAuthorInfo;
+    private TextView mCatalogInfo;
     /**
      * define the view pagerr
      */
@@ -52,11 +63,13 @@ public class PersonBookActivity extends Activity implements View.OnClickListener
     private TextView firstTab, secondTab;
     private PopupWindow popupwindow;
     private View mPopView;
-    private TextView mTitle;
+    private String mBookName;
+    private String mBookId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personbook);
+        getBookName();
         setHeadBar();
         /**
          * first step, finish init listview data
@@ -67,9 +80,15 @@ public class PersonBookActivity extends Activity implements View.OnClickListener
          * second step, put the first layout and list view both into viewpager
          * */
         initView();
-
+        getDataFromLocalDataBase();
     }
-
+    /**
+     * get book's name
+     * */
+    private void getBookName() {
+        Intent intent = getIntent();
+        mBookName = (String) intent.getStringExtra("name");
+    }
     /**
      * initial the listview
      */
@@ -135,7 +154,16 @@ public class PersonBookActivity extends Activity implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.personbook_send_book :
-                Toast.makeText(this, "send books!", Toast.LENGTH_SHORT).show();
+                UpdateOwner updateOwner = new UpdateOwner(mBookId, "", this);
+                updateOwner.start();
+                Dialog dialog = new AlertDialog.Builder(this).setTitle("发书成功")
+                        .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).create();
+                dialog.show();
                 break;
             case R.id.personbook_write_comment :
                 Intent intent = new Intent(PersonBookActivity.this, WriteCommentActivity.class);
@@ -170,6 +198,13 @@ public class PersonBookActivity extends Activity implements View.OnClickListener
         mViewList = new ArrayList<View>();
         LayoutInflater mInflater = getLayoutInflater();
         View view = mInflater.inflate(R.layout.personbook_tab1, null);
+        /**
+         * init compenont in view
+         * */
+        mTitle = (TextView) view.findViewById(R.id.personbook_title);
+        mDetailInfo = (TextView) view.findViewById(R.id.personbook_book_intro);
+        mAuthorInfo = (TextView) view.findViewById(R.id.personbook_writer_intro);
+        mCatalogInfo = (TextView) view.findViewById(R.id.personbook_book_catalog);
         mViewList.add(view);
         /**
          * notice : can not add R.layout.personbook_tab2 into mViewList,
@@ -235,5 +270,33 @@ public class PersonBookActivity extends Activity implements View.OnClickListener
 
         @Override
         public void onPageScrolled(int arg0, float arg1, int arg2) {}
+    }
+    /**
+     * get book's detail from local database
+     * */
+    private void getDataFromLocalDataBase() {
+        ContentResolver contentResolver = getContentResolver();
+        Uri uri = Uri.parse("content://com.example.root.libapp_v1.SQLiteModule.PersonOwnBookpage.PersonOwnBookpageProvider/personownbookpage");
+        String selection = "name=?";
+        String[] args = {mBookName};
+        Cursor cursor = contentResolver.query(uri, null, selection, args, null);
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                mTitle.setText(cursor.getString(cursor.getColumnIndex("name")));
+                mDetailInfo.setText(cursor.getString(cursor.getColumnIndex("detail_info")));
+                mAuthorInfo.setText(cursor.getString(cursor.getColumnIndex("author_info")));
+                mCatalogInfo.setText(cursor.getString(cursor.getColumnIndex("catalog_info")));
+                mBookId = cursor.getString(cursor.getColumnIndex("unique_id"));
+            }
+        } else {
+            Dialog dialog = new AlertDialog.Builder(this).setTitle("获取图书信息失败")
+                    .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).create();
+            dialog.show();
+        }
     }
 }

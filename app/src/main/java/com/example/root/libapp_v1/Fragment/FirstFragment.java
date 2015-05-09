@@ -53,6 +53,7 @@ public class FirstFragment extends FatherFragment {
             R.drawable.book4, R.drawable.book5, R.drawable.book6,
             R.drawable.book7, R.drawable.book8};
 
+    private FirstFragmentAdapter mAdapter;
     /**
      * @param inflater :
      * @param container : view container
@@ -64,10 +65,13 @@ public class FirstFragment extends FatherFragment {
         //create a view for fragment1
         View view = inflater.inflate(R.layout.fragment1, null);
         //find the things we want to show in view
+        initWhenRefresh(view);
+        return view;
+    }
+    private void initWhenRefresh(View view) {
         initRadioButton(view);
         initHeadBar(view);
         initData(view);
-        return view;
     }
 
     /**
@@ -91,14 +95,26 @@ public class FirstFragment extends FatherFragment {
     private void initHeadBar(View view) {
         headBar = (HeadBar)this.getActivity().findViewById(R.id.head_bar);
         headBar.setTitleText("飞书馆");
-        headBar.setRightSecondButtonListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BookpageModule bookpageModule = new BookpageModule(getActivity());
-                bookpageModule.refreshDb();
-            }
-        });
+        headBar.setRightSecondButtonListener(new MyOnClickListener(view));
     }
+
+    /**
+     * self define a listener
+     * */
+    private class MyOnClickListener implements View.OnClickListener {
+        private View view;
+        public MyOnClickListener(View v) {
+            this.view = v;
+        }
+
+        @Override
+        public void onClick(View v) {
+            BookpageModule bookpageModule = new BookpageModule(getActivity());
+            bookpageModule.refreshDb();
+            initData(this.view);
+        }
+    }
+
     /**
      * init the test data
      * */
@@ -147,10 +163,14 @@ public class FirstFragment extends FatherFragment {
                 startActivity(intent);
             }
         });
-        FirstFragmentAdapter simple = new FirstFragmentAdapter(getActivity(), mList,
-                R.layout.firstfragment_gridview_item);
-        mGridView.setAdapter(simple);
+        if (mAdapter == null) {
+            mAdapter = new FirstFragmentAdapter(getActivity(), mList,
+                    R.layout.firstfragment_gridview_item);
 
+            mGridView.setAdapter(mAdapter);
+        } else {
+            mAdapter.onDataChange(mList);
+        }
     }
 
 
