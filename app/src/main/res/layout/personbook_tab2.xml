@@ -3,13 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/card_back">
 
-    <ListView
+    <com.example.root.libapp_v1.PullRefreshListView.FreshListView
+        android:id="@+id/personbook_listview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/personbook_listview">
+        android:layout_height="match_parent">
 
-    </ListView>
+    </com.example.root.libapp_v1.PullRefreshListView.FreshListView>
 
 </LinearLayout>

@@ -12,6 +12,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -29,6 +30,7 @@ import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.example.root.libapp_v1.HeadBar.HeadBar;
 import com.example.root.libapp_v1.PersonBook.PersonBookCommentListView.CommentListviewAdapter;
 import com.example.root.libapp_v1.PublicBookActivity.UpdateOwner;
+import com.example.root.libapp_v1.PullRefreshListView.FreshListView;
 import com.example.root.libapp_v1.R;
 import com.example.root.libapp_v1.WriteCommentActivity.WriteCommentActivity;
 
@@ -44,13 +46,13 @@ import java.util.zip.Inflater;
  * this acitivty is to show the personal books reading status.
  * And also he can send a book comment here.
  */
-public class PersonBookActivity extends Activity implements View.OnClickListener {
+public class PersonBookActivity extends Activity implements FreshListView.IReflashListener{
     /**
      * define var
      */
-    HeadBar mHeadBar;
-    ArrayList<HashMap<String, Object>> mList;
-    ListView mListView;
+    private HeadBar mHeadBar;
+    private ArrayList<HashMap<String, Object>> mList;
+    private FreshListView mListView;
     private TextView mTitle;
     private TextView mDetailInfo;
     private TextView mAuthorInfo;
@@ -65,16 +67,21 @@ public class PersonBookActivity extends Activity implements View.OnClickListener
     private View mPopView;
     private String mBookName;
     private String mBookId;
+    private String mNowUser;
+
+    private CommentListviewAdapter mAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personbook);
+        getNowUser();
         getBookName();
         setHeadBar();
+
         /**
-         * first step, finish init listview data
+         * get local data and init listview
          * */
-        setData();
+        getListviewDataFromLocalDb();
         initListView();
         /**
          * second step, put the first layout and list view both into viewpager
@@ -95,12 +102,22 @@ public class PersonBookActivity extends Activity implements View.OnClickListener
     private void initListView() {
         LayoutInflater mInflater = getLayoutInflater();
         View mView = mInflater.inflate(R.layout.personbook_tab2, null);
-        mListView = (ListView) mView.findViewById(R.id.personbook_listview);
-        CommentListviewAdapter adapter = new CommentListviewAdapter(this, mList,
-                R.layout.personbook_comment_item);
-        mListView.setAdapter(adapter);
+        mListView = (FreshListView) mView.findViewById(R.id.personbook_listview);
+        showListview();
     }
-
+    /**
+     * show list view
+     * */
+    private void showListview() {
+        if (mAdapter == null) {
+            mListView.setInterface(this);
+            mAdapter = new CommentListviewAdapter(this, mList,
+                    R.layout.personbook_comment_item);
+            mListView.setAdapter(mAdapter);
+        } else {
+            mAdapter.onDateChange(mList);
+        }
+    }
     /**
      * set the head bar
      */
@@ -148,15 +165,12 @@ public class PersonBookActivity extends Activity implements View.OnClickListener
         BootstrapButton sendButton = (BootstrapButton) mPopView.findViewById(R.id.personbook_send_book);
         BootstrapButton writeButton = (BootstrapButton) mPopView.findViewById(R.id.personbook_write_comment);
 
-        sendButton.setOnClickListener(this);
-        writeButton.setOnClickListener(this);
-    }
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.personbook_send_book :
-                UpdateOwner updateOwner = new UpdateOwner(mBookId, "", this);
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UpdateOwner updateOwner = new UpdateOwner(mBookId, "", PersonBookActivity.this);
                 updateOwner.start();
-                Dialog dialog = new AlertDialog.Builder(this).setTitle("发书成功")
+                Dialog dialog = new AlertDialog.Builder(PersonBookActivity.this).setTitle("发书成功")
                         .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -164,27 +178,36 @@ public class PersonBookActivity extends Activity implements View.OnClickListener
                             }
                         }).create();
                 dialog.show();
-                break;
-            case R.id.personbook_write_comment :
+            }
+        });
+        writeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 Intent intent = new Intent(PersonBookActivity.this, WriteCommentActivity.class);
+                intent.putExtra("bookname", mBookName);
+                intent.putExtra("personname", mNowUser);
                 startActivity(intent);
-                break;
-        }
+            }
+        });
     }
 
     /**
-     * set the data
+     * set the data of personbook_listview
      */
-    private void setData() {
+    private void getListviewDataFromLocalDb() {
         mList = new ArrayList<HashMap<String, Object>>();
-        for (int i = 0; i < 10; i++) {
+        ContentResolver contentResolver = getContentResolver();
+        Uri uri = Uri.parse("content://com.example.root.libapp_v1.SQLiteModule.PersonCommentpage.PersonCommentpageProvider/personcommentpage");
+        String selection = "personname = ? and bookname = ?";
+        String[] args = {mNowUser, mBookName};
+        Cursor cursor = contentResolver.query(uri, null, selection, args, null);
+        while (cursor.moveToNext()) {
             HashMap<String, Object> map = new HashMap<String, Object>();
-            Date now = new Date();
-            DateFormat d1 = DateFormat.getDateInstance();
-            map.put("last_update_time", d1.format(now));
-            map.put("comment_title", "细品电音，提升逼格");
+            map.put("last_update_time", cursor.getString(cursor.getColumnIndex("date")));
+            map.put("comment_title", cursor.getString(cursor.getColumnIndex("title")));
             mList.add(map);
         }
+        cursor.close();
     }
 
     /**
@@ -298,5 +321,43 @@ public class PersonBookActivity extends Activity implements View.OnClickListener
                     }).create();
             dialog.show();
         }
+    }
+    /**
+     * get now user
+     * */
+    private void getNowUser() {
+        ContentResolver contentResolver = getContentResolver();
+        Uri uri = Uri.parse("content://com.example.root.libapp_v1.SQLiteModule.Personpage.PersonpageProvider/personpage/1");
+        Cursor cursor = contentResolver.query(uri, null, null, null, null);
+        while (cursor.moveToNext()) {
+            mNowUser = cursor.getString(cursor.getColumnIndex("name"));
+        }
+        cursor.close();
+    }
+    /**
+     * the pull to refresh module
+     * */
+    @Override
+    public void onReflash() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                //获取最新数据
+                //  setRefreshData();
+                getListviewDataFromLocalDb();
+                //通知界面显示
+                showListview();
+                //通知listview 刷新数据完毕；
+                mListView.reflashComplete();
+            }
+        }, 2);
+    }
+
+    @Override
+    public void onLoad() {
+        mListView.loadComplete();
     }
 }

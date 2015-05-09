@@ -17,6 +17,8 @@ import com.example.root.libapp_v1.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Yixin on 15-4-21.
@@ -40,7 +42,14 @@ public class CommentListviewAdapter extends BaseAdapter {
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
         this.mView = layoutInflater.inflate(R.layout.personbook_comment_more_pop, null);
     }
-
+    /**
+     * change the date when need it
+     * @param list
+     */
+    public void onDateChange(ArrayList<HashMap<String, Object>> list) {
+        this.mList = list;
+        this.notifyDataSetChanged();
+    }
 
     @Override
     public int getCount() {
