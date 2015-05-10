@@ -26,6 +26,7 @@ import com.example.root.libapp_v1.HeadBar.HeadBar;
 import com.example.root.libapp_v1.PublicBookActivity.PublicBookActivity;
 import com.example.root.libapp_v1.R;
 import com.example.root.libapp_v1.SQLiteModule.Bookpage.BookpageModule;
+import com.example.root.libapp_v1.SearchActivity.SearchActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,8 +45,6 @@ public class FirstFragment extends FatherFragment {
 
 
     private HeadBar headBar;
-    private RadioButton mAllButton;
-    private RadioButton mFriendButton;
     private GridView mGridView;
    // private ArrayList<HashMap<String, Object>> mList;
     //array of books to show in gallery
@@ -69,7 +68,6 @@ public class FirstFragment extends FatherFragment {
         return view;
     }
     private void initWhenRefresh(View view) {
-        initRadioButton(view);
         initHeadBar(view);
         initData(view);
     }
@@ -83,12 +81,7 @@ public class FirstFragment extends FatherFragment {
         //
 
     }
-    /**
-     * init the radiobutton, and set check first tab
-     * */
-    private void initRadioButton(View view) {
 
-    }
     /**
      * init the head bar
      * */
@@ -96,6 +89,13 @@ public class FirstFragment extends FatherFragment {
         headBar = (HeadBar)this.getActivity().findViewById(R.id.head_bar);
         headBar.setTitleText("飞书馆");
         headBar.setRightSecondButtonListener(new MyOnClickListener(view));
+        headBar.setLeftSecondButton(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     /**

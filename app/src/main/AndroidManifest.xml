@@ -40,6 +40,9 @@
         <activity android:name=".Fragment.FourFragmentAdapter.SendBookRecordActivity">
 
         </activity>
+        <activity android:name=".SearchActivity.SearchActivity">
+
+        </activity>
         <provider
             android:authorities="com.example.root.libapp_v1.SQLiteModule.Personpage.PersonpageProvider"
             android:name=".SQLiteModule.Personpage.PersonpageProvider"

@@ -1,13 +1,9 @@
 package com.example.root.libapp_v1.Fragment.FourFragmentAdapter;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -16,7 +12,6 @@ import com.example.root.libapp_v1.HeadBar.HeadBar;
 import com.example.root.libapp_v1.HttpModule.DoGetAndPost;
 import com.example.root.libapp_v1.R;
 
-import org.apache.http.NameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -122,6 +117,7 @@ public class SendBookRecordActivity extends Activity {
 
         @Override
         protected void onProgressUpdate(Integer... values) {
+
         }
     }
 }
