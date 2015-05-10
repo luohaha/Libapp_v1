@@ -4,19 +4,28 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.example.root.libapp_v1.HttpModule.DoGetAndPost;
-import com.example.root.libapp_v1.PublicBookActivity.UpdateOwner;
+import com.example.root.libapp_v1.LyxListView.LyxListViewAdapter;
+import com.example.root.libapp_v1.PublicBookActivity.PublicBookActivity;
 import com.example.root.libapp_v1.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Yixin on 15-5-10.
@@ -26,6 +35,7 @@ public class SearchActivity extends Activity {
     private EditText mEditText;
     private BootstrapButton mButton;
     private String mUrl = "http://192.168.0.153/android/get_book.php";
+    private List<Map<String, Object>> mList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +51,17 @@ public class SearchActivity extends Activity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                HttpTask httpTask = new HttpTask();
+                httpTask.execute();
+            }
+        });
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView textView = (TextView) view.findViewById(R.id.lyx_lv_title);
+                Intent intent = new Intent(SearchActivity.this, PublicBookActivity.class);
+                intent.putExtra("bookname", textView.getText().toString());
+                startActivity(intent);
             }
         });
     }
@@ -100,8 +120,26 @@ public class SearchActivity extends Activity {
                     /**
                      * the book isn't exit
                      * */
+                    Dialog dialog = new AlertDialog.Builder(SearchActivity.this).setTitle("没有这本书")
+                            .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                    finish();
+                                }
+                            }).create();
+                    dialog.show();
                 } else {
-
+                   mList = new ArrayList<Map<String, Object>>();
+                   for (int i = 0; i < array.length(); i++) {
+                       Map<String, Object> map = new HashMap<String, Object>();
+                       map.put("title", array.getJSONObject(i).getString("name"));
+                       map.put("detail", "简介 : "+array.getJSONObject(i).getString("detail_info"));
+                       map.put("img", "http://a3.att.hudong.com/23/71/01300001170731130085713463754.jpg");
+                       mList.add(map);
+                   }
+                    LyxListViewAdapter adapter = new LyxListViewAdapter(SearchActivity.this, mList);
+                    mListView.setAdapter(adapter);
                 }
 
             } catch (Exception e) {
