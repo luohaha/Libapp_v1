@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.example.root.libapp_v1.HeadBar.HeadBar
+        android:id="@+id/sendbook_record_head_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.example.root.libapp_v1.HeadBar.HeadBar>
+    <ListView
+        android:id="@+id/sendbook_record_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        </ListView>
+</LinearLayout>

@@ -1,6 +1,7 @@
 package com.example.root.libapp_v1.Fragment;
 
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.root.libapp_v1.Fragment.FourFragmentAdapter.SendBookRecordActivity;
 import com.example.root.libapp_v1.HeadBar.HeadBar;
 import com.example.root.libapp_v1.MyUtil.DownLoadBitmap.AsyncBitmapLoader;
 import com.example.root.libapp_v1.R;
@@ -100,7 +102,9 @@ public class FourFragment extends FatherFragment{
              * */
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getActivity(), SendBookRecordActivity.class);
+                intent.putExtra("name", mPersonpageName.getText().toString());
+                startActivity(intent);
             }
         });
     }

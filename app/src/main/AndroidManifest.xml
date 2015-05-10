@@ -37,6 +37,9 @@
         <activity android:name=".WriteCommentActivity.CommentActivity">
 
         </activity>
+        <activity android:name=".Fragment.FourFragmentAdapter.SendBookRecordActivity">
+
+        </activity>
         <provider
             android:authorities="com.example.root.libapp_v1.SQLiteModule.Personpage.PersonpageProvider"
             android:name=".SQLiteModule.Personpage.PersonpageProvider"
