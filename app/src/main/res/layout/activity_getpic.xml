@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/card_back">
+
+    <com.example.root.libapp_v1.HeadBar.HeadBar
+        android:id="@+id/getpic_head_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.example.root.libapp_v1.HeadBar.HeadBar>
+
+    <Button
+        android:id="@+id/getpic_takepic_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="拍照"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:background="@color/white"
+        android:layout_marginTop="10dip"/>
+
+    <Button
+        android:id="@+id/getpic_choosepic_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="从相册获取"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:background="@color/white"
+        android:layout_marginTop="10dip"/>
+
+    <ImageView
+        android:id="@+id/getpic_imageview"
+        android:layout_marginTop="10dip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

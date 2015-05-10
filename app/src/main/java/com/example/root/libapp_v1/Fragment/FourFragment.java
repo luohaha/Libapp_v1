@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.root.libapp_v1.Fragment.FourFragmentAdapter.SendBookRecordActivity;
+import com.example.root.libapp_v1.GetPictureActivity.GetPictureActivity;
 import com.example.root.libapp_v1.HeadBar.HeadBar;
 import com.example.root.libapp_v1.MyUtil.DownLoadBitmap.AsyncBitmapLoader;
 import com.example.root.libapp_v1.R;
@@ -120,6 +121,14 @@ public class FourFragment extends FatherFragment{
         mPersonpagePhone = (TextView)view.findViewById(R.id.personpage_phone);
         mPersonpageBooksNumber = (TextView)view.findViewById(R.id.personpage_books_number);
         mPersonpageRecordNumber = (TextView)view.findViewById(R.id.personpage_record_number);
+        mPersonpageImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), GetPictureActivity.class);
+                intent.putExtra("name", mPersonpageName.getText().toString());
+                startActivity(intent);
+            }
+        });
     }
     /**
      * show data using sqlite
