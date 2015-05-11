@@ -2,8 +2,11 @@ package com.example.root.libapp_v1.GetPictureActivity;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -69,7 +72,20 @@ public class GetPictureActivity extends Activity {
 
     private void getPicName() {
         Intent intent = getIntent();
-        mPictureName = "personimg_"+intent.getStringExtra("getpic_name");
+        if (intent.getStringExtra("flag").equals("personpic")) {
+            mPictureName = "personimg_" + intent.getStringExtra("getpic_name");
+        } else if (intent.getStringExtra("flag").equals("bookpic")) {
+            mPictureName = "bookimg_" + intent.getStringExtra("getpic_name");
+        } else {
+            Dialog dialog = new AlertDialog.Builder(GetPictureActivity.this).setTitle("失败")
+                    .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).create();
+            dialog.show();
+        }
     }
 
     private void initView() {

@@ -126,6 +126,7 @@ public class FourFragment extends FatherFragment{
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), GetPictureActivity.class);
                 intent.putExtra("getpic_name", mPersonpageName.getText().toString());
+                intent.putExtra("flag", "personpic");
                 startActivity(intent);
             }
         });

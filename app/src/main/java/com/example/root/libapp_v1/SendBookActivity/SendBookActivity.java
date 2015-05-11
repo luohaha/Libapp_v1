@@ -7,15 +7,18 @@ import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
+import com.example.root.libapp_v1.GetPictureActivity.GetPictureActivity;
 import com.example.root.libapp_v1.HeadBar.HeadBar;
 import com.example.root.libapp_v1.HttpModule.DoGetAndPost;
 import com.example.root.libapp_v1.R;
@@ -38,6 +41,7 @@ public class SendBookActivity extends Activity {
     private BootstrapEditText mCatalogInfo;
     private BootstrapButton mSubmitButton;
     private BootstrapButton mClearButton;
+    private Button mSelectPicButton;
 
     private HeadBar mHeadBar;
     @Override
@@ -72,6 +76,9 @@ public class SendBookActivity extends Activity {
     private void initButtons() {
         mSubmitButton = (BootstrapButton) findViewById(R.id.sendbook_submit_button);
         mClearButton = (BootstrapButton) findViewById(R.id.sendbook_clear_button);
+        mSelectPicButton = (Button) findViewById(R.id.sendbook_selectpic_button);
+        mSubmitButton.setVisibility(View.GONE);
+        mClearButton.setVisibility(View.GONE);
         /**
          * clear all edittext
          * */
@@ -133,6 +140,17 @@ public class SendBookActivity extends Activity {
                             }).create();
                     dialog.show();
                 }
+            }
+        });
+        mSelectPicButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SendBookActivity.this, GetPictureActivity.class);
+                intent.putExtra("getpic_name", mName.getText().toString());
+                intent.putExtra("flag", "bookpic");
+                startActivity(intent);
+                mSubmitButton.setVisibility(View.VISIBLE);
+                mClearButton.setVisibility(View.VISIBLE);
             }
         });
     }

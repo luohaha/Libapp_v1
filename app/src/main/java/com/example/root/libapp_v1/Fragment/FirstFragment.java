@@ -135,8 +135,9 @@ public class FirstFragment extends FatherFragment {
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 HashMap<String, Object> map = new HashMap<String, Object>();
-                map.put("image", "http://demo.sc.chinaz.com/Files/pic/icons/2243/%E5%8D%A1%E9%80%9A%E4%BA%BA%E7%89%A9%E5%A4%B4%E5%83%8F%E5%9B%BE%E6%A0%87ddd%E4%B8%8B%E8%BD%BD22.png");
-                map.put("text", cursor.getString(cursor.getColumnIndex("name")));
+                String bookname = cursor.getString(cursor.getColumnIndex("name"));
+                map.put("image", "http://192.168.0.153/upload/bookimg_"+bookname+".png");
+                map.put("text", bookname);
                 mList.add(map);
             }
             /**

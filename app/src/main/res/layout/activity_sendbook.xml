@@ -264,5 +264,15 @@
                 bootstrap:bb_size="large"
                 />
         </LinearLayout>
+        <Button
+            android:id="@+id/sendbook_selectpic_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="选择封面"
+            android:typeface="monospace"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:background="@color/white"
+            />
     </LinearLayout>
 </ScrollView>
