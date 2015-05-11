@@ -11,6 +11,15 @@ import java.net.URL;
  * Created by Yixin on 15-5-6.
  */
 public class DownLoadBitmap {
+    public static Bitmap loadBitmapFromFile(String file) {
+        // 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(file, options);
+        options.inSampleSize = calculateInSampleSize(options, 100, 100);
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeFile(file, options);
+    }
     /**
      * open a http connection and down load a picture from internet
      * @param imageUrl the url of picture we want to download

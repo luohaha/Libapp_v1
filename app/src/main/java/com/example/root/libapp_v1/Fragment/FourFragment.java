@@ -125,7 +125,7 @@ public class FourFragment extends FatherFragment{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), GetPictureActivity.class);
-                intent.putExtra("name", mPersonpageName.getText().toString());
+                intent.putExtra("getpic_name", mPersonpageName.getText().toString());
                 startActivity(intent);
             }
         });
@@ -152,7 +152,7 @@ public class FourFragment extends FatherFragment{
     private void initImageView(View view) {
         AsyncBitmapLoader asyncBitmapLoader = new AsyncBitmapLoader();
         mPersonpageImg = (ImageView) view.findViewById(R.id.personpage_img);
-        String url = "http://demo.sc.chinaz.com/Files/pic/icons/2243/%E5%8D%A1%E9%80%9A%E4%BA%BA%E7%89%A9%E5%A4%B4%E5%83%8F%E5%9B%BE%E6%A0%87ddd%E4%B8%8B%E8%BD%BD22.png";
+        String url = "http://192.168.0.153/upload/personimg_"+mPersonpageName.getText().toString()+".png";
         Bitmap bitmap = asyncBitmapLoader.loadBitmap(mPersonpageImg, url, new AsyncBitmapLoader.ImageCallBack() {
             @Override
             public void imageLoad(ImageView imageView, Bitmap bitmap) {
