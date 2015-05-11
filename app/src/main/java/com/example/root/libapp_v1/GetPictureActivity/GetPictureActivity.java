@@ -1,20 +1,15 @@
 package com.example.root.libapp_v1.GetPictureActivity;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
@@ -46,7 +41,6 @@ public class GetPictureActivity extends Activity {
     private static final int TAKE_PICTURE = 0;
     private static final int CHOOSE_PICTURE = 1;
 
-    private static final int SCALE = 5;//照片缩小比例
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

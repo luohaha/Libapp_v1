@@ -31,6 +31,7 @@ import java.util.*;
  */
 public class ThirdFragment extends FatherFragment implements IReflashListener {
     //
+    private String mPicUrl = "http://http://192.168.0.153/upload/";
     private HeadBar headBar;
     private View mListViewItem;
     private ArrayList<Map<String, Object>> mapList;
@@ -122,7 +123,8 @@ public class ThirdFragment extends FatherFragment implements IReflashListener {
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 Map<String, Object> map = new HashMap<String, Object>();
-                map.put("title", cursor.getString(cursor.getColumnIndex("name")));
+                String personName = cursor.getString(cursor.getColumnIndex("name"));
+                map.put("title", personName);
                 String detail = cursor.getString(cursor.getColumnIndex("detail_info"));
                 /**
                  * if the detail info is more than 20, then split it
@@ -131,7 +133,7 @@ public class ThirdFragment extends FatherFragment implements IReflashListener {
                     detail = detail.substring(0, 19);
                 }
                 map.put("detail", "简介 : "+detail+".....");
-                map.put("img", "http://demo.sc.chinaz.com/Files/pic/icons/2243/%E5%8D%A1%E9%80%9A%E4%BA%BA%E7%89%A9%E5%A4%B4%E5%83%8F%E5%9B%BE%E6%A0%87ddd%E4%B8%8B%E8%BD%BD22.png");
+                map.put("img", mPicUrl+"bookimg_"+personName+".png");
                 mapList.add(map);
             }
         }

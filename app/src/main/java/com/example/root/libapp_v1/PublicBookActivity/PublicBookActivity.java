@@ -8,6 +8,7 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
@@ -23,6 +24,7 @@ import android.view.ViewParent;
 import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -32,6 +34,7 @@ import android.widget.Toast;
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.example.root.libapp_v1.HeadBar.HeadBar;
 import com.example.root.libapp_v1.HttpModule.DoGetAndPost;
+import com.example.root.libapp_v1.MyUtil.DownLoadBitmap.AsyncBitmapLoader;
 import com.example.root.libapp_v1.PersonBook.PersonBookCommentListView.CommentListviewAdapter;
 import com.example.root.libapp_v1.R;
 import com.example.root.libapp_v1.SQLiteModule.DatabaseClient;
@@ -60,6 +63,7 @@ public class PublicBookActivity extends Activity {
     private ArrayList<HashMap<String, Object>> mList;
     private ListView mListView;
     private TextView mTitle;
+    private ImageView mCover;
     private TextView mOwner;
     private TextView mSender;
     private TextView mDetailInfo;
@@ -81,6 +85,7 @@ public class PublicBookActivity extends Activity {
     private String mBookName;
     private String mPersonWantToBecomeOwner;
     private String mUniqueId;
+    private AsyncBitmapLoader mLoader;
     /**
      * the url which we can get owner and sender
      * */
@@ -89,6 +94,7 @@ public class PublicBookActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publicbook);
+        mLoader = new AsyncBitmapLoader();
         getBookName();
         setHeadBar();
         /**
@@ -215,6 +221,7 @@ public class PublicBookActivity extends Activity {
         View view = mInflater.inflate(R.layout.publicbook_tab1, null);
 
         mTitle = (TextView) view.findViewById(R.id.publicbook_title);
+        mCover = (ImageView) view.findViewById(R.id.publicbook_cover);
         mOwner = (TextView) view.findViewById(R.id.publicbook_owner);
         mSender = (TextView) view.findViewById(R.id.publicbook_sender);
         mDetailInfo = (TextView) view.findViewById(R.id.publicbook_book_intro);
@@ -288,10 +295,12 @@ public class PublicBookActivity extends Activity {
         @Override
         public void onPageScrolled(int arg0, float arg1, int arg2) {}
     }
+
     /**
      * get data from http and local database
      * */
     private void getDataFromLocalDataBase() {
+
         ContentResolver contentResolver = getContentResolver();
         Uri uri = Uri.parse("content://com.example.root.libapp_v1.SQLiteModule.Bookpage.BookpageProvider/bookpage");
         String selection = "name=?";
