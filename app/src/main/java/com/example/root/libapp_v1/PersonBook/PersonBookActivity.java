@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewParent;
 import android.view.animation.Animation;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -28,6 +29,8 @@ import android.widget.Toast;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.example.root.libapp_v1.HeadBar.HeadBar;
+import com.example.root.libapp_v1.MyUtil.DownLoadBitmap.AsyncBitmapLoader;
+import com.example.root.libapp_v1.MyUtil.DownLoadBitmap.SetBitmapForImagView;
 import com.example.root.libapp_v1.PersonBook.PersonBookCommentListView.CommentListviewAdapter;
 import com.example.root.libapp_v1.PublicBookActivity.UpdateOwner;
 import com.example.root.libapp_v1.PullRefreshListView.FreshListView;
@@ -55,6 +58,7 @@ public class PersonBookActivity extends Activity implements FreshListView.IRefla
     private ArrayList<HashMap<String, Object>> mList;
     private FreshListView mListView;
     private TextView mTitle;
+    private ImageView mCover;
     private TextView mDetailInfo;
     private TextView mAuthorInfo;
     private TextView mCatalogInfo;
@@ -71,12 +75,19 @@ public class PersonBookActivity extends Activity implements FreshListView.IRefla
     private String mNowUser;
 
     private CommentListviewAdapter mAdapter;
+    private String mImgUrl = "http://192.168.0.153/upload/";
+
+    /**
+     * bitmap loader
+     * */
+    private AsyncBitmapLoader mLoader;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personbook);
         getNowUser();
         getBookName();
+        initBitmapLoader();
         setHeadBar();
 
         /**
@@ -89,6 +100,12 @@ public class PersonBookActivity extends Activity implements FreshListView.IRefla
          * */
         initView();
         getDataFromLocalDataBase();
+    }
+    /**
+     * init bitmap loader
+     * */
+    private void initBitmapLoader() {
+        mLoader = new AsyncBitmapLoader();
     }
     /**
      * get book's name
@@ -235,6 +252,7 @@ public class PersonBookActivity extends Activity implements FreshListView.IRefla
          * init compenont in view
          * */
         mTitle = (TextView) view.findViewById(R.id.personbook_title);
+        mCover = (ImageView) view.findViewById(R.id.personbook_cover);
         mDetailInfo = (TextView) view.findViewById(R.id.personbook_book_intro);
         mAuthorInfo = (TextView) view.findViewById(R.id.personbook_writer_intro);
         mCatalogInfo = (TextView) view.findViewById(R.id.personbook_book_catalog);
@@ -321,6 +339,10 @@ public class PersonBookActivity extends Activity implements FreshListView.IRefla
                 mCatalogInfo.setText(cursor.getString(cursor.getColumnIndex("catalog_info")));
                 mBookId = cursor.getString(cursor.getColumnIndex("unique_id"));
             }
+            /**
+             * set bitmap for book's cover
+             * */
+            SetBitmapForImagView.setBitmapForImageView(mLoader, mCover, mImgUrl+"bookimg_"+mBookName+".png");
         } else {
             Dialog dialog = new AlertDialog.Builder(this).setTitle("获取图书信息失败")
                     .setPositiveButton("ok", new DialogInterface.OnClickListener() {

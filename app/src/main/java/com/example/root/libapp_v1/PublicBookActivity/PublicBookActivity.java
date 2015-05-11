@@ -35,6 +35,7 @@ import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.example.root.libapp_v1.HeadBar.HeadBar;
 import com.example.root.libapp_v1.HttpModule.DoGetAndPost;
 import com.example.root.libapp_v1.MyUtil.DownLoadBitmap.AsyncBitmapLoader;
+import com.example.root.libapp_v1.MyUtil.DownLoadBitmap.SetBitmapForImagView;
 import com.example.root.libapp_v1.PersonBook.PersonBookCommentListView.CommentListviewAdapter;
 import com.example.root.libapp_v1.R;
 import com.example.root.libapp_v1.SQLiteModule.DatabaseClient;
@@ -90,11 +91,12 @@ public class PublicBookActivity extends Activity {
      * the url which we can get owner and sender
      * */
     private String mUrl = "http://192.168.0.153/android/get_book.php";
+    private String mImgUrl = "http://192.168.0.153/upload/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publicbook);
-        mLoader = new AsyncBitmapLoader();
+        initBitmapLoader();
         getBookName();
         setHeadBar();
         /**
@@ -108,6 +110,10 @@ public class PublicBookActivity extends Activity {
         initView();
         getDataFromLocalDataBase();
         getOwner();
+    }
+    private void initBitmapLoader() {
+        mLoader = new AsyncBitmapLoader();
+
     }
     private void getBookName() {
         Intent intent = getIntent();
@@ -300,7 +306,6 @@ public class PublicBookActivity extends Activity {
      * get data from http and local database
      * */
     private void getDataFromLocalDataBase() {
-
         ContentResolver contentResolver = getContentResolver();
         Uri uri = Uri.parse("content://com.example.root.libapp_v1.SQLiteModule.Bookpage.BookpageProvider/bookpage");
         String selection = "name=?";
@@ -314,6 +319,10 @@ public class PublicBookActivity extends Activity {
                 mCatalogInfo.setText(cursor.getString(cursor.getColumnIndex("catalog_info")));
                 mUniqueId = cursor.getString(cursor.getColumnIndex("unique_id"));
             }
+            /**
+             * set book's cover
+             * */
+            SetBitmapForImagView.setBitmapForImageView(mLoader, mCover, mImgUrl+"bookimg_"+mBookName+".png");
             //mTitle.setText(s);
         } else {
             Dialog dialog = new AlertDialog.Builder(this).setTitle("获取图书信息失败")

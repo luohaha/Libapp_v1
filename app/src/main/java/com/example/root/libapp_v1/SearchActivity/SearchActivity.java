@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.example.root.libapp_v1.HttpModule.DoGetAndPost;
 import com.example.root.libapp_v1.LyxListView.LyxListViewAdapter;
+import com.example.root.libapp_v1.MyUtil.DownLoadBitmap.AsyncBitmapLoader;
 import com.example.root.libapp_v1.PublicBookActivity.PublicBookActivity;
 import com.example.root.libapp_v1.R;
 
@@ -35,15 +36,24 @@ public class SearchActivity extends Activity {
     private EditText mEditText;
     private BootstrapButton mButton;
     private String mUrl = "http://192.168.0.153/android/get_book.php";
+    private String mImgUrl = "http://192.168.0.153/upload/";
     private List<Map<String, Object>> mList;
+    private AsyncBitmapLoader mLoader;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        initBitmapLoader();
         initView();
 
     }
 
+    /**
+     * init bitmap loader
+     * */
+    private void initBitmapLoader() {
+        mLoader = new AsyncBitmapLoader();
+    }
     private void initView() {
         mListView = (ListView) findViewById(R.id.activity_search_listview);
         mEditText = (EditText) findViewById(R.id.activity_search_edittext);
@@ -133,9 +143,10 @@ public class SearchActivity extends Activity {
                    mList = new ArrayList<Map<String, Object>>();
                    for (int i = 0; i < array.length(); i++) {
                        Map<String, Object> map = new HashMap<String, Object>();
-                       map.put("title", array.getJSONObject(i).getString("name"));
+                       String bookname = array.getJSONObject(i).getString("name");
+                       map.put("title", bookname);
                        map.put("detail", "简介 : "+array.getJSONObject(i).getString("detail_info"));
-                       map.put("img", "http://a3.att.hudong.com/23/71/01300001170731130085713463754.jpg");
+                       map.put("img", mImgUrl+"bookimg_"+bookname+".png");
                        mList.add(map);
                    }
                     LyxListViewAdapter adapter = new LyxListViewAdapter(SearchActivity.this, mList);
