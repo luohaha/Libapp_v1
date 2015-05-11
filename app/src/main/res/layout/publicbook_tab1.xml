@@ -66,7 +66,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dip"
-                        fontawesometext:fa_icon="fa-bookmark"
+                        fontawesometext:fa_icon="fa-gear"
                         android:textSize="15sp"
                         android:textColor="@color/red" />
                     <TextView
@@ -84,8 +84,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="1dp"
-                        android:text="完成"
-                        bootstrap:bb_icon_left="fa-upload"
+                        android:text="借阅"
+                        bootstrap:bb_icon_left="fa-heart"
                         bootstrap:bb_type="default"
                         bootstrap:bb_size="small"
                         android:visibility="gone"
@@ -105,7 +105,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dip"
-                        fontawesometext:fa_icon="fa-bookmark"
+                        fontawesometext:fa_icon="fa-male"
                         android:textSize="15sp"
                         android:textColor="@color/red" />
                     <TextView

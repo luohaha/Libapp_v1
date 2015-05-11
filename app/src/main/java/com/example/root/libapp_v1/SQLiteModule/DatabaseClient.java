@@ -106,38 +106,15 @@ public class DatabaseClient implements DatabaseService {
         return cursor;
     }
 
-    /**clear the bookpage table
+    /**clear the table
      *
+     * @param tableName    the table's name we want to clear
      */
-    public void clearBookPage() {
+    public void clearTablePage(String tableName) {
         SQLiteDatabase sqLiteDatabase = null;
         try {
             sqLiteDatabase = mDbOpenHelper.getWritableDatabase();
-            String sql = "drop table bookpage";
-            sqLiteDatabase.execSQL(sql);
-            sql = "create table bookpage(id integer primary key autoincrement, name varchar(64)," +
-                    " unique_id varchar(64), img varchar(64), detail_info varchar(512), short_detail varchar(64)," +
-                    "author_info varchar(512), catalog_info varchar(512))";
-            sqLiteDatabase.execSQL(sql);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-
-        }
-    }
-
-    /**
-     * clear personownbookpage table
-     */
-    public void clearPersonOwnBookPage() {
-        SQLiteDatabase sqLiteDatabase = null;
-        try {
-            sqLiteDatabase = mDbOpenHelper.getWritableDatabase();
-            String sql = "drop table personownbookpage";
-            sqLiteDatabase.execSQL(sql);
-            sql = "create table personownbookpage(id integer primary key autoincrement, name varchar(64)," +
-                    " unique_id varchar(64), img varchar(64), detail_info varchar(512), short_detail varchar(64)," +
-                    "author_info varchar(512), catalog_info varchar(512))";
+            String sql = "delete from " + tableName;
             sqLiteDatabase.execSQL(sql);
         } catch (Exception e) {
             e.printStackTrace();
