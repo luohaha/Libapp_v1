@@ -60,6 +60,9 @@ public class UserRegisterActivity extends Activity {
      * */
     private void initHeadBar() {
         mHeadBar = (HeadBar) findViewById(R.id.userregister_head_bar);
+        mHeadBar.setLeftSecondButtonNoused();
+        mHeadBar.setRightSecondButtonNoused();
+        mHeadBar.setRightButtonNoused();
         mHeadBar.setTitleText("注册新用户");
         mHeadBar.setLeftButtonListener(new View.OnClickListener() {
             @Override

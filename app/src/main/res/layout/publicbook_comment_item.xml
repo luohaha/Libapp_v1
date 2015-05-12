@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrap="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="80dip"
+    android:layout_margin="10dip"
+    android:background="@color/white"
+    android:padding="10dip">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="6"
+        android:padding="10dip">
+        <!--show the time-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="40dip"
+                android:layout_height="40dip"
+                android:layout_marginRight="20dip"
+                android:scaleType="fitCenter"
+                android:id="@+id/publicbook_comment_head"
+                />
+            <TextView
+                android:id="@+id/publicbook_comment_person"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="12sp"
+                android:textColor="@color/black"
+                android:layout_marginRight="20dip"
+                android:text="罗一鑫"
+                />
+            <TextView
+                android:id="@+id/publicbook_comment_time"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="12sp"
+                android:textColor="@color/gray"
+                android:text="2015-4-14 13:10"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/publicbook_comment_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:typeface="serif"
+            android:text="一部电影的灵魂音乐"
+            android:paddingTop="10dip"
+            />
+
+    </LinearLayout>
+</LinearLayout>

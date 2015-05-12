@@ -35,6 +35,7 @@ public class CommentActivity extends Activity {
         mHeadBar.setTitleText("书评");
         mHeadBar.setRightSecondButtonNoused();
         mHeadBar.setRightButtonNoused();
+        mHeadBar.setLeftSecondButtonNoused();
         mHeadBar.setLeftButtonListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -151,6 +151,8 @@ public class PersonBookActivity extends Activity implements FreshListView.IRefla
     private void setHeadBar() {
         mHeadBar = (HeadBar) findViewById(R.id.personbook_head_bar);
         mHeadBar.setTitleText("个人读书");
+        mHeadBar.setLeftSecondButtonNoused();
+        mHeadBar.setRightSecondButtonNoused();
         mHeadBar.setLeftButtonListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

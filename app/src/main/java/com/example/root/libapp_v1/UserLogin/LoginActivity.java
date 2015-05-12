@@ -115,6 +115,9 @@ public class LoginActivity extends Activity {
    //     mActionBar.hide();
         mHeadBar = (HeadBar) findViewById(R.id.login_head_bar);
         mHeadBar.setTitleText("登陆");
+        mHeadBar.setLeftSecondButtonNoused();
+        mHeadBar.setRightSecondButtonNoused();
+        mHeadBar.setRightButtonNoused();
         mHeadBar.setLeftButtonListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

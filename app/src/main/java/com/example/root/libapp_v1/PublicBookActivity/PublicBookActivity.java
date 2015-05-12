@@ -38,10 +38,10 @@ import com.example.root.libapp_v1.HttpModule.DoGetAndPost;
 import com.example.root.libapp_v1.MyUtil.DownLoadBitmap.AsyncBitmapLoader;
 import com.example.root.libapp_v1.MyUtil.DownLoadBitmap.SetBitmapForImagView;
 import com.example.root.libapp_v1.PersonBook.PersonBookCommentListView.CommentListviewAdapter;
+import com.example.root.libapp_v1.PublicBookActivity.PublicBookCommentListView.PublicCommentListviewAdapter;
 import com.example.root.libapp_v1.PullRefreshListView.FreshListView;
 import com.example.root.libapp_v1.R;
-import com.example.root.libapp_v1.SQLiteModule.DatabaseClient;
-import com.example.root.libapp_v1.WriteCommentActivity.WriteCommentActivity;
+
 import com.example.root.libapp_v1.WriteCommentActivity.WritePublicCommentActivity;
 
 import org.json.JSONArray;
@@ -65,7 +65,7 @@ public class PublicBookActivity extends Activity implements FreshListView.IRefla
      */
     private HeadBar mHeadBar;
     private ArrayList<HashMap<String, Object>> mList;
-    private CommentListviewAdapter mAdapter;
+    private PublicCommentListviewAdapter mAdapter;
     private FreshListView mListView;
     private TextView mTitle;
     private ImageView mCover;
@@ -131,6 +131,8 @@ public class PublicBookActivity extends Activity implements FreshListView.IRefla
     private void setHeadBar() {
         mHeadBar = (HeadBar) findViewById(R.id.publicbook_head_bar);
         mHeadBar.setTitleText("图书信息");
+        mHeadBar.setLeftSecondButtonNoused();
+        mHeadBar.setRightSecondButtonNoused();
         mHeadBar.setLeftButtonListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,8 +142,8 @@ public class PublicBookActivity extends Activity implements FreshListView.IRefla
         mHeadBar.setRightButtonListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            //    initmPopupWindowView();
-            //    popupwindow.showAsDropDown(v);
+                initmPopupWindowView();
+                popupwindow.showAsDropDown(v);
             }
         });
     }
@@ -477,13 +479,14 @@ public class PublicBookActivity extends Activity implements FreshListView.IRefla
      * */
 
     private void showListview() {
+        mList = new ArrayList<HashMap<String, Object>>();
         /**
          * show list view
          * */
         if (mAdapter == null) {
             mListView.setInterface(this);
-            mAdapter = new CommentListviewAdapter(this, mList,
-                        R.layout.personbook_comment_item);
+            mAdapter = new PublicCommentListviewAdapter(this, mList,
+                        R.layout.publicbook_comment_item);
             mListView.setAdapter(mAdapter);
         } else {
             mAdapter.onDateChange(mList);
@@ -501,8 +504,9 @@ public class PublicBookActivity extends Activity implements FreshListView.IRefla
         @Override
         protected JSONArray doInBackground(String... params) {
             try {
-                JSONObject jsonObject = DoGetAndPost.doGet("");
-                JSONArray array = jsonObject.getJSONArray("");
+                JSONObject jsonObject = DoGetAndPost.doGet("http://192.168.0.153/android/get_comments.php" +
+                        "?start=0&count=20&bookname="+bookname);
+                JSONArray array = jsonObject.getJSONArray("bookcomments");
                 /**
                  * using publicProgress() to update progress bar's status
                  * */
@@ -522,7 +526,13 @@ public class PublicBookActivity extends Activity implements FreshListView.IRefla
         @Override
         protected void onPostExecute(JSONArray array) {
             try {
-
+                for (int i = 0; i < array.length(); i++) {
+                    HashMap<String, Object> map = new HashMap<String, Object>();
+                    map.put("posttime", array.getJSONObject(i).getString("adddate"));
+                    map.put("comment", array.getJSONObject(i).getString("comment"));
+                    map.put("personname", array.getJSONObject(i).getString("personname"));
+                    mList.add(map);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }

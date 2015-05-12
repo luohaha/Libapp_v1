@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.FontAwesomeText;
 import com.example.root.libapp_v1.R;
 
@@ -20,11 +21,11 @@ import com.example.root.libapp_v1.R;
  */
 public class HeadBar extends FrameLayout {
 
-    private FontAwesomeText leftButton;
+    private BootstrapButton leftButton;
    // private Button rightButton;
-    private FontAwesomeText rightButton;
-    private FontAwesomeText rightSecondButton;
-    private FontAwesomeText leftSecondButton;
+    private BootstrapButton rightButton;
+    private BootstrapButton rightSecondButton;
+    private BootstrapButton leftSecondButton;
     private TextView titleText;
 
     int sdk;
@@ -33,10 +34,10 @@ public class HeadBar extends FrameLayout {
         sdk = Build.VERSION.SDK_INT;
         LayoutInflater.from(context).inflate(R.layout.head_title, this);
         titleText = (TextView) findViewById(R.id.title_text);
-        leftButton = (FontAwesomeText) findViewById(R.id.button_left);
-        rightButton = (FontAwesomeText) findViewById(R.id.button_right);
-        rightSecondButton = (FontAwesomeText) findViewById(R.id.button_right_second);
-        leftSecondButton = (FontAwesomeText) findViewById(R.id.button_left_second);
+        leftButton = (BootstrapButton) findViewById(R.id.button_left);
+        rightButton = (BootstrapButton) findViewById(R.id.button_right);
+        rightSecondButton = (BootstrapButton) findViewById(R.id.button_right_second);
+        leftSecondButton = (BootstrapButton) findViewById(R.id.button_left_second);
         leftButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,12 +77,6 @@ public class HeadBar extends FrameLayout {
         rightButton.setText(text);
     }
 
-    /**
-     * @param icon : the awesome text icon which right button want to show
-     */
-    public void setRightButtonIcon(String icon) {
-        rightButton.setIcon(icon);
-    }
     /*
     * stop show right button
     * */

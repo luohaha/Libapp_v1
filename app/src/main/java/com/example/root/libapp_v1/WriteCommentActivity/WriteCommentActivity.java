@@ -48,6 +48,8 @@ public class WriteCommentActivity extends Activity {
         mHeadBar = (HeadBar)findViewById(R.id.writecomment_head_bar);
         mHeadBar.setTitleText("写书评");
         mHeadBar.setRightButtonNoused();
+        mHeadBar.setLeftSecondButtonNoused();
+        mHeadBar.setRightSecondButtonNoused();
         mHeadBar.setLeftButtonListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

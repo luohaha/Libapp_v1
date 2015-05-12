@@ -42,6 +42,7 @@ public class SendBookRecordActivity extends Activity {
         mHeadBar.setTitleText("飞书记录");
         mHeadBar.setRightButtonNoused();
         mHeadBar.setRightSecondButtonNoused();
+        mHeadBar.setLeftSecondButtonNoused();
         mHeadBar.setLeftButtonListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

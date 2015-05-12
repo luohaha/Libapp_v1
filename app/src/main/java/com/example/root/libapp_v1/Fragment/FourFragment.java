@@ -81,7 +81,6 @@ public class FourFragment extends FatherFragment{
             public void onClick(View v) {
                 PersonpageModule sqLiteModule = new PersonpageModule(getActivity());
                 sqLiteModule.updateDb();
-                Log.i("you suck!!", "yes");
             }
         });
     }

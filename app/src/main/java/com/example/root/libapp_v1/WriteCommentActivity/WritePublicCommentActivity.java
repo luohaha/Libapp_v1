@@ -35,7 +35,7 @@ public class WritePublicCommentActivity extends Activity {
     private String mPerson;
     private String mBook;
 
-    private String mUrl = "";
+    private String mUrl = "http://192.168.0.153/android/add_bookcomment.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,14 +84,7 @@ public class WritePublicCommentActivity extends Activity {
             @Override
             public void onClick(View v) {
                 postData();
-                Dialog dialog = new AlertDialog.Builder(WritePublicCommentActivity.this).setTitle("评论成功!")
-                        .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        }).create();
-                dialog.show();
+
                 finish();
             }
         });
@@ -118,8 +111,8 @@ public class WritePublicCommentActivity extends Activity {
         @Override
         protected JSONObject doInBackground(String... params) {
             try {
-                DoGetAndPost.doPost("", mList);
-                return null;
+                JSONObject object = DoGetAndPost.doPost(mUrl, mList);
+                return object;
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -134,7 +127,25 @@ public class WritePublicCommentActivity extends Activity {
         @Override
         protected void onPostExecute(JSONObject object) {
             try {
-
+                if (object.getInt("success") == 1) {
+                    Dialog dialog = new AlertDialog.Builder(WritePublicCommentActivity.this).setTitle("评论成功!")
+                            .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            }).create();
+                    dialog.show();
+                } else {
+                    Dialog dialog = new AlertDialog.Builder(WritePublicCommentActivity.this).setTitle("评论失败")
+                            .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            }).create();
+                    dialog.show();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }

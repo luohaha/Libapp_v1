@@ -38,7 +38,7 @@ public class MainActivity extends Activity implements OnClickListener {
     private Fragment fragment;
     private Fragment nowFragment;
     private PopupWindow popupwindow;
-    private FontAwesomeText rightButton;
+    private BootstrapButton rightButton;
     private View customView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +52,7 @@ public class MainActivity extends Activity implements OnClickListener {
         fragmentManager = getFragmentManager();
         radioGroup = (RadioGroup) findViewById(R.id.rg_tab);
         deaultButton = (RadioButton) findViewById(R.id.radiobution_1);
-        rightButton = (FontAwesomeText) findViewById(R.id.button_right);
+        rightButton = (BootstrapButton) findViewById(R.id.button_right);
 //        actionBar = getActionBar();
 //        actionBar.hide();
         headBar = (HeadBar) findViewById(R.id.head_bar);
