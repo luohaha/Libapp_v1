@@ -15,6 +15,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,9 +38,11 @@ import com.example.root.libapp_v1.HttpModule.DoGetAndPost;
 import com.example.root.libapp_v1.MyUtil.DownLoadBitmap.AsyncBitmapLoader;
 import com.example.root.libapp_v1.MyUtil.DownLoadBitmap.SetBitmapForImagView;
 import com.example.root.libapp_v1.PersonBook.PersonBookCommentListView.CommentListviewAdapter;
+import com.example.root.libapp_v1.PullRefreshListView.FreshListView;
 import com.example.root.libapp_v1.R;
 import com.example.root.libapp_v1.SQLiteModule.DatabaseClient;
 import com.example.root.libapp_v1.WriteCommentActivity.WriteCommentActivity;
+import com.example.root.libapp_v1.WriteCommentActivity.WritePublicCommentActivity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -56,13 +59,14 @@ import java.util.zip.Inflater;
  * this acitivty is to show the public books reading status.
  * And also he can send a book comment here.
  */
-public class PublicBookActivity extends Activity {
+public class PublicBookActivity extends Activity implements FreshListView.IReflashListener{
     /**
      * define var
      */
     private HeadBar mHeadBar;
     private ArrayList<HashMap<String, Object>> mList;
-    private ListView mListView;
+    private CommentListviewAdapter mAdapter;
+    private FreshListView mListView;
     private TextView mTitle;
     private ImageView mCover;
     private TextView mOwner;
@@ -103,6 +107,7 @@ public class PublicBookActivity extends Activity {
          * first step, finish init listview data
          * */
        // setData();
+        getListviewDataFromHttp();
         initListView();
         /**
          * second step, put the first layout and list view both into viewpager
@@ -118,19 +123,6 @@ public class PublicBookActivity extends Activity {
     private void getBookName() {
         Intent intent = getIntent();
         mBookName = intent.getStringExtra("bookname");
-    }
-    /**
-     * initial the listview
-     */
-    private void initListView() {
-        LayoutInflater mInflater = getLayoutInflater();
-        View mView = mInflater.inflate(R.layout.publicbook_tab2, null);
-
-        mListView = (ListView) mView.findViewById(R.id.publicbook_listview);
-        /*CommentListviewAdapter adapter = new CommentListviewAdapter(this, mList,
-                R.layout.publicbook_comment_item);
-        mListView.setAdapter(adapter);*/
-
     }
 
     /**
@@ -156,7 +148,6 @@ public class PublicBookActivity extends Activity {
     /**
      * init the popup window, so we can use it in setting hear bar.
      * */
-    /*
      private void initmPopupWindowView() {
 
         // // 获取自定义布局文件pop.xml的视图
@@ -178,26 +169,19 @@ public class PublicBookActivity extends Activity {
         });
 
 
-        BootstrapButton sendButton = (BootstrapButton) mPopView.findViewById(R.id.personbook_send_book);
-        BootstrapButton writeButton = (BootstrapButton) mPopView.findViewById(R.id.personbook_write_comment);
+        BootstrapButton writeButton = (BootstrapButton) mPopView.findViewById(R.id.publicbook_write_comment);
 
-        sendButton.setOnClickListener(this);
-        writeButton.setOnClickListener(this);
-    }*/
-
-    /*
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.personbook_send_book :
-                Toast.makeText(this, "send books!", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.personbook_write_comment :
-                Intent intent = new Intent(PersonBookActivity.this, WriteCommentActivity.class);
+        writeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PublicBookActivity.this, WritePublicCommentActivity.class);
+                intent.putExtra("personname", mPersonWantToBecomeOwner);
+                intent.putExtra("bookname", mBookName);
                 startActivity(intent);
-                break;
-        }
+            }
+        });
     }
-    */
+
     /**
      * set the data
      */
@@ -440,6 +424,108 @@ public class PublicBookActivity extends Activity {
 
         @Override
         protected void onProgressUpdate(Integer... values) {
+        }
+    }
+
+    /**
+     *  freshlistview
+     * */
+
+    @Override
+    public void onReflash() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                //获取最新数据
+                //  setRefreshData();
+                getListviewDataFromHttp();
+                //通知界面显示
+                showListview();
+                //通知listview 刷新数据完毕；
+                mListView.reflashComplete();
+            }
+        }, 2);
+    }
+
+    @Override
+    public void onLoad() {
+        mListView.loadComplete();
+    }
+
+    /**
+     * get listview data from local db
+     * */
+    private void getListviewDataFromHttp() {
+        ListviewHttpTask httpTask = new ListviewHttpTask(mBookName);
+        httpTask.execute();
+    }
+
+    /**
+     * init list view
+     * */
+    private void initListView() {
+        LayoutInflater mInflater = getLayoutInflater();
+        View mView = mInflater.inflate(R.layout.publicbook_tab2, null);
+        mListView = (FreshListView) mView.findViewById(R.id.publicbook_listview);
+        showListview();
+    }
+    /**
+     * show list view
+     * */
+
+    private void showListview() {
+        /**
+         * show list view
+         * */
+        if (mAdapter == null) {
+            mListView.setInterface(this);
+            mAdapter = new CommentListviewAdapter(this, mList,
+                        R.layout.personbook_comment_item);
+            mListView.setAdapter(mAdapter);
+        } else {
+            mAdapter.onDateChange(mList);
+        }
+    }
+    /**
+     *
+     * */
+    private class ListviewHttpTask extends AsyncTask<String, Integer, JSONArray> {
+        private String bookname;
+        public ListviewHttpTask(String book) {
+            this.bookname = book;
+        }
+
+        @Override
+        protected JSONArray doInBackground(String... params) {
+            try {
+                JSONObject jsonObject = DoGetAndPost.doGet("");
+                JSONArray array = jsonObject.getJSONArray("");
+                /**
+                 * using publicProgress() to update progress bar's status
+                 * */
+                // publishProgress(100);
+                return array;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected void onPostExecute(JSONArray array) {
+            try {
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }

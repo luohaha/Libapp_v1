@@ -55,7 +55,6 @@ public class PersonOwnBookpageModule {
              * if the return jsonObject is null, then don't clear the table
              * */
             if (object != null) {
-               // databaseClient.clearPersonOwnBookPage();
                 databaseClient.clearTablePage("personownbookpage");
             }
 

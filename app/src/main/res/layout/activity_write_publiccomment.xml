@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:bootstrap="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/card_back"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.example.root.libapp_v1.HeadBar.HeadBar
+        android:id="@+id/writepubliccomment_head_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.example.root.libapp_v1.HeadBar.HeadBar>
+    <!--first block-->
+
+    <!--the second block-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginBottom="10dip"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+            <com.beardedhen.androidbootstrap.FontAwesomeText
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="10dip"
+                fontawesometext:fa_icon="fa-pencil-square-o"
+                android:textSize="18sp"
+                android:textColor="@color/light_blue" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="10dip"
+                android:textSize="18sp"
+                android:typeface="sans"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:text="内容"/>
+        </LinearLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/card_back"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="210dip"
+            android:background="@color/white">
+            <com.beardedhen.androidbootstrap.BootstrapEditText
+                android:id="@+id/writepubliccomment_msg"
+                android:background="@null"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textMultiLine"
+                android:minLines="6"
+                android:gravity="top|left"
+                android:hint="说点啥～～"
+                android:layout_marginBottom="10dip"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:typeface="sans"
+                bootstrapbutton:be_roundedCorners="false"
+                bootstrapbutton:be_state="danger"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!--the buttons block-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/writepubliccomment_send_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:layout_weight="4"
+            android:text="完成"
+            bootstrap:bb_icon_left="fa-upload"
+            bootstrap:bb_type="default"
+            bootstrap:bb_size="large"
+            />
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/writepubliccomment_clear_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:text="置空"
+            bootstrap:bb_icon_left="fa-trash"
+            bootstrap:bb_type="default"
+            bootstrap:bb_size="large"
+            />
+
+    </LinearLayout>
+</LinearLayout>

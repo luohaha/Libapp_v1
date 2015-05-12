@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrap="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <com.beardedhen.androidbootstrap.BootstrapButton
+        android:id="@+id/publicbook_write_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:text="写评论"
+        bootstrap:bb_icon_right="fa-pencil-square-o"
+        bootstrap:bb_type="default"
+        bootstrap:bb_size="large"
+        bootstrap:bb_roundedCorners="true"
+        />
+
+</LinearLayout>

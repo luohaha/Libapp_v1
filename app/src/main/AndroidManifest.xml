@@ -46,6 +46,9 @@
         <activity android:name=".GetPictureActivity.GetPictureActivity">
 
         </activity>
+        <activity android:name=".WriteCommentActivity.WritePublicCommentActivity">
+
+        </activity>
         <provider
             android:authorities="com.example.root.libapp_v1.SQLiteModule.Personpage.PersonpageProvider"
             android:name=".SQLiteModule.Personpage.PersonpageProvider"

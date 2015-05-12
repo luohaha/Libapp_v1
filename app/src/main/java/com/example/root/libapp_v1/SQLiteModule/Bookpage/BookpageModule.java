@@ -43,7 +43,6 @@ public class BookpageModule {
              * if the return jsonObject is null, then don't clear the table
              * */
             if (jsonObject != null) {
-               // databaseClient.clearBookPage();
                 databaseClient.clearTablePage("bookpage");
             }
 
