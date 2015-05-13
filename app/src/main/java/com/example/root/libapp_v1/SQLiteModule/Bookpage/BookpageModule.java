@@ -18,6 +18,10 @@ import com.example.root.libapp_v1.HttpModule.DoGetAndPost;
 import com.example.root.libapp_v1.PublicBookActivity.PublicBookActivity;
 import com.example.root.libapp_v1.R;
 import com.example.root.libapp_v1.SQLiteModule.DatabaseClient;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -45,8 +49,45 @@ public class BookpageModule {
     }
 
     public void refreshDb() {
-        HttpTask httpTask = new HttpTask();
-        httpTask.execute();
+       // HttpTask httpTask = new HttpTask();
+       // httpTask.execute();
+        Ion.with(mContext)
+                .load(mGetUrl)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        try {
+                            // do stuff with the result or error
+                            DatabaseClient databaseClient = new DatabaseClient(mContext);
+                            /**
+                             * if the return jsonObject is null, then don't clear the table
+                             * */
+                            if (result != null) {
+                                databaseClient.clearTablePage("bookpage");
+                            }
+
+                            JsonArray array = result.getAsJsonArray("books");
+                            /**
+                             * put data into db
+                             * */
+                            ContentResolver contentResolver = mContext.getContentResolver();
+                            Uri uri = Uri.parse("content://com.example.root.libapp_v1.SQLiteModule.Bookpage.BookpageProvider/bookpage");
+                            for (int i = 0; i < array.size(); i++) {
+                                ContentValues contentValues = new ContentValues();
+                                contentValues.put("name", array.get(i).getAsJsonObject().get("name").getAsString());
+                                contentValues.put("detail_info", array.get(i).getAsJsonObject().get("detail_info").getAsString());
+                                contentValues.put("author_info", array.get(i).getAsJsonObject().get("author_info").getAsString());
+                                contentValues.put("unique_id", array.get(i).getAsJsonObject().get("id").getAsString());
+                                contentValues.put("catalog_info", array.get(i).getAsJsonObject().get("catalog_info").getAsString());
+                                Uri tmp = contentResolver.insert(uri, contentValues);
+                                initData(mView);
+                            }
+                        } catch (Exception ee) {
+                            ee.printStackTrace();
+                        }
+                    }
+                });
     }
     /**
      * init the test data

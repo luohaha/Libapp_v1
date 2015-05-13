@@ -13,6 +13,10 @@ import android.util.Log;
 
 import com.example.root.libapp_v1.HttpModule.DoGetAndPost;
 import com.example.root.libapp_v1.SQLiteModule.DatabaseClient;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -30,92 +34,50 @@ public class PersonOwnBookpageModule {
     }
 
     public void refreshDb() {
-        HttpTask httpTask = new HttpTask();
-        httpTask.execute();
+        //HttpTask httpTask = new HttpTask();
+        //httpTask.execute();
+        ContentResolver contentResolver = mContext.getContentResolver();
+        Uri uri = Uri.parse("content://com.example.root.libapp_v1.SQLiteModule.Personpage.PersonpageProvider/personpage/1");
+        Cursor cursor = contentResolver.query(uri, null, null, null, null);
+        String owner = "";
+        while (cursor.moveToNext()) {
+            owner = cursor.getString(cursor.getColumnIndex("name"));
+        }
+        cursor.close();
+        Ion.with(mContext)
+                .load(mUrl+"&param="+owner)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        // do stuff with the result or error
+                        try {
+                            DatabaseClient databaseClient = new DatabaseClient(mContext);
+                            /**
+                             * if the return jsonObject is null, then don't clear the table
+                             * */
+                            if (result != null) {
+                                databaseClient.clearTablePage("personownbookpage");
+                            }
+                            JsonArray array = result.getAsJsonArray("book");
+                            ContentResolver contentResolver = mContext.getContentResolver();
+                            Uri uri = Uri.parse("content://com.example.root.libapp_v1.SQLiteModule.PersonOwnBookpage.PersonOwnBookpageProvider/personownbookpage");
+                            for (int i = 0; i < array.size(); i++) {
+                                ContentValues contentValues = new ContentValues();
+                                contentValues.put("name", array.get(i).getAsJsonObject().get("name").getAsString());
+                                contentValues.put("detail_info", array.get(i).getAsJsonObject().get("detail_info").getAsString());
+                                contentValues.put("author_info", array.get(i).getAsJsonObject().get("author_info").getAsString());
+                                contentValues.put("unique_id", array.get(i).getAsJsonObject().get("id").getAsString());
+                                contentValues.put("catalog_info", array.get(i).getAsJsonObject().get("catalog_info").getAsString());
+                                Uri tmp = contentResolver.insert(uri, contentValues);
+                                //Log.i("get book from http --> ", tmp.toString());
+                            }
+                        } catch (Exception ee) {
+                            ee.printStackTrace();
+                        }
+
+                    }
+                });
     }
 
-    /**
-     * refresh the data by getting from http
-     * */
-    private JSONArray getDataFromHttp() {
-        try {
-            ContentResolver contentResolver = mContext.getContentResolver();
-            Uri uri = Uri.parse("content://com.example.root.libapp_v1.SQLiteModule.Personpage.PersonpageProvider/personpage/1");
-            Cursor cursor = contentResolver.query(uri, null, null, null, null);
-            String owner = "";
-            while (cursor.moveToNext()) {
-                owner = cursor.getString(cursor.getColumnIndex("name"));
-            }
-            cursor.close();
-            JSONArray array = null;
-            JSONObject object = null;
-            DatabaseClient databaseClient = new DatabaseClient(mContext);
-            object = DoGetAndPost.doGet(mUrl+"&param="+owner);
-            /**
-             * if the return jsonObject is null, then don't clear the table
-             * */
-            if (object != null) {
-                databaseClient.clearTablePage("personownbookpage");
-            }
-
-            array = object.getJSONArray("book");
-            return array;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    /**
-     * clss HttpTask : which using AsyncTask to open a new thread to download data in back.
-     */
-    private class HttpTask extends AsyncTask<String, Integer, JSONArray> {
-        private HttpTask() {
-        }
-
-        @Override
-        protected JSONArray doInBackground(String... params) {
-            try {
-                JSONArray jsonObject = getDataFromHttp();
-                /**
-                 * using publicProgress() to update progress bar's status
-                 * */
-                // publishProgress(100);
-                return jsonObject;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-
-        }
-
-        @Override
-        protected void onPostExecute(JSONArray array) {
-            try {
-                ContentResolver contentResolver = mContext.getContentResolver();
-                Uri uri = Uri.parse("content://com.example.root.libapp_v1.SQLiteModule.PersonOwnBookpage.PersonOwnBookpageProvider/personownbookpage");
-                for (int i = 0; i < array.length(); i++) {
-                    ContentValues contentValues = new ContentValues();
-                    contentValues.put("name", array.getJSONObject(i).getString("name"));
-                    contentValues.put("detail_info", array.getJSONObject(i).getString("detail_info"));
-                    contentValues.put("author_info", array.getJSONObject(i).getString("author_info"));
-                    contentValues.put("unique_id", array.getJSONObject(i).getString("id"));
-                    contentValues.put("catalog_info", array.getJSONObject(i).getString("catalog_info"));
-                    Uri tmp = contentResolver.insert(uri, contentValues);
-                    //Log.i("get book from http --> ", tmp.toString());
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-        }
-    }
 }

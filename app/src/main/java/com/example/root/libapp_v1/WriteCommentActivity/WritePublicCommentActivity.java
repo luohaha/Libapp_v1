@@ -15,6 +15,8 @@ import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.example.root.libapp_v1.HeadBar.HeadBar;
 import com.example.root.libapp_v1.HttpModule.DoGetAndPost;
 import com.example.root.libapp_v1.R;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -91,64 +93,41 @@ public class WritePublicCommentActivity extends Activity {
     }
 
     private void postData() {
-        List<NameValuePair> list = new ArrayList<NameValuePair>();
-        list.add(new BasicNameValuePair("bookname", mBook));
-        list.add(new BasicNameValuePair("personname", mPerson));
-        list.add(new BasicNameValuePair("comment", mMsg.getText().toString()));
-        HttpTask httpTask = new HttpTask(list);
-        httpTask.execute();
+        Ion.with(WritePublicCommentActivity.this)
+                .load(mUrl)
+                .setBodyParameter("bookname", mBook)
+                .setBodyParameter("personname", mPerson)
+                .setBodyParameter("comment", mMsg.getText().toString())
+                .asString()
+                .setCallback(new FutureCallback<String>() {
+                    @Override
+                    public void onCompleted(Exception e, String result) {
+                        try {
+                            JSONObject object = new JSONObject(result);
+                            if (object.getInt("success") == 1) {
+                                Dialog dialog = new AlertDialog.Builder(WritePublicCommentActivity.this).setTitle("评论成功!")
+                                        .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                            }
+                                        }).create();
+                                dialog.show();
+                            } else {
+                                Dialog dialog = new AlertDialog.Builder(WritePublicCommentActivity.this).setTitle("评论失败")
+                                        .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                            }
+                                        }).create();
+                                dialog.show();
+                            }
+                        } catch (Exception ee) {
+                            ee.printStackTrace();
+                        }
+                    }
+                });
     }
 
-    /**
-     *
-     * */
-    private class HttpTask extends AsyncTask<String, Integer, JSONObject> {
-        private List<NameValuePair> mList;
-        public HttpTask(List<NameValuePair> list) {
-            this.mList = list;
-        }
-
-        @Override
-        protected JSONObject doInBackground(String... params) {
-            try {
-                JSONObject object = DoGetAndPost.doPost(mUrl, mList);
-                return object;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-
-        }
-
-        @Override
-        protected void onPostExecute(JSONObject object) {
-            try {
-                if (object.getInt("success") == 1) {
-                    Dialog dialog = new AlertDialog.Builder(WritePublicCommentActivity.this).setTitle("评论成功!")
-                            .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            }).create();
-                    dialog.show();
-                } else {
-                    Dialog dialog = new AlertDialog.Builder(WritePublicCommentActivity.this).setTitle("评论失败")
-                            .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            }).create();
-                    dialog.show();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
 }

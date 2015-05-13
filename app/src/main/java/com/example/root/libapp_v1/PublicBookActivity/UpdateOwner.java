@@ -9,6 +9,9 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.root.libapp_v1.HttpModule.DoGetAndPost;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -28,8 +31,18 @@ public class UpdateOwner {
         this.mContext = context;
     }
     public void start() {
-        HttpTask httpTask = new HttpTask();
-        httpTask.execute();
+       // HttpTask httpTask = new HttpTask();
+       // httpTask.execute();
+        Ion.with(mContext)
+                .load(mUrl + "?id="+mBookId+"&personname="+mPersonName)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        // do stuff with the result or error
+
+                    }
+                });
     }
     /**
      * refresh the data by getting from http

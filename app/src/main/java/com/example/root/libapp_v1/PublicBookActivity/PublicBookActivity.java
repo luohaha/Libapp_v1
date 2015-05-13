@@ -357,10 +357,10 @@ public class PublicBookActivity extends Activity implements FreshListView.IRefla
                             String sender = "";
                             for (int i = 0; i < array.size(); i++) {
                                 owner = array.get(i).getAsJsonObject().get("owner").toString();
-                                sender = array.get(i).getAsJsonObject().get("sender").toString();
-                                sender = sender.substring(1, sender.length()-1);
+                                sender = array.get(i).getAsJsonObject().get("sender").getAsString();
+                              //  sender = sender.substring(1, sender.length()-1);
                             }
-                            if (owner.equals("null") || owner == null || owner.length() == 0 || owner == "null") {
+                            if (owner == null || owner.equals("null") || owner.equals("\"\"") || owner.length() == 0) {
                                 mOwner.setVisibility(View.GONE);
                                 mBecomeOwner.setVisibility(View.VISIBLE);
                                 mBecomeOwner.setOnClickListener(new View.OnClickListener() {
@@ -432,8 +432,31 @@ public class PublicBookActivity extends Activity implements FreshListView.IRefla
      * get listview data from local db
      * */
     private void getListviewDataFromHttp() {
-        ListviewHttpTask httpTask = new ListviewHttpTask(mBookName);
-        httpTask.execute();
+       // ListviewHttpTask httpTask = new ListviewHttpTask(mBookName);
+       // httpTask.execute();
+        Ion.with(PublicBookActivity.this)
+                .load("http://192.168.0.153/android/get_comments.php?start=0&count=20&bookname="+mBookName)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        // do stuff with the result or error
+                        try {
+                            mList = new ArrayList<HashMap<String, Object>>();
+                            JsonArray array = result.getAsJsonArray("bookcomments");
+                            for (int i = 0; i < array.size(); i++) {
+                                HashMap<String, Object> map = new HashMap<String, Object>();
+                                map.put("posttime", array.get(i).getAsJsonObject().get("adddate").getAsString());
+                                map.put("comment", array.get(i).getAsJsonObject().get("comment").getAsString());
+                                map.put("personname", array.get(i).getAsJsonObject().get("personname").getAsString());
+                                mList.add(map);
+                            }
+                            showListview();
+                        } catch (Exception ee) {
+                            ee.printStackTrace();
+                        }
+                    }
+                });
     }
 
     /**
@@ -463,53 +486,5 @@ public class PublicBookActivity extends Activity implements FreshListView.IRefla
             mAdapter.onDateChange(mList);
         }
     }
-    /**
-     *
-     * */
-    private class ListviewHttpTask extends AsyncTask<String, Integer, JSONArray> {
-        private String bookname;
 
-        public ListviewHttpTask(String book) {
-            this.bookname = book;
-            mList = new ArrayList<HashMap<String, Object>>();
-        }
-
-        @Override
-        protected JSONArray doInBackground(String... params) {
-            try {
-                JSONObject jsonObject = DoGetAndPost.doGet("http://192.168.0.153/android/get_comments.php" +
-                        "?start=0&count=20&bookname="+bookname);
-                JSONArray array = jsonObject.getJSONArray("bookcomments");
-                /**
-                 * using publicProgress() to update progress bar's status
-                 * */
-                // publishProgress(100);
-                return array;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-
-        }
-
-        @Override
-        protected void onPostExecute(JSONArray array) {
-            try {
-                for (int i = 0; i < array.length(); i++) {
-                    HashMap<String, Object> map = new HashMap<String, Object>();
-                    map.put("posttime", array.getJSONObject(i).getString("adddate"));
-                    map.put("comment", array.getJSONObject(i).getString("comment"));
-                    map.put("personname", array.getJSONObject(i).getString("personname"));
-                    mList.add(map);
-                }
-                showListview();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
 }
