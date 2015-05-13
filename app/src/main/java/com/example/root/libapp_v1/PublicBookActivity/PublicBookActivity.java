@@ -43,6 +43,9 @@ import com.example.root.libapp_v1.PullRefreshListView.FreshListView;
 import com.example.root.libapp_v1.R;
 
 import com.example.root.libapp_v1.WriteCommentActivity.WritePublicCommentActivity;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
 import org.json.JSONArray;
@@ -339,102 +342,63 @@ public class PublicBookActivity extends Activity implements FreshListView.IRefla
      * get owner from http
      * */
     private void getOwner() {
-        HttpTask httpTask = new HttpTask();
-        httpTask.execute();
-    }
+       // HttpTask httpTask = new HttpTask();
+       // httpTask.execute();
+        Ion.with(PublicBookActivity.this)
+                .load(mUrl+"?flag=name"+"&param="+mTitle.getText())
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject object) {
+                        // do stuff with the result or error
+                        try {
+                            JsonArray array = object.getAsJsonArray("book");
+                            String owner = "";
+                            String sender = "";
+                            for (int i = 0; i < array.size(); i++) {
+                                owner = array.get(i).getAsJsonObject().get("owner").toString();
+                                sender = array.get(i).getAsJsonObject().get("sender").toString();
+                                sender = sender.substring(1, sender.length()-1);
+                            }
+                            if (owner.equals("null") || owner == null || owner.length() == 0 || owner == "null") {
+                                mOwner.setVisibility(View.GONE);
+                                mBecomeOwner.setVisibility(View.VISIBLE);
+                                mBecomeOwner.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        //Log.i("we get ------------->>>>>", mUniqueId+"  "+mPersonWantToBecomeOwner);
+                                        UpdateOwner updateOwner = new UpdateOwner(mUniqueId, mPersonWantToBecomeOwner, PublicBookActivity.this);
+                                        updateOwner.start();
+                                        Dialog dialog = new AlertDialog.Builder(PublicBookActivity.this).setTitle("订书成功")
+                                                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        dialog.dismiss();
+                                                    }
+                                                }).create();
+                                        dialog.show();
+                                        /**
+                                         * refresh the view
+                                         * */
+                                        getOwner();
+                                    }
+                                });
+                            } else {
+                                mOwner.setVisibility(View.VISIBLE);
+                                mBecomeOwner.setVisibility(View.GONE);
+                                mOwner.setText("持有人:"+owner);
 
-    /**
-     * refresh the data by getting from http
-     * */
-    private JSONObject getDataFromHttp() {
+                            }
+                            mSender.setText("发书人:" + sender);
 
-        try {
-            JSONObject jsonObject = DoGetAndPost.doGet(mUrl+"?flag=name"+"&param="+mTitle.getText());
-
-            return jsonObject;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    /**
-     * clss HttpTask : which using AsyncTask to open a new thread to download data in back.
-     */
-    private class HttpTask extends AsyncTask<String, Integer, JSONObject> {
-        private HttpTask() {
-        }
-
-        @Override
-        protected JSONObject doInBackground(String... params) {
-            try {
-                JSONObject jsonObject = getDataFromHttp();
-                /**
-                 * using publicProgress() to update progress bar's status
-                 * */
-                // publishProgress(100);
-                return jsonObject;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-
-        }
-
-        @Override
-        protected void onPostExecute(JSONObject object) {
-            try {
-                JSONArray array = object.getJSONArray("book");
-                String owner = "";
-                String sender = "";
-                for (int i = 0; i < array.length(); i++) {
-                    owner = array.getJSONObject(i).getString("owner");
-                    sender = array.getJSONObject(i).getString("sender");
-                }
-                if (owner == null || owner.length() == 0 || owner == "null") {
-                    mOwner.setVisibility(View.GONE);
-                    mBecomeOwner.setVisibility(View.VISIBLE);
-                    mBecomeOwner.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            //Log.i("we get ------------->>>>>", mUniqueId+"  "+mPersonWantToBecomeOwner);
-                            UpdateOwner updateOwner = new UpdateOwner(mUniqueId, mPersonWantToBecomeOwner, PublicBookActivity.this);
-                            updateOwner.start();
-                            Dialog dialog = new AlertDialog.Builder(PublicBookActivity.this).setTitle("订书成功")
-                                    .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            dialog.dismiss();
-                                        }
-                                    }).create();
-                            dialog.show();
-                            /**
-                             * refresh the view
-                             * */
-                            getOwner();
+                        } catch (Exception ee) {
+                            ee.printStackTrace();
                         }
-                    });
-                } else {
-                    mOwner.setVisibility(View.VISIBLE);
-                    mBecomeOwner.setVisibility(View.GONE);
-                    mOwner.setText("持有人:"+owner);
-
-                }
-                mSender.setText("发书人:" + sender);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-        }
+                    }
+                });
     }
+
+
 
     /**
      *  freshlistview

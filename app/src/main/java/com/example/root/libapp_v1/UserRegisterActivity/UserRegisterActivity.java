@@ -18,6 +18,9 @@ import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.example.root.libapp_v1.HeadBar.HeadBar;
 import com.example.root.libapp_v1.HttpModule.DoGetAndPost;
 import com.example.root.libapp_v1.R;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -105,22 +108,57 @@ public class UserRegisterActivity extends Activity {
                     /**
                      * if the user's name isn't empty
                      * */
+                    Ion.with(UserRegisterActivity.this)
+                            .load(postUrl)
+                            .setBodyParameter("name", mUserName.getText().toString())
+                            .setBodyParameter("quote", mUserQuote.getText().toString())
+                            .setBodyParameter("address", mUserAddress.getText().toString())
+                            .setBodyParameter("mailbox", mUserMailbox.getText().toString())
+                            .setBodyParameter("phone", mUserPhone.getText().toString())
+                            .setBodyParameter("account_number", mAccountNumber.getText().toString())
+                            .setBodyParameter("password", mUserPassword.getText().toString())
+                            .asString()
+                            .setCallback(new FutureCallback<String>() {
+                                @Override
+                                public void onCompleted(Exception e, String result) {
+                                    try {
+                                        JSONObject object = new JSONObject(result);
+                                        if (object.getInt("success") == 0) {
+                                            //register fail
+                                            Dialog dialog = new AlertDialog.Builder(UserRegisterActivity.this).setTitle("注册失败"+object.getString("message"))
+                                                    .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            dialog.dismiss();
+                                                        }
+                                                    }).create();
+                                            dialog.show();
+                                        }
+                                        else if (object.getInt("success") == 1){
+                                            //register success
+                                                Dialog dialog = new AlertDialog.Builder(UserRegisterActivity.this).setTitle("注册成功")
+                                                        .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(DialogInterface dialog, int which) {
+                                                                dialog.dismiss();
+                                                                Intent intent = new Intent();
+                                                                intent.putExtra("password", mUserPassword.getText().toString());
+                                                                intent.putExtra("account_number", mAccountNumber.getText().toString());
+                                                                setResult(1001, intent);
+                                                                UserRegisterActivity.this.finish();
+                                                            }
+                                                        }).create();
+                                                dialog.show();
 
-                    /**
-                     * upload the user's info to server side
-                     * */
-
-                    List<NameValuePair> list = new ArrayList<NameValuePair>();
-                    list.add(new BasicNameValuePair("name", mUserName.getText().toString()));
-                    list.add(new BasicNameValuePair("quote", mUserQuote.getText().toString()));
-                    list.add(new BasicNameValuePair("address", mUserAddress.getText().toString()));
-                    list.add(new BasicNameValuePair("mailbox", mUserMailbox.getText().toString()));
-                    list.add(new BasicNameValuePair("phone", mUserPhone.getText().toString()));
-                    list.add(new BasicNameValuePair("account_number", mAccountNumber.getText().toString()));
-                    list.add(new BasicNameValuePair("password", mUserPassword.getText().toString()));
-                    HttpTask httpTask = new HttpTask(list);
-                    httpTask.execute();
-
+                                        } else {
+                                            //I don't want to see this
+                                            Log.i("the success code ------->>>", "err");
+                                        }
+                                    } catch (Exception ee) {
+                                        ee.printStackTrace();
+                                    }
+                                }
+                            });
 
                 } else {
                     /**
@@ -150,102 +188,7 @@ public class UserRegisterActivity extends Activity {
         mUserMailbox.setText("");
         mUserPhone.setText("");
     }
-    /**
-     * refresh the data by getting from http
-     * */
-    private JSONObject getDataFromHttp(List<NameValuePair> list) {
 
-        try {
-            JSONObject jsonObject = DoGetAndPost.doPost(postUrl, list);
-            Log.i("dasbb   hahahha  ->", jsonObject.toString());
-            /**
-             * set the data which we get from http server
-             * */
 
-            return jsonObject;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
-    /**
-     * clss HttpTask : which using AsyncTask to open a new thread to download data in back.
-     */
-    private class HttpTask extends AsyncTask<String, Integer, JSONObject> {
-        List<NameValuePair> list;
-        private HttpTask(List<NameValuePair> l) {
-            this.list = l;
-        }
-
-        @Override
-        protected JSONObject doInBackground(String... params) {
-            try {
-                JSONObject jsonObject = getDataFromHttp(this.list);
-                /**
-                 * using publicProgress() to update progress bar's status
-                 * */
-                // publishProgress(100);
-                return jsonObject;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-
-        }
-
-        @Override
-        protected void onPostExecute(JSONObject s) {
-            try {
-
-                if (s.getInt("success") == 0) {
-                    //register fail
-                    Dialog dialog = new AlertDialog.Builder(UserRegisterActivity.this).setTitle("注册失败"+s.getString("message"))
-                            .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            }).create();
-                    dialog.show();
-                }
-                else if (s.getInt("success") == 1){
-                    //register success
-                    try {
-
-                        Dialog dialog = new AlertDialog.Builder(UserRegisterActivity.this).setTitle("注册成功")
-                                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                        Intent intent = new Intent();
-                                        intent.putExtra("password", mUserPassword.getText().toString());
-                                        intent.putExtra("account_number", mAccountNumber.getText().toString());
-                                        setResult(1001, intent);
-                                        UserRegisterActivity.this.finish();
-                                    }
-                                }).create();
-                        dialog.show();
-                       // clearAllEditText();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    //I don't want to see this
-                    Log.i("the success code ------->>>", "err");
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-        }
-    }
 }

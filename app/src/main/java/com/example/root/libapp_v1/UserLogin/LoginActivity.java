@@ -29,6 +29,8 @@ import com.example.root.libapp_v1.HeadBar.HeadBar;
 import com.example.root.libapp_v1.HttpModule.DoGetAndPost;
 import com.example.root.libapp_v1.R;
 import com.example.root.libapp_v1.UserRegisterActivity.UserRegisterActivity;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -254,12 +256,62 @@ public class LoginActivity extends Activity {
                  *                  and we should update local personpage table's msg
                  *              else it won't return msg
                  * */
+                Ion.with(LoginActivity.this)
+                        .load(loginUrl)
+                        .setBodyParameter("account_number", mUserNumberEditText.getText().toString())
+                        .setBodyParameter("password", mUserPasswordEditText.getText().toString())
+                        .asString()
+                        .setCallback(new FutureCallback<String>() {
+                            @Override
+                            public void onCompleted(Exception e, String result) {
+                                try {
+                                    JSONObject s = new JSONObject(result);
+                                    if (s.getInt("success") == 0) {
+                                        //register fail
+                                        Dialog dialog = new AlertDialog.Builder(LoginActivity.this).setTitle("登陆失败")
+                                                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        dialog.dismiss();
+                                                    }
+                                                }).create();
+                                        dialog.show();
+                                    }
+                                    else if (s.getInt("success") == 1){
 
-                List<NameValuePair> list = new ArrayList<NameValuePair>();
-                list.add(new BasicNameValuePair("account_number", mUserNumberEditText.getText().toString()));
-                list.add(new BasicNameValuePair("password", mUserPasswordEditText.getText().toString()));
-                HttpTask httpTask = new HttpTask(list);
-                httpTask.execute();
+                                            /**
+                                             * restore the data into local database
+                                             * */
+                                            ContentResolver contentResolver = getContentResolver();
+                                            Uri uri = Uri.parse("content://com.example.root.libapp_v1.SQLiteModule.Personpage.PersonpageProvider/personpage/1");
+                                            ContentValues contentValues = new ContentValues();
+                                            contentValues.put("name", s.getString("name"));
+                                            contentValues.put("quote", s.getString("quote"));
+                                            contentValues.put("address", s.getString("address"));
+                                            contentValues.put("mailbox", s.getString("mailbox"));
+                                            contentValues.put("phone", s.getString("phone"));
+                                            contentValues.put("account_number", s.getString("account_number"));
+                                            contentValues.put("password", s.getString("password"));
+                                            contentResolver.update(uri, contentValues, null, null);
+                                            Dialog dialog = new AlertDialog.Builder(LoginActivity.this).setTitle("登陆成功")
+                                                    .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            dialog.dismiss();
+                                                            LoginActivity.this.finish();
+                                                        }
+                                                    }).create();
+                                            dialog.show();
+                                    } else {
+                                        //I don't want to see this
+                                        Log.i("the success code ------->>>", "err");
+                                    }
+                                } catch (Exception ee) {
+                                    ee.printStackTrace();
+                                }
+                            }
+                        });
+
             }
         });
           /**
@@ -316,122 +368,5 @@ public class LoginActivity extends Activity {
         return super.onTouchEvent(event);
 
     }
-    /**
-     *
-     * internet function
-    * */
 
-
-    /**
-     * refresh the data by getting from http
-     * */
-    private JSONObject getDataFromHttp(List<NameValuePair> list) {
-
-        try {
-            JSONObject jsonObject = DoGetAndPost.doPost(loginUrl, list);
-            Log.i("login post  ->", jsonObject.toString());
-            /**
-             * set the data which we get from http server
-             * */
-
-            return jsonObject;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    /**
-     * clss HttpTask : which using AsyncTask to open a new thread to download data in back.
-     */
-    private class HttpTask extends AsyncTask<String, Integer, JSONObject> {
-        List<NameValuePair> list;
-        private HttpTask(List<NameValuePair> l) {
-            this.list = l;
-        }
-
-        @Override
-        protected JSONObject doInBackground(String... params) {
-            try {
-                JSONObject jsonObject = getDataFromHttp(this.list);
-                /**
-                 * using publicProgress() to update progress bar's status
-                 * */
-                // publishProgress(100);
-                return jsonObject;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-
-        }
-
-        @Override
-        protected void onPostExecute(JSONObject s) {
-            /**
-             * if login fail, then show the tips
-             * else login success, then put the data into the local database, and finish activity
-             * */
-            try {
-
-                if (s.getInt("success") == 0) {
-                    //register fail
-                    Dialog dialog = new AlertDialog.Builder(LoginActivity.this).setTitle("登陆失败")
-                            .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            }).create();
-                    dialog.show();
-                }
-                else if (s.getInt("success") == 1){
-                    //register success
-                    try {
-
-                         /**
-                         * restore the data into local database
-                         * */
-                        ContentResolver contentResolver = getContentResolver();
-                        Uri uri = Uri.parse("content://com.example.root.libapp_v1.SQLiteModule.Personpage.PersonpageProvider/personpage/1");
-                        ContentValues contentValues = new ContentValues();
-                        contentValues.put("name", s.getString("name"));
-                        contentValues.put("quote", s.getString("quote"));
-                        contentValues.put("address", s.getString("address"));
-                        contentValues.put("mailbox", s.getString("mailbox"));
-                        contentValues.put("phone", s.getString("phone"));
-                        contentValues.put("account_number", s.getString("account_number"));
-                        contentValues.put("password", s.getString("password"));
-                        contentResolver.update(uri, contentValues, null, null);
-                        Dialog dialog = new AlertDialog.Builder(LoginActivity.this).setTitle("登陆成功")
-                                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                        LoginActivity.this.finish();
-                                    }
-                                }).create();
-                        dialog.show();
-                        // clearAllEditText();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    //I don't want to see this
-                    Log.i("the success code ------->>>", "err");
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-        }
-    }
 }

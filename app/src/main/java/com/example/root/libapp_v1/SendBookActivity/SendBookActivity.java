@@ -22,6 +22,8 @@ import com.example.root.libapp_v1.GetPictureActivity.GetPictureActivity;
 import com.example.root.libapp_v1.HeadBar.HeadBar;
 import com.example.root.libapp_v1.HttpModule.DoGetAndPost;
 import com.example.root.libapp_v1.R;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -122,14 +124,55 @@ public class SendBookActivity extends Activity {
                                 }).create();
                         dialog.show();
                     } else {
-                        List<NameValuePair> list = new ArrayList<NameValuePair>();
-                        list.add(new BasicNameValuePair("name", mName.getText().toString()));
-                        list.add(new BasicNameValuePair("detail_info", mDetailInfo.getText().toString()));
-                        list.add(new BasicNameValuePair("author_info", mAuthorInfo.getText().toString()));
-                        list.add(new BasicNameValuePair("catalog_info", mCatalogInfo.getText().toString()));
-                        list.add(new BasicNameValuePair("sender", senderName));
-                        HttpTask httpTask = new HttpTask(list);
-                        httpTask.execute();
+                        /**
+                         * use Ion to send book to the service side
+                         * */
+                        Ion.with(SendBookActivity.this)
+                                .load(url)
+                                .setBodyParameter("name", mName.getText().toString())
+                                .setBodyParameter("detail_info", mDetailInfo.getText().toString())
+                                .setBodyParameter("author_info", mAuthorInfo.getText().toString())
+                                .setBodyParameter("catalog_info", mCatalogInfo.getText().toString())
+                                .setBodyParameter("sender", senderName)
+                                .asString()
+                                .setCallback(new FutureCallback<String>() {
+                                    @Override
+                                    public void onCompleted(Exception e, String result) {
+                                        try {
+                                            JSONObject s = new JSONObject(result);
+                                            if (s.getInt("success") == 0) {
+                                                //register fail
+                                                Dialog dialog = new AlertDialog.Builder(SendBookActivity.this).setTitle("发书失败"+s.getString("message"))
+                                                        .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(DialogInterface dialog, int which) {
+                                                                dialog.dismiss();
+                                                            }
+                                                        }).create();
+                                                dialog.show();
+                                            }
+                                            else if (s.getInt("success") == 1){
+
+                                                Dialog dialog = new AlertDialog.Builder(SendBookActivity.this).setTitle("发书成功")
+                                                            .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(DialogInterface dialog, int which) {
+                                                                    dialog.dismiss();
+                                                                    finish();
+                                                                }
+                                                            }).create();
+                                                dialog.show();
+
+                                            } else {
+                                                //I don't want to see this
+                                                Log.i("the success code ------->>>", "err");
+                                            }
+                                        } catch (Exception ee) {
+                                            ee.printStackTrace();
+                                        }
+                                    }
+                                });
+
                     }
                 } else {
                     Dialog dialog = new AlertDialog.Builder(SendBookActivity.this).setTitle("失败:请完成图书信息")
@@ -149,8 +192,7 @@ public class SendBookActivity extends Activity {
                 try {
                     Intent intent = new Intent(SendBookActivity.this, GetPictureActivity.class);
 
-                    String urlbook = URLEncoder.encode(mName.getText().toString(), "utf-8").replaceAll("\\+", "%20");
-                    urlbook = urlbook.replaceAll("%3A", ":").replaceAll("%2F", "/");
+                    String urlbook = URLEncoder.encode(mName.getText().toString(), "utf-8");
 
                     intent.putExtra("getpic_name", urlbook);
                     intent.putExtra("flag", "bookpic");
@@ -165,99 +207,5 @@ public class SendBookActivity extends Activity {
         });
     }
 
-    /**
-     * http module
-     * */
-    private JSONObject getDataFromHttp(List<NameValuePair> list) {
-
-        try {
-            JSONObject jsonObject = DoGetAndPost.doPost(url, list);
-            Log.i("dasbb   hahahha  ->", jsonObject.toString());
-            /**
-             * set the data which we get from http server
-             * */
-
-            return jsonObject;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    /**
-     * clss HttpTask : which using AsyncTask to open a new thread to download data in back.
-     */
-    private class HttpTask extends AsyncTask<String, Integer, JSONObject> {
-        List<NameValuePair> list;
-        private HttpTask(List<NameValuePair> l) {
-            this.list = l;
-        }
-
-        @Override
-        protected JSONObject doInBackground(String... params) {
-            try {
-                JSONObject jsonObject = getDataFromHttp(this.list);
-                /**
-                 * using publicProgress() to update progress bar's status
-                 * */
-                // publishProgress(100);
-                return jsonObject;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-
-        }
-
-        @Override
-        protected void onPostExecute(JSONObject s) {
-            try {
-
-                if (s.getInt("success") == 0) {
-                    //register fail
-                    Dialog dialog = new AlertDialog.Builder(SendBookActivity.this).setTitle("注册失败"+s.getString("message"))
-                            .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            }).create();
-                    dialog.show();
-                }
-                else if (s.getInt("success") == 1){
-                    //register success
-                    try {
-
-                        Dialog dialog = new AlertDialog.Builder(SendBookActivity.this).setTitle("注册成功")
-                                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                        finish();
-                                    }
-                                }).create();
-                        dialog.show();
-                        // clearAllEditText();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    //I don't want to see this
-                    Log.i("the success code ------->>>", "err");
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-        }
-    }
 
  }

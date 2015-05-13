@@ -7,10 +7,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.root.libapp_v1.HeadBar.HeadBar;
 import com.example.root.libapp_v1.HttpModule.DoGetAndPost;
 import com.example.root.libapp_v1.R;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -33,10 +38,39 @@ public class SendBookRecordActivity extends Activity {
         setContentView(R.layout.activity_sendbook_record);
         initHeadBar();
         initListview();
-        HttpTask httpTask = new HttpTask();
-        httpTask.execute();
+      //  HttpTask httpTask = new HttpTask();
+      //  httpTask.execute();
+        connected();
     }
-
+    private void connected() {
+        Intent intent = getIntent();
+        mName = intent.getStringExtra("name");
+        Ion.with(SendBookRecordActivity.this)
+                .load(mUrl+"&param="+mName)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        // do stuff with the result or error
+                        int success = result.get("success").getAsInt();
+                        if (success == 1) {
+                            /**
+                             * if send book before
+                             * */
+                            JsonArray array = result.getAsJsonArray("book");
+                            mList = new ArrayList<String>();
+                            for (int i = 0; i < array.size(); i++) {
+                                JsonObject object = array.get(i).getAsJsonObject();
+                                mList.add("第" + String.valueOf(i + 1) + "本 : <<" + object.get("name").getAsString() + ">>");
+                            }
+                        } else {
+                            mList = new ArrayList<String>();
+                            Toast.makeText(SendBookRecordActivity.this, "send null book", Toast.LENGTH_SHORT);
+                        }
+                        mListView.setAdapter(new ArrayAdapter<String>(SendBookRecordActivity.this, android.R.layout.simple_list_item_1, mList));
+                    }
+                });
+    }
     private void initHeadBar() {
         mHeadBar = (HeadBar)findViewById(R.id.sendbook_record_head_bar);
         mHeadBar.setTitleText("飞书记录");
@@ -55,70 +89,5 @@ public class SendBookRecordActivity extends Activity {
         mListView = (ListView) findViewById(R.id.sendbook_record_listview);
     }
 
-    /**
-     * http module
-     * */
-    private JSONArray getDataFromHttp() {
 
-        try {
-            Intent intent = getIntent();
-            mName = intent.getStringExtra("name");
-            JSONObject jsonObject = DoGetAndPost.doGet(mUrl+"&param="+mName);
-            /**
-             * set the data which we get from http server
-             * */
-            JSONArray array = jsonObject.getJSONArray("book");
-            return array;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    /**
-     * clss HttpTask : which using AsyncTask to open a new thread to download data in back.
-     */
-    private class HttpTask extends AsyncTask<String, Integer, JSONArray> {
-
-        @Override
-        protected JSONArray doInBackground(String... params) {
-            try {
-                JSONArray array = getDataFromHttp();
-                /**
-                 * using publicProgress() to update progress bar's status
-                 * */
-                // publishProgress(100);
-                return array;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-
-        }
-
-        @Override
-        protected void onPostExecute(JSONArray array) {
-            try {
-                mList = new ArrayList<String>();
-                for (int i = 0; i < array.length(); i++) {
-                    JSONObject object = array.getJSONObject(i);
-                    mList.add("第"+String.valueOf(i+1)+"本 : <<"+object.getString("name")+">>");
-                }
-
-                mListView.setAdapter(new ArrayAdapter<String>(SendBookRecordActivity.this, android.R.layout.simple_list_item_1, mList));
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-
-        }
-    }
 }
