@@ -43,6 +43,7 @@ import com.example.root.libapp_v1.PullRefreshListView.FreshListView;
 import com.example.root.libapp_v1.R;
 
 import com.example.root.libapp_v1.WriteCommentActivity.WritePublicCommentActivity;
+import com.koushikdutta.ion.Ion;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -107,8 +108,9 @@ public class PublicBookActivity extends Activity implements FreshListView.IRefla
          * first step, finish init listview data
          * */
        // setData();
-        getListviewDataFromHttp();
         initListView();
+        getListviewDataFromHttp();
+
         /**
          * second step, put the first layout and list view both into viewpager
          * */
@@ -308,7 +310,12 @@ public class PublicBookActivity extends Activity implements FreshListView.IRefla
             /**
              * set book's cover
              * */
-            SetBitmapForImagView.setBitmapForImageView(mLoader, mCover, mImgUrl+"bookimg_"+mBookName+".png");
+           // SetBitmapForImagView.setBitmapForImageView(mLoader, mCover, );
+            String url = mImgUrl+"bookimg_"+mBookName+".png";
+            Ion.with(mCover)
+                    .placeholder(R.drawable.ic_loading)
+                    .error(R.drawable.ic_failure)
+                    .load(url);
             //mTitle.setText(s);
         } else {
             Dialog dialog = new AlertDialog.Builder(this).setTitle("获取图书信息失败")
@@ -445,7 +452,7 @@ public class PublicBookActivity extends Activity implements FreshListView.IRefla
                 //  setRefreshData();
                 getListviewDataFromHttp();
                 //通知界面显示
-                showListview();
+            //    showListview();
                 //通知listview 刷新数据完毕；
                 mListView.reflashComplete();
             }
@@ -472,14 +479,14 @@ public class PublicBookActivity extends Activity implements FreshListView.IRefla
         LayoutInflater mInflater = getLayoutInflater();
         View mView = mInflater.inflate(R.layout.publicbook_tab2, null);
         mListView = (FreshListView) mView.findViewById(R.id.publicbook_listview);
-        showListview();
+    //    showListview();
     }
     /**
      * show list view
      * */
 
     private void showListview() {
-        mList = new ArrayList<HashMap<String, Object>>();
+
         /**
          * show list view
          * */
@@ -497,8 +504,10 @@ public class PublicBookActivity extends Activity implements FreshListView.IRefla
      * */
     private class ListviewHttpTask extends AsyncTask<String, Integer, JSONArray> {
         private String bookname;
+
         public ListviewHttpTask(String book) {
             this.bookname = book;
+            mList = new ArrayList<HashMap<String, Object>>();
         }
 
         @Override
@@ -533,6 +542,7 @@ public class PublicBookActivity extends Activity implements FreshListView.IRefla
                     map.put("personname", array.getJSONObject(i).getString("personname"));
                     mList.add(map);
                 }
+                showListview();
             } catch (Exception e) {
                 e.printStackTrace();
             }

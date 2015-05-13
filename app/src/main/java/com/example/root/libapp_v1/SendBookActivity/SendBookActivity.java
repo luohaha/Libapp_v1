@@ -27,6 +27,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -145,12 +146,21 @@ public class SendBookActivity extends Activity {
         mSelectPicButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SendBookActivity.this, GetPictureActivity.class);
-                intent.putExtra("getpic_name", mName.getText().toString());
-                intent.putExtra("flag", "bookpic");
-                startActivity(intent);
-                mSubmitButton.setVisibility(View.VISIBLE);
-                mClearButton.setVisibility(View.VISIBLE);
+                try {
+                    Intent intent = new Intent(SendBookActivity.this, GetPictureActivity.class);
+
+                    String urlbook = URLEncoder.encode(mName.getText().toString(), "utf-8").replaceAll("\\+", "%20");
+                    urlbook = urlbook.replaceAll("%3A", ":").replaceAll("%2F", "/");
+
+                    intent.putExtra("getpic_name", urlbook);
+                    intent.putExtra("flag", "bookpic");
+                    startActivity(intent);
+                    mSubmitButton.setVisibility(View.VISIBLE);
+                    mClearButton.setVisibility(View.VISIBLE);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
         });
     }

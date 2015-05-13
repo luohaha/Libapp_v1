@@ -11,12 +11,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.root.libapp_v1.MyUtil.DownLoadBitmap.AsyncBitmapLoader;
-import com.example.root.libapp_v1.MyUtil.DownLoadBitmap.DownLoadBitmap;
 import com.example.root.libapp_v1.R;
+import com.koushikdutta.ion.Ion;
 
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -62,19 +63,11 @@ public class FirstFragmentAdapter extends BaseAdapter {
         /**
          * load bitmap
          * */
-
-        Bitmap bitmap = mLoader.loadBitmap(firstFragmentViewHolder.imageView,
-                (String)mList.get(position).get("image"), new AsyncBitmapLoader.ImageCallBack() {
-                    @Override
-                    public void imageLoad(ImageView imageView, Bitmap bitmap) {
-                        imageView.setImageBitmap(bitmap);
-                    }
-                });
-        if (bitmap == null) {
-            firstFragmentViewHolder.imageView.setImageResource(R.drawable.ic_launcher);
-        } else {
-            firstFragmentViewHolder.imageView.setImageBitmap(bitmap);
-        }
+        String s = (String)mList.get(position).get("image");
+        Ion.with(firstFragmentViewHolder.imageView)
+                .placeholder(R.drawable.ic_loading)
+                .error(R.drawable.ic_failure)
+                .load(s);
 
         firstFragmentViewHolder.textView.setText((String) mList.get(position).get("text"));
 

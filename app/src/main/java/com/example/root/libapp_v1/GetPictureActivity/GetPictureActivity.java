@@ -133,7 +133,7 @@ public class GetPictureActivity extends Activity {
 
                         //将处理过的图片显示在界面上，并保存到本地
                         mImageView.setImageBitmap(bitmap);
-                        ImageTools.savePhotoToSDCard(bitmap, "/mnt/sdcard/feishu/", mPictureName);
+                        ImageTools.savePhotoToSDCard(bitmap, "/mnt/sdcard/feishu/", "haha");
                         /**
                          * can not recycle yet
                          * */
@@ -157,7 +157,7 @@ public class GetPictureActivity extends Activity {
                         Bitmap photo = DownLoadBitmap.loadBitmapFromFile(filePath);
                         if (photo != null) {
 
-                            ImageTools.savePhotoToSDCard(photo, "/mnt/sdcard/feishu/", mPictureName);
+                            ImageTools.savePhotoToSDCard(photo, "/mnt/sdcard/feishu/", "haha");
                             mImageView.setImageBitmap(photo);
                             /**
                              * can not recycle
@@ -187,7 +187,7 @@ public class GetPictureActivity extends Activity {
         @Override
         protected JSONObject doInBackground(String... params) {
             try {
-                UploadFile.upLoadFile(GetPictureActivity.this, "http://192.168.0.153/android/upload.php", "/mnt/sdcard/feishu/"+mPictureName+".png");
+                UploadFile.upLoadFile(GetPictureActivity.this, "http://192.168.0.153/android/upload.php", "/mnt/sdcard/feishu/haha.png",mPictureName+".png");
                 return null;
             } catch (Exception e) {
                 e.printStackTrace();

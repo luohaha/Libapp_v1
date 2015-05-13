@@ -31,7 +31,7 @@ import java.util.*;
  */
 public class ThirdFragment extends FatherFragment implements IReflashListener {
     //
-    private String mPicUrl = "http://http://192.168.0.153/upload/";
+    private String mPicUrl = "http://192.168.0.153/upload/";
     private HeadBar headBar;
     private View mListViewItem;
     private ArrayList<Map<String, Object>> mapList;

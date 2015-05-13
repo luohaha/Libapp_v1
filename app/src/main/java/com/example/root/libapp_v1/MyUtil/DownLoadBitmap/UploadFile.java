@@ -18,7 +18,7 @@ import java.net.URL;
  * Created by Yixin on 15-5-10.
  */
 public class UploadFile {
-    public static void upLoadFile(Context context, String actionUrl, String srcPath) {
+    public static void upLoadFile(Context context, String actionUrl, String srcPath, String wantName) {
         String end = "\r\n";
         String twoHyphens = "--";
         String boundary = "******";
@@ -44,7 +44,7 @@ public class UploadFile {
                     httpURLConnection.getOutputStream());
             dos.writeBytes(twoHyphens + boundary + end);
             dos.writeBytes("Content-Disposition: form-data; name=\"uploadedfile\"; filename=\""
-                    + srcPath.substring(srcPath.lastIndexOf("/") + 1)
+                    + wantName
                     + "\""
                     + end);
             dos.writeBytes(end);

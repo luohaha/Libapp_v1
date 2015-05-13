@@ -37,6 +37,7 @@ import com.example.root.libapp_v1.PullRefreshListView.FreshListView;
 import com.example.root.libapp_v1.R;
 import com.example.root.libapp_v1.WriteCommentActivity.CommentActivity;
 import com.example.root.libapp_v1.WriteCommentActivity.WriteCommentActivity;
+import com.koushikdutta.ion.Ion;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -344,7 +345,10 @@ public class PersonBookActivity extends Activity implements FreshListView.IRefla
             /**
              * set bitmap for book's cover
              * */
-            SetBitmapForImagView.setBitmapForImageView(mLoader, mCover, mImgUrl+"bookimg_"+mBookName+".png");
+            Ion.with(mCover)
+                    .placeholder(R.drawable.ic_loading)
+                    .error(R.drawable.ic_failure)
+                    .load(mImgUrl + "bookimg_" + mBookName + ".png");
         } else {
             Dialog dialog = new AlertDialog.Builder(this).setTitle("获取图书信息失败")
                     .setPositiveButton("ok", new DialogInterface.OnClickListener() {

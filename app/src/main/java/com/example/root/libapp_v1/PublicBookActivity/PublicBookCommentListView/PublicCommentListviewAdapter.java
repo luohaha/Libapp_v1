@@ -13,6 +13,7 @@ import com.beardedhen.androidbootstrap.BootstrapCircleThumbnail;
 import com.example.root.libapp_v1.MyUtil.DownLoadBitmap.AsyncBitmapLoader;
 import com.example.root.libapp_v1.MyUtil.DownLoadBitmap.SetBitmapForImagView;
 import com.example.root.libapp_v1.R;
+import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -73,14 +74,17 @@ public class PublicCommentListviewAdapter extends BaseAdapter {
         /**
          * fix bug : if refresh too fast and crash
          * */
-        if (viewHolder.personName == null || viewHolder.postTime == null || viewHolder.comment == null) {
+        if (viewHolder == null || viewHolder.personName == null ||
+                viewHolder.postTime == null || viewHolder.comment == null) {
             Toast.makeText(mContext, "刷新太快咯~~", Toast.LENGTH_LONG);
         } else {
             viewHolder.personName.setText((String)mList.get(position).get("personname"));
             viewHolder.postTime.setText((String)mList.get(position).get("posttime"));
             viewHolder.comment.setText((String)mList.get(position).get("comment"));
-            SetBitmapForImagView.setBitmapForImageView(mLoader, viewHolder.head,
-                "http://192.168.0.153/upload/personimg_"+(String)mList.get(position).get("personname")+".png");
+            Ion.with(viewHolder.head)
+                    .placeholder(R.drawable.ic_launcher)
+                    .error(R.drawable.ic_launcher)
+                    .load("http://192.168.0.153/upload/personimg_"+(String)mList.get(position).get("personname")+".png");
         }
         return convertView;
     }

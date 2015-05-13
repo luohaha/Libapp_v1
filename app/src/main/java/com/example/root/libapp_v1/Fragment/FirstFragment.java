@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.root.libapp_v1.Fragment.FirstFragmentAdapter.FirstFragmentAdapter;
@@ -28,6 +27,7 @@ import com.example.root.libapp_v1.R;
 import com.example.root.libapp_v1.SQLiteModule.Bookpage.BookpageModule;
 import com.example.root.libapp_v1.SearchActivity.SearchActivity;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -109,9 +109,9 @@ public class FirstFragment extends FatherFragment {
 
         @Override
         public void onClick(View v) {
-            BookpageModule bookpageModule = new BookpageModule(getActivity());
+            BookpageModule bookpageModule = new BookpageModule(getActivity(), this.view, mGridView, mAdapter);
             bookpageModule.refreshDb();
-            initData(this.view);
+            //initData(this.view);
         }
     }
 
@@ -134,11 +134,17 @@ public class FirstFragment extends FatherFragment {
         Cursor cursor = contentResolver.query(uri, null, null, null, null);
         if (cursor != null) {
             while (cursor.moveToNext()) {
-                HashMap<String, Object> map = new HashMap<String, Object>();
-                String bookname = cursor.getString(cursor.getColumnIndex("name"));
-                map.put("image", "http://192.168.0.153/upload/bookimg_"+bookname+".png");
-                map.put("text", bookname);
-                mList.add(map);
+                try {
+                    HashMap<String, Object> map = new HashMap<String, Object>();
+                    String bookname = cursor.getString(cursor.getColumnIndex("name"));
+                    String urlbook = URLEncoder.encode(bookname);
+                    map.put("image", "http://192.168.0.153/upload/bookimg_"+urlbook+".png");
+                    map.put("text", bookname);
+                    mList.add(map);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
             /**
              * use the new data to show in gridview

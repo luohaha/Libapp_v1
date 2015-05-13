@@ -20,6 +20,7 @@ import com.example.root.libapp_v1.HeadBar.HeadBar;
 import com.example.root.libapp_v1.MyUtil.DownLoadBitmap.AsyncBitmapLoader;
 import com.example.root.libapp_v1.R;
 import com.example.root.libapp_v1.SQLiteModule.Personpage.PersonpageModule;
+import com.koushikdutta.ion.Ion;
 
 /**
  * Created by Yixin on 15-3-26.
@@ -150,6 +151,7 @@ public class FourFragment extends FatherFragment{
     }
 
     private void initImageView(View view) {
+        /*
         AsyncBitmapLoader asyncBitmapLoader = new AsyncBitmapLoader();
         mPersonpageImg = (ImageView) view.findViewById(R.id.personpage_img);
         String url = "http://192.168.0.153/upload/personimg_"+mPersonpageName.getText().toString()+".png";
@@ -163,6 +165,12 @@ public class FourFragment extends FatherFragment{
             mPersonpageImg.setImageResource(R.drawable.ic_launcher);
         } else {
             mPersonpageImg.setImageBitmap(bitmap);
-        }
+        }*/
+        mPersonpageImg = (ImageView) view.findViewById(R.id.personpage_img);
+        String url = "http://192.168.0.153/upload/personimg_"+mPersonpageName.getText().toString()+".png";
+        Ion.with(mPersonpageImg)
+                .placeholder(R.drawable.ic_loading)
+                .error(R.drawable.ic_failure)
+                .load(url);
     }
  }

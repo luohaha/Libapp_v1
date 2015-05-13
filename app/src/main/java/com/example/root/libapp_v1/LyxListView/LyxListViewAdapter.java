@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.example.root.libapp_v1.MyUtil.DownLoadBitmap.AsyncBitmapLoader;
 import com.example.root.libapp_v1.R;
+import com.koushikdutta.ion.Ion;
 
 import java.util.*;
 
@@ -111,6 +112,10 @@ public class LyxListViewAdapter extends BaseAdapter {
         } else {
             viewHolder.img.setImageBitmap(bitmap);
         }
+        Ion.with(viewHolder.img)
+                .placeholder(R.drawable.ic_loading)
+                .error(R.drawable.ic_failure)
+                .load((String)mList.get(position).get("img"));
         return convertView;
     }
 
