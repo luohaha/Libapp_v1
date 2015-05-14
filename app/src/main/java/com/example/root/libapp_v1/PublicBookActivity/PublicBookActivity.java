@@ -36,8 +36,6 @@ import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.example.root.libapp_v1.HeadBar.HeadBar;
 import com.example.root.libapp_v1.HttpModule.DoGetAndPost;
 import com.example.root.libapp_v1.MyUtil.DownLoadBitmap.AsyncBitmapLoader;
-import com.example.root.libapp_v1.MyUtil.DownLoadBitmap.SetBitmapForImagView;
-import com.example.root.libapp_v1.PersonBook.PersonBookCommentListView.CommentListviewAdapter;
 import com.example.root.libapp_v1.PublicBookActivity.PublicBookCommentListView.PublicCommentListviewAdapter;
 import com.example.root.libapp_v1.PullRefreshListView.FreshListView;
 import com.example.root.libapp_v1.R;
@@ -195,6 +193,7 @@ public class PublicBookActivity extends Activity implements FreshListView.IRefla
                 Intent intent = new Intent(PublicBookActivity.this, WritePublicCommentActivity.class);
                 intent.putExtra("personname", mPersonWantToBecomeOwner);
                 intent.putExtra("bookname", mBookName);
+                intent.putExtra("persontime", mPersonWantToBecomeOwnerTime);
                 startActivity(intent);
             }
         });
@@ -456,7 +455,7 @@ public class PublicBookActivity extends Activity implements FreshListView.IRefla
                                 map.put("posttime", array.get(i).getAsJsonObject().get("adddate").getAsString());
                                 map.put("comment", array.get(i).getAsJsonObject().get("comment").getAsString());
                                 map.put("personname", array.get(i).getAsJsonObject().get("personname").getAsString());
-                                map.put("persontime", mPersonWantToBecomeOwnerTime);
+                                map.put("persontime", array.get(i).getAsJsonObject().get("persontime").getAsString());
                                 mList.add(map);
                             }
                             showListview();

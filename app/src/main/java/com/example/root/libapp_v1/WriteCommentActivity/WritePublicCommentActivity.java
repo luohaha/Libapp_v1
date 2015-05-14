@@ -35,6 +35,7 @@ public class WritePublicCommentActivity extends Activity {
     private BootstrapButton mClearButton;
 
     private String mPerson;
+    private String mPersonTime;
     private String mBook;
 
     private String mUrl = "http://192.168.0.153/android/add_bookcomment.php";
@@ -54,6 +55,7 @@ public class WritePublicCommentActivity extends Activity {
         Intent intent = getIntent();
         this.mBook = intent.getStringExtra("bookname");
         this.mPerson = intent.getStringExtra("personname");
+        this.mPersonTime = intent.getStringExtra("persontime");
     }
     private void initHeadBar() {
         mHeadBar = (HeadBar) findViewById(R.id.writepubliccomment_head_bar);
@@ -97,6 +99,7 @@ public class WritePublicCommentActivity extends Activity {
                 .load(mUrl)
                 .setBodyParameter("bookname", mBook)
                 .setBodyParameter("personname", mPerson)
+                .setBodyParameter("persontime", mPersonTime)
                 .setBodyParameter("comment", mMsg.getText().toString())
                 .asString()
                 .setCallback(new FutureCallback<String>() {
