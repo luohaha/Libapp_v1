@@ -27,7 +27,9 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -108,6 +110,12 @@ public class UserRegisterActivity extends Activity {
                     /**
                      * if the user's name isn't empty
                      * */
+                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-hh-mm-ss");
+                    Date date = new Date(System.currentTimeMillis());
+                    /**
+                     * get current time and make it into a string
+                     * */
+                    String timestamp = format.format(date);
                     Ion.with(UserRegisterActivity.this)
                             .load(postUrl)
                             .setBodyParameter("name", mUserName.getText().toString())
@@ -117,6 +125,7 @@ public class UserRegisterActivity extends Activity {
                             .setBodyParameter("phone", mUserPhone.getText().toString())
                             .setBodyParameter("account_number", mAccountNumber.getText().toString())
                             .setBodyParameter("password", mUserPassword.getText().toString())
+                            .setBodyParameter("timestamp", timestamp)
                             .asString()
                             .setCallback(new FutureCallback<String>() {
                                 @Override

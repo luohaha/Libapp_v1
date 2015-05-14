@@ -31,8 +31,6 @@ public class UpdateOwner {
         this.mContext = context;
     }
     public void start() {
-       // HttpTask httpTask = new HttpTask();
-       // httpTask.execute();
         Ion.with(mContext)
                 .load(mUrl + "?id="+mBookId+"&personname="+mPersonName)
                 .asJsonObject()
@@ -44,61 +42,4 @@ public class UpdateOwner {
                     }
                 });
     }
-    /**
-     * refresh the data by getting from http
-     * */
-    private JSONObject getDataFromHttp() {
-
-        try {
-            JSONObject jsonObject = DoGetAndPost.doGet(mUrl + "?id="+mBookId+"&personname="+mPersonName);
-
-            return jsonObject;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    /**
-     * clss HttpTask : which using AsyncTask to open a new thread to download data in back.
-     */
-    private class HttpTask extends AsyncTask<String, Integer, JSONObject> {
-        private HttpTask() {
-        }
-
-        @Override
-        protected JSONObject doInBackground(String... params) {
-            try {
-                JSONObject jsonObject = getDataFromHttp();
-                /**
-                 * using publicProgress() to update progress bar's status
-                 * */
-                // publishProgress(100);
-                return jsonObject;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-
-        }
-
-        @Override
-        protected void onPostExecute(JSONObject object) {
-            try {
-
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-        }
-    }
-
 }

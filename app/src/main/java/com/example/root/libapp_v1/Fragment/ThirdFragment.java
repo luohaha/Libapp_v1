@@ -40,6 +40,7 @@ public class ThirdFragment extends FatherFragment implements IReflashListener {
             R.drawable.book8};
     private LyxListViewAdapter mAdapter;
     private FreshListView mListView;
+    private Map<String, String> mNameToTime;
     /**
      * it start when view need to be created
      * @param inflater
@@ -89,6 +90,7 @@ public class ThirdFragment extends FatherFragment implements IReflashListener {
                 TextView textView = (TextView) view.findViewById(R.id.lyx_lv_title);
                 Intent intent = new Intent(getActivity(), PersonBookActivity.class);
                 intent.putExtra("name", textView.getText());
+                intent.putExtra("time", mNameToTime.get(textView.getText().toString()));
                 startActivity(intent);
              }
         });
@@ -114,6 +116,7 @@ public class ThirdFragment extends FatherFragment implements IReflashListener {
      *
      */
     private void setData() {
+        mNameToTime = new HashMap<String, String>();
         PersonOwnBookpageModule personOwnBookpageModule = new PersonOwnBookpageModule(getActivity());
         personOwnBookpageModule.refreshDb();
         mapList = new ArrayList<Map<String, Object>>();
@@ -133,7 +136,9 @@ public class ThirdFragment extends FatherFragment implements IReflashListener {
                     detail = detail.substring(0, 19);
                 }
                 map.put("detail", "简介 : "+detail+".....");
-                map.put("img", mPicUrl+"bookimg_"+personName+".png");
+                String time = cursor.getString(cursor.getColumnIndex("timestamp"));
+                map.put("img", mPicUrl+"bookimg_"+time+".png");
+                mNameToTime.put(personName, time);
                 mapList.add(map);
             }
         }

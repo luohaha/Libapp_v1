@@ -72,6 +72,7 @@ public class PersonBookActivity extends Activity implements FreshListView.IRefla
     private PopupWindow popupwindow;
     private View mPopView;
     private String mBookName;
+    private String mBookTime;
     private String mBookId;
     private String mNowUser;
 
@@ -114,6 +115,7 @@ public class PersonBookActivity extends Activity implements FreshListView.IRefla
     private void getBookName() {
         Intent intent = getIntent();
         mBookName = (String) intent.getStringExtra("name");
+        mBookTime = (String) intent.getStringExtra("time");
     }
     /**
      * initial the listview
@@ -348,7 +350,7 @@ public class PersonBookActivity extends Activity implements FreshListView.IRefla
             Ion.with(mCover)
                     .placeholder(R.drawable.ic_loading)
                     .error(R.drawable.ic_failure)
-                    .load(mImgUrl + "bookimg_" + mBookName + ".png");
+                    .load(mImgUrl + "bookimg_" + mBookTime + ".png");
         } else {
             Dialog dialog = new AlertDialog.Builder(this).setTitle("获取图书信息失败")
                     .setPositiveButton("ok", new DialogInterface.OnClickListener() {

@@ -46,6 +46,7 @@ public class FourFragment extends FatherFragment{
     private TextView mPersonpagePhone;
     private TextView mPersonpageBooksNumber;//the number of books which person own
     private TextView mPersonpageRecordNumber;//the number of person records
+    private String mPersonTimeStamp;
 
     private View mView;
 
@@ -125,7 +126,7 @@ public class FourFragment extends FatherFragment{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), GetPictureActivity.class);
-                intent.putExtra("getpic_name", mPersonpageName.getText().toString());
+                intent.putExtra("getpic_name", mPersonTimeStamp);
                 intent.putExtra("flag", "personpic");
                 startActivity(intent);
             }
@@ -146,6 +147,7 @@ public class FourFragment extends FatherFragment{
             mPersonpagePhone.setText(cursor.getString(cursor.getColumnIndex("phone")));
             mPersonpageBooksNumber.setText(cursor.getString(cursor.getColumnIndex("books_number")));
             mPersonpageRecordNumber.setText(cursor.getString(cursor.getColumnIndex("record_number")));
+            mPersonTimeStamp = cursor.getString(cursor.getColumnIndex("timestamp"));
         }
         cursor.close();
     }
@@ -167,7 +169,7 @@ public class FourFragment extends FatherFragment{
             mPersonpageImg.setImageBitmap(bitmap);
         }*/
         mPersonpageImg = (ImageView) view.findViewById(R.id.personpage_img);
-        String url = "http://192.168.0.153/upload/personimg_"+mPersonpageName.getText().toString()+".png";
+        String url = "http://192.168.0.153/upload/personimg_"+mPersonTimeStamp+".png";
         Ion.with(mPersonpageImg)
                 .placeholder(R.drawable.ic_loading)
                 .error(R.drawable.ic_failure)

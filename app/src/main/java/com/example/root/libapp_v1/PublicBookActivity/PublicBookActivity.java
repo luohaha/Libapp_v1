@@ -92,7 +92,9 @@ public class PublicBookActivity extends Activity implements FreshListView.IRefla
      * this page's book name
      * */
     private String mBookName;
+    private String mBookTime;
     private String mPersonWantToBecomeOwner;
+    private String mPersonWantToBecomeOwnerTime;
     private String mUniqueId;
     private AsyncBitmapLoader mLoader;
     /**
@@ -128,6 +130,15 @@ public class PublicBookActivity extends Activity implements FreshListView.IRefla
     private void getBookName() {
         Intent intent = getIntent();
         mBookName = intent.getStringExtra("bookname");
+        mBookTime = intent.getStringExtra("booktime");
+        ContentResolver contentResolver = getContentResolver();
+        Uri uri = Uri.parse("content://com.example.root.libapp_v1.SQLiteModule.Personpage.PersonpageProvider/personpage/1");
+        Cursor cursor = contentResolver.query(uri, null, null, null, null);
+        while (cursor.moveToNext()) {
+            mPersonWantToBecomeOwner = cursor.getString(cursor.getColumnIndex("name"));
+            mPersonWantToBecomeOwnerTime = cursor.getString(cursor.getColumnIndex("timestamp"));
+        }
+        cursor.close();
     }
 
     /**
@@ -309,12 +320,13 @@ public class PublicBookActivity extends Activity implements FreshListView.IRefla
                 mAuthorInfo.setText(cursor.getString(cursor.getColumnIndex("author_info")));
                 mCatalogInfo.setText(cursor.getString(cursor.getColumnIndex("catalog_info")));
                 mUniqueId = cursor.getString(cursor.getColumnIndex("unique_id"));
+                mBookTime = cursor.getString(cursor.getColumnIndex("timestamp"));
             }
             /**
              * set book's cover
              * */
            // SetBitmapForImagView.setBitmapForImageView(mLoader, mCover, );
-            String url = mImgUrl+"bookimg_"+mBookName+".png";
+            String url = mImgUrl+"bookimg_"+mBookTime+".png";
             Ion.with(mCover)
                     .placeholder(R.drawable.ic_loading)
                     .error(R.drawable.ic_failure)
@@ -329,11 +341,6 @@ public class PublicBookActivity extends Activity implements FreshListView.IRefla
                         }
                     }).create();
             dialog.show();
-        }
-        uri = Uri.parse("content://com.example.root.libapp_v1.SQLiteModule.Personpage.PersonpageProvider/personpage/1");
-        cursor = contentResolver.query(uri, null, null, null, null);
-        while (cursor.moveToNext()) {
-            mPersonWantToBecomeOwner = cursor.getString(cursor.getColumnIndex("name"));
         }
         cursor.close();
     }
@@ -449,6 +456,7 @@ public class PublicBookActivity extends Activity implements FreshListView.IRefla
                                 map.put("posttime", array.get(i).getAsJsonObject().get("adddate").getAsString());
                                 map.put("comment", array.get(i).getAsJsonObject().get("comment").getAsString());
                                 map.put("personname", array.get(i).getAsJsonObject().get("personname").getAsString());
+                                map.put("persontime", mPersonWantToBecomeOwnerTime);
                                 mList.add(map);
                             }
                             showListview();

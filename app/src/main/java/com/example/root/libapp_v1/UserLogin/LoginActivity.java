@@ -292,6 +292,7 @@ public class LoginActivity extends Activity {
                                             contentValues.put("phone", s.getString("phone"));
                                             contentValues.put("account_number", s.getString("account_number"));
                                             contentValues.put("password", s.getString("password"));
+                                            contentValues.put("timestamp", s.getString("timestamp"));
                                             contentResolver.update(uri, contentValues, null, null);
                                             Dialog dialog = new AlertDialog.Builder(LoginActivity.this).setTitle("登陆成功")
                                                     .setPositiveButton("ok", new DialogInterface.OnClickListener() {

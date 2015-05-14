@@ -69,6 +69,7 @@ public class PersonOwnBookpageModule {
                                 contentValues.put("author_info", array.get(i).getAsJsonObject().get("author_info").getAsString());
                                 contentValues.put("unique_id", array.get(i).getAsJsonObject().get("id").getAsString());
                                 contentValues.put("catalog_info", array.get(i).getAsJsonObject().get("catalog_info").getAsString());
+                                contentValues.put("timestamp", array.get(i).getAsJsonObject().get("timestamp").getAsString());
                                 Uri tmp = contentResolver.insert(uri, contentValues);
                                 //Log.i("get book from http --> ", tmp.toString());
                             }

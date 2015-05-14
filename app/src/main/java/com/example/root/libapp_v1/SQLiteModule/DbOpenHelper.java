@@ -37,7 +37,7 @@ public class DbOpenHelper extends SQLiteOpenHelper {
          * */
         String sql = "create table personpage(id integer primary key autoincrement, name varchar(64)," +
                 "quote varchar(128), img varchar(64), address varchar(256)," +
-                "mailbox varchar(64), password varchar(64), account_number varchar(64), phone varchar(64), books_number varchar(64)," +
+                "mailbox varchar(64), password varchar(64), account_number varchar(64), timestamp varchar(32), phone varchar(64), books_number varchar(64)," +
                 "record_number varchar(64))";
         db.execSQL(sql);
         sql = "insert into personpage (name, account_number, password) values ('not login yet', '0', '0')";
@@ -47,14 +47,14 @@ public class DbOpenHelper extends SQLiteOpenHelper {
          * */
         sql = "create table bookpage(id integer primary key autoincrement, name varchar(64)," +
                 " unique_id varchar(64), img varchar(64), detail_info varchar(512), short_detail varchar(64)," +
-                "author_info varchar(512), catalog_info varchar(512))";
+                "author_info varchar(512), catalog_info varchar(512), timestamp varchar(32))";
         db.execSQL(sql);
         /**
          *  create personOwnBookPage
          * */
         sql = "create table personownbookpage(id integer primary key autoincrement, name varchar(64)," +
                 " unique_id varchar(64), img varchar(64), detail_info varchar(512), short_detail varchar(64)," +
-                "author_info varchar(512), catalog_info varchar(512))";
+                "author_info varchar(512), catalog_info varchar(512), timestamp varchar(32))";
         db.execSQL(sql);
         /**
          *  create personcommentpage

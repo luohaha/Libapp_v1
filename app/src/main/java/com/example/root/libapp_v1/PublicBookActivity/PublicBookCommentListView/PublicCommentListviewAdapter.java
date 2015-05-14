@@ -84,7 +84,7 @@ public class PublicCommentListviewAdapter extends BaseAdapter {
             Ion.with(viewHolder.head)
                     .placeholder(R.drawable.ic_launcher)
                     .error(R.drawable.ic_launcher)
-                    .load("http://192.168.0.153/upload/personimg_"+(String)mList.get(position).get("personname")+".png");
+                    .load("http://192.168.0.153/upload/personimg_"+(String)mList.get(position).get("persontime")+".png");
         }
         return convertView;
     }

@@ -30,7 +30,9 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -45,6 +47,7 @@ public class SendBookActivity extends Activity {
     private BootstrapButton mSubmitButton;
     private BootstrapButton mClearButton;
     private Button mSelectPicButton;
+    private String mTimeStamp;
 
     private HeadBar mHeadBar;
     @Override
@@ -77,6 +80,12 @@ public class SendBookActivity extends Activity {
     }
 
     private void initButtons() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-hh-mm-ss");
+        Date date = new Date(System.currentTimeMillis());
+        /**
+         * get current time and make it into a string
+         * */
+        mTimeStamp = format.format(date);
         mSubmitButton = (BootstrapButton) findViewById(R.id.sendbook_submit_button);
         mClearButton = (BootstrapButton) findViewById(R.id.sendbook_clear_button);
         mSelectPicButton = (Button) findViewById(R.id.sendbook_selectpic_button);
@@ -126,7 +135,9 @@ public class SendBookActivity extends Activity {
                     } else {
                         /**
                          * use Ion to send book to the service side
+
                          * */
+
                         Ion.with(SendBookActivity.this)
                                 .load(url)
                                 .setBodyParameter("name", mName.getText().toString())
@@ -134,6 +145,7 @@ public class SendBookActivity extends Activity {
                                 .setBodyParameter("author_info", mAuthorInfo.getText().toString())
                                 .setBodyParameter("catalog_info", mCatalogInfo.getText().toString())
                                 .setBodyParameter("sender", senderName)
+                                .setBodyParameter("timestamp", mTimeStamp)
                                 .asString()
                                 .setCallback(new FutureCallback<String>() {
                                     @Override
@@ -192,9 +204,7 @@ public class SendBookActivity extends Activity {
                 try {
                     Intent intent = new Intent(SendBookActivity.this, GetPictureActivity.class);
 
-                    String urlbook = URLEncoder.encode(mName.getText().toString(), "utf-8");
-
-                    intent.putExtra("getpic_name", urlbook);
+                    intent.putExtra("getpic_name", mTimeStamp);
                     intent.putExtra("flag", "bookpic");
                     startActivity(intent);
                     mSubmitButton.setVisibility(View.VISIBLE);

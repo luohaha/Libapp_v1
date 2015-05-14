@@ -30,6 +30,7 @@ import com.example.root.libapp_v1.SearchActivity.SearchActivity;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -41,7 +42,6 @@ import java.util.HashMap;
  */
 
 public class FirstFragment extends FatherFragment {
-
 
 
     private HeadBar headBar;
@@ -125,7 +125,6 @@ public class FirstFragment extends FatherFragment {
         * */
         ArrayList<HashMap<String, Object>>mList = new ArrayList<HashMap<String, Object>>();
 
-
         /**
          * download info from local database
          * */
@@ -137,8 +136,8 @@ public class FirstFragment extends FatherFragment {
                 try {
                     HashMap<String, Object> map = new HashMap<String, Object>();
                     String bookname = cursor.getString(cursor.getColumnIndex("name"));
-                    String urlbook = URLEncoder.encode(bookname);
-                    map.put("image", "http://192.168.0.153/upload/bookimg_"+urlbook+".png");
+                    String booktime = cursor.getString(cursor.getColumnIndex("timestamp"));
+                    map.put("image", "http://192.168.0.153/upload/bookimg_"+booktime+".png");
                     map.put("text", bookname);
                     mList.add(map);
                 } catch (Exception e) {
