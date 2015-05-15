@@ -12,6 +12,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.root.libapp_v1.HttpModule.DoGetAndPost;
+import com.example.root.libapp_v1.R;
 import com.example.root.libapp_v1.SQLiteModule.DatabaseClient;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -25,12 +26,13 @@ import org.json.JSONObject;
  * Created by Yixin on 15-5-8.
  */
 public class PersonOwnBookpageModule {
-    private String mUrl = "http://192.168.0.153/android/get_book.php?flag=owner";
+    private String mUrl;
     private Context mContext;
     private String mOwner;
 
     public PersonOwnBookpageModule(Context mContext) {
         this.mContext = mContext;
+        this.mUrl = this.mContext.getResources().getString(R.string.app_url)+"get_book.php?flag=owner";
     }
 
     public void refreshDb() {

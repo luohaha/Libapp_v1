@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.root.libapp_v1.HttpModule.DoGetAndPost;
+import com.example.root.libapp_v1.R;
 import com.example.root.libapp_v1.SQLiteModule.DatabaseClient;
 
 
@@ -24,9 +25,10 @@ public class PersonpageModule {
     /**
      *the url we get from
      */
-    private String mGetUrl = "http://192.168.0.153/android/check_user.php?username=admin&password=123";
+    private String mGetUrl;
     public PersonpageModule(Context context){
         this.mContext = context;
+        this.mGetUrl = this.mContext.getResources().getString(R.string.app_url)+"check_user.php?username=admin&password=123";
     }
 
     public void insertDb() {

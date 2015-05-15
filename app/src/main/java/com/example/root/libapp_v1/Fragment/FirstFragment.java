@@ -43,14 +43,11 @@ import java.util.Map;
 
 public class FirstFragment extends FatherFragment {
 
-
     private HeadBar headBar;
     private GridView mGridView;
    // private ArrayList<HashMap<String, Object>> mList;
     //array of books to show in gallery
-    private Object bookPicture[] = {R.drawable.book1, R.drawable.book2, R.drawable.book3,
-            R.drawable.book4, R.drawable.book5, R.drawable.book6,
-            R.drawable.book7, R.drawable.book8};
+
 
     private FirstFragmentAdapter mAdapter;
     /**
@@ -137,7 +134,7 @@ public class FirstFragment extends FatherFragment {
                     HashMap<String, Object> map = new HashMap<String, Object>();
                     String bookname = cursor.getString(cursor.getColumnIndex("name"));
                     String booktime = cursor.getString(cursor.getColumnIndex("timestamp"));
-                    map.put("image", "http://192.168.0.153/upload/bookimg_"+booktime+".png");
+                    map.put("image", getResources().getString(R.string.app_img_url)+"bookimg_"+booktime+".png");
                     map.put("text", bookname);
                     mList.add(map);
                 } catch (Exception e) {

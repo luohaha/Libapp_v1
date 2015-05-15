@@ -28,7 +28,6 @@ public class SecondFragment extends FatherFragment implements IReflashListener {
     /*
     * define some variables
     * */
-    //private ArrayList<ApkEntry> apk_list; //将要展示的信息集合队列
     private ArrayList<Map<String, Object>> mList;
     private ZhujiListviewAdapter adapter;  //新建一个适配器接口
     private FreshListView listview; //新建一个支持下拉刷新的listview

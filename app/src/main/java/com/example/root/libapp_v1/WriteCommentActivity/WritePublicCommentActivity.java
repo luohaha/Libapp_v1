@@ -38,10 +38,11 @@ public class WritePublicCommentActivity extends Activity {
     private String mPersonTime;
     private String mBook;
 
-    private String mUrl = "http://192.168.0.153/android/add_bookcomment.php";
+    private String mUrl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.mUrl = getResources().getString(R.string.app_url)+"add_bookcomment.php";
         setContentView(R.layout.activity_write_publiccomment);
         initHeadBar();
         initPersonAndBookName();

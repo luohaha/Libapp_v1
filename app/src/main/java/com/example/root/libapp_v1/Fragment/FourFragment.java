@@ -153,23 +153,9 @@ public class FourFragment extends FatherFragment{
     }
 
     private void initImageView(View view) {
-        /*
-        AsyncBitmapLoader asyncBitmapLoader = new AsyncBitmapLoader();
+
         mPersonpageImg = (ImageView) view.findViewById(R.id.personpage_img);
-        String url = "http://192.168.0.153/upload/personimg_"+mPersonpageName.getText().toString()+".png";
-        Bitmap bitmap = asyncBitmapLoader.loadBitmap(mPersonpageImg, url, new AsyncBitmapLoader.ImageCallBack() {
-            @Override
-            public void imageLoad(ImageView imageView, Bitmap bitmap) {
-                imageView.setImageBitmap(bitmap);
-            }
-        });
-        if (bitmap == null) {
-            mPersonpageImg.setImageResource(R.drawable.ic_launcher);
-        } else {
-            mPersonpageImg.setImageBitmap(bitmap);
-        }*/
-        mPersonpageImg = (ImageView) view.findViewById(R.id.personpage_img);
-        String url = "http://192.168.0.153/upload/personimg_"+mPersonTimeStamp+".png";
+        String url = getResources().getString(R.string.app_img_url)+"personimg_"+mPersonTimeStamp+".png";
         Ion.with(mPersonpageImg)
                 .placeholder(R.drawable.ic_loading)
                 .error(R.drawable.ic_failure)

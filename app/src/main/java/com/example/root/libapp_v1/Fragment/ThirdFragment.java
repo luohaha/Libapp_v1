@@ -31,7 +31,7 @@ import java.util.*;
  */
 public class ThirdFragment extends FatherFragment implements IReflashListener {
     //
-    private String mPicUrl = "http://192.168.0.153/upload/";
+    private String mPicUrl;
     private HeadBar headBar;
     private View mListViewItem;
     private ArrayList<Map<String, Object>> mapList;
@@ -50,6 +50,7 @@ public class ThirdFragment extends FatherFragment implements IReflashListener {
      */
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
+        this.mPicUrl = getResources().getString(R.string.app_img_url);
         View view = inflater.inflate(R.layout.fragment3, null);
         //  TextView textView = (TextView) view.findViewById(R.id.txt_content);
         setHeadBar();

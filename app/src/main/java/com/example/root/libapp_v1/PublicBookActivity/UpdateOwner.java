@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.root.libapp_v1.HttpModule.DoGetAndPost;
+import com.example.root.libapp_v1.R;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -20,7 +21,7 @@ import org.json.JSONObject;
  * Created by Yixin on 15-5-8.
  */
 public class UpdateOwner {
-    private String mUrl = "http://192.168.0.153/android/update_owner.php";
+    private String mUrl;
     private String mBookId;
     private String mPersonName;
     private Context mContext;
@@ -29,6 +30,7 @@ public class UpdateOwner {
         this.mBookId = mBookId;
         this.mPersonName = mPersonName;
         this.mContext = context;
+        this.mUrl = this.mContext.getResources().getString(R.string.app_url)+"update_owner.php";
     }
     public void start() {
         Ion.with(mContext)

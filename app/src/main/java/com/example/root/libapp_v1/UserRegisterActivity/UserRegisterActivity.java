@@ -39,7 +39,7 @@ public class UserRegisterActivity extends Activity {
     /**
      * the url which we want to post to
      * */
-    private String postUrl = "http://192.168.0.153/android/register_user.php";
+    private String postUrl;
 
     private HeadBar mHeadBar;
     private BootstrapEditText mAccountNumber;
@@ -55,6 +55,7 @@ public class UserRegisterActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.postUrl = getResources().getString(R.string.app_url)+"register_user.php";
         setContentView(R.layout.activity_register);
         initHeadBar();
         initEditText();

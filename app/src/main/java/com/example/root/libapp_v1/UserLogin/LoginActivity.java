@@ -49,7 +49,7 @@ public class LoginActivity extends Activity {
     /**
      * the login url
      * */
-    private String loginUrl = "http://192.168.0.153/android/check_user.php";
+    private String loginUrl;
 
 
     /**
@@ -94,6 +94,7 @@ public class LoginActivity extends Activity {
      @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+         this.loginUrl = getResources().getString(R.string.app_url)+"check_user.php";
         setContentView(R.layout.activity_login);
          /**
           * initial the components in login page

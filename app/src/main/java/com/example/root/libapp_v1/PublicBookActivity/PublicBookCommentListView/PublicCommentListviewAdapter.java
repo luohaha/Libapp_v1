@@ -25,15 +25,15 @@ public class PublicCommentListviewAdapter extends BaseAdapter {
     /**
      * define var
      * */
-    private AsyncBitmapLoader mLoader;
     private ArrayList<HashMap<String, Object>> mList;
     private int mItemView;
     private Context mContext;
+    private String mImgUrl;
     public PublicCommentListviewAdapter(Context context, ArrayList<HashMap<String, Object>> list, int view) {
         this.mList = list;
         this.mItemView = view;
         this.mContext = context;
-        mLoader = new AsyncBitmapLoader();
+        mImgUrl = this.mContext.getResources().getString(R.string.app_img_url);
     }
     /**
      * change the date when need it
@@ -84,7 +84,7 @@ public class PublicCommentListviewAdapter extends BaseAdapter {
             Ion.with(viewHolder.head)
                     .placeholder(R.drawable.ic_launcher)
                     .error(R.drawable.ic_launcher)
-                    .load("http://192.168.0.153/upload/personimg_"+(String)mList.get(position).get("persontime")+".png");
+                    .load(mImgUrl+"personimg_"+(String)mList.get(position).get("persontime")+".png");
         }
         return convertView;
     }

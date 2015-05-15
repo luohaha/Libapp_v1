@@ -39,7 +39,7 @@ import java.util.List;
  * Created by Yixin on 15-5-6.
  */
 public class SendBookActivity extends Activity {
-    private String url = "http://192.168.0.153/android/add_book.php";
+    private String url;
     private BootstrapEditText mName;
     private BootstrapEditText mDetailInfo;
     private BootstrapEditText mAuthorInfo;
@@ -53,6 +53,7 @@ public class SendBookActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.url = getResources().getString(R.string.app_url)+"add_book.php";
         setContentView(R.layout.activity_sendbook);
         initHeadBar();
         initEditView();

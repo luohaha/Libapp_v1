@@ -28,7 +28,6 @@ public class LyxListViewAdapter extends BaseAdapter {
     private LayoutInflater mLayoutInflater;
     private List<Map<String, Object>> mList;
     private Context mContext;
-    private AsyncBitmapLoader mLoader;
     /**
      * @param context the context, you know what it is
      * @param list the list of map which need to put into the adapter
@@ -37,7 +36,6 @@ public class LyxListViewAdapter extends BaseAdapter {
         this.mLayoutInflater = LayoutInflater.from(context);
         this.mList = list;
         this.mContext = context;
-        this.mLoader = new AsyncBitmapLoader();
     }
 
     /**
@@ -100,18 +98,6 @@ public class LyxListViewAdapter extends BaseAdapter {
         //you also need to add here!
         viewHolder.title.setText((String) mList.get(position).get("title"));
         viewHolder.detal.setText((String) mList.get(position).get("detail"));
-
-        Bitmap bitmap = mLoader.loadBitmap(viewHolder.img, (String)mList.get(position).get("img"), new AsyncBitmapLoader.ImageCallBack(){
-            @Override
-            public void imageLoad(ImageView imageView, Bitmap bitmap) {
-                imageView.setImageBitmap(bitmap);
-            }
-        });
-        if (bitmap == null) {
-            viewHolder.img.setImageResource(R.drawable.ic_launcher);
-        } else {
-            viewHolder.img.setImageBitmap(bitmap);
-        }
         Ion.with(viewHolder.img)
                 .placeholder(R.drawable.ic_loading)
                 .error(R.drawable.ic_failure)

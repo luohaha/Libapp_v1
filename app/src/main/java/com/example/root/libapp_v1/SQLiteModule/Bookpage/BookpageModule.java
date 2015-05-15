@@ -40,12 +40,15 @@ public class BookpageModule {
     /**
      *the url we get from
      */
-    private String mGetUrl = "http://192.168.0.153/android/get_booklist.php?start=0&count=20";
+    private String mGetUrl;
+    private String mImgUrl;
     public BookpageModule(Context context, View view, GridView gridView, FirstFragmentAdapter adapter){
         this.mContext = context;
         this.mView = view;
         this.mGridView = gridView;
         this.mAdapter = adapter;
+        this.mGetUrl = this.mContext.getResources().getString(R.string.app_url)+"get_booklist.php?start=0&count=20";
+        this.mImgUrl = this.mContext.getResources().getString(R.string.app_img_url);
     }
 
     public void refreshDb() {
@@ -111,7 +114,7 @@ public class BookpageModule {
             while (cursor.moveToNext()) {
                 HashMap<String, Object> map = new HashMap<String, Object>();
                 String bookname = cursor.getString(cursor.getColumnIndex("name"));
-                map.put("image", "http://192.168.0.153/upload/bookimg_"+bookname+".png");
+                map.put("image", mImgUrl+"bookimg_"+bookname+".png");
                 map.put("text", bookname);
                 mList.add(map);
             }

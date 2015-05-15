@@ -98,11 +98,15 @@ public class PublicBookActivity extends Activity implements FreshListView.IRefla
     /**
      * the url which we can get owner and sender
      * */
-    private String mUrl = "http://192.168.0.153/android/get_book.php";
-    private String mImgUrl = "http://192.168.0.153/upload/";
+    private String mUrl;
+    private String mImgUrl;
+    private String mBaseUrl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.mUrl = getResources().getString(R.string.app_url)+"get_book.php";
+        this.mImgUrl = getResources().getString(R.string.app_img_url);
+        this.mBaseUrl = getResources().getString(R.string.app_url);
         setContentView(R.layout.activity_publicbook);
         initBitmapLoader();
         getBookName();
@@ -441,7 +445,7 @@ public class PublicBookActivity extends Activity implements FreshListView.IRefla
        // ListviewHttpTask httpTask = new ListviewHttpTask(mBookName);
        // httpTask.execute();
         Ion.with(PublicBookActivity.this)
-                .load("http://192.168.0.153/android/get_comments.php?start=0&count=20&bookname="+mBookName)
+                .load(mBaseUrl+"get_comments.php?start=0&count=20&bookname="+mBookName)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override

@@ -77,7 +77,7 @@ public class PersonBookActivity extends Activity implements FreshListView.IRefla
     private String mNowUser;
 
     private CommentListviewAdapter mAdapter;
-    private String mImgUrl = "http://192.168.0.153/upload/";
+    private String mImgUrl;
 
     /**
      * bitmap loader
@@ -86,6 +86,7 @@ public class PersonBookActivity extends Activity implements FreshListView.IRefla
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.mImgUrl = getResources().getString(R.string.app_img_url);
         setContentView(R.layout.activity_personbook);
         getNowUser();
         getBookName();

@@ -187,7 +187,7 @@ public class GetPictureActivity extends Activity {
         @Override
         protected JSONObject doInBackground(String... params) {
             try {
-                UploadFile.upLoadFile(GetPictureActivity.this, "http://192.168.0.153/android/upload.php", "/mnt/sdcard/feishu/haha.png",mPictureName+".png");
+                UploadFile.upLoadFile(GetPictureActivity.this, getResources().getString(R.string.app_url)+"upload.php", "/mnt/sdcard/feishu/haha.png",mPictureName+".png");
                 return null;
             } catch (Exception e) {
                 e.printStackTrace();

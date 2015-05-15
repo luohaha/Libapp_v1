@@ -19,6 +19,10 @@ import com.example.root.libapp_v1.LyxListView.LyxListViewAdapter;
 import com.example.root.libapp_v1.MyUtil.DownLoadBitmap.AsyncBitmapLoader;
 import com.example.root.libapp_v1.PublicBookActivity.PublicBookActivity;
 import com.example.root.libapp_v1.R;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -35,13 +39,15 @@ public class SearchActivity extends Activity {
     private ListView mListView;
     private EditText mEditText;
     private BootstrapButton mButton;
-    private String mUrl = "http://192.168.0.153/android/get_book.php";
-    private String mImgUrl = "http://192.168.0.153/upload/";
+    private String mUrl;
+    private String mImgUrl;
     private List<Map<String, Object>> mList;
     private AsyncBitmapLoader mLoader;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.mUrl = getResources().getString(R.string.app_url)+"get_book.php";
+        this.mImgUrl = getResources().getString(R.string.app_img_url);
         setContentView(R.layout.activity_search);
         initBitmapLoader();
         initView();
@@ -61,10 +67,57 @@ public class SearchActivity extends Activity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HttpTask httpTask = new HttpTask();
-                httpTask.execute();
-            }
-        });
+            //    HttpTask httpTask = new HttpTask();
+            //    httpTask.execute();
+                Ion.with(SearchActivity.this)
+                        .load(mUrl + "?flag=name" + "&param=" + mEditText.getText().toString())
+                        .asJsonObject()
+                        .setCallback(new FutureCallback<JsonObject>() {
+                            @Override
+                            public void onCompleted(Exception e, JsonObject result) {
+                                // do stuff with the result or error
+                                try {
+                                    if (result.get("success").getAsInt() == 0) {
+
+                                    } else if (result.get("success").getAsInt() == 1) {
+                                        JsonArray array = result.get("book").getAsJsonArray();
+                                        if (array == null) {
+                                            /**
+                                             * the book isn't exit
+                                             * */
+                                            Dialog dialog = new AlertDialog.Builder(SearchActivity.this).setTitle("没有这本书")
+                                                    .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            dialog.dismiss();
+                                                            finish();
+                                                        }
+                                                    }).create();
+                                            dialog.show();
+                                        } else {
+                                            mList = new ArrayList<Map<String, Object>>();
+                                            for (int i = 0; i < array.size(); i++) {
+                                                Map<String, Object> map = new HashMap<String, Object>();
+                                                String bookname = array.get(i).getAsJsonObject().get("name").getAsString();
+                                                map.put("title", bookname);
+                                                map.put("detail", "简介 : "+array.get(i).getAsJsonObject().get("detail_info").getAsString());
+                                                String booktime = array.get(i).getAsJsonObject().get("timestamp").getAsString();
+                                                map.put("img", mImgUrl+"bookimg_"+booktime+".png");
+                                                mList.add(map);
+                                            }
+                                            LyxListViewAdapter adapter = new LyxListViewAdapter(SearchActivity.this, mList);
+                                            mListView.setAdapter(adapter);
+                                        }
+                                    }
+                                } catch (Exception ee) {
+                                    ee.printStackTrace();
+                                }
+                                }
+                            }
+
+                            );
+                        }
+            });
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -76,90 +129,5 @@ public class SearchActivity extends Activity {
         });
     }
 
-    /**
-     * refresh the data by getting from http
-     * */
-    private JSONObject getDataFromHttp() {
 
-        try {
-            JSONObject jsonObject = DoGetAndPost.doGet(mUrl + "?flag=name" + "&param=" + mEditText.getText().toString());
-
-            return jsonObject;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    /**
-     * clss HttpTask : which using AsyncTask to open a new thread to download data in back.
-     */
-    private class HttpTask extends AsyncTask<String, Integer, JSONArray> {
-        private HttpTask() {
-        }
-
-        @Override
-        protected JSONArray doInBackground(String... params) {
-            try {
-                JSONObject object = getDataFromHttp();
-                if (object.getInt("success") == 0) {
-                    return null;
-                } else if (object.getInt("success") == 1){
-                    JSONArray array = object.getJSONArray("book");
-                    return array;
-                }
-                /**
-                 * using publicProgress() to update progress bar's status
-                 * */
-                // publishProgress(100);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-
-        }
-
-        @Override
-        protected void onPostExecute(JSONArray array) {
-            try {
-                if (array == null) {
-                    /**
-                     * the book isn't exit
-                     * */
-                    Dialog dialog = new AlertDialog.Builder(SearchActivity.this).setTitle("没有这本书")
-                            .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                    finish();
-                                }
-                            }).create();
-                    dialog.show();
-                } else {
-                   mList = new ArrayList<Map<String, Object>>();
-                   for (int i = 0; i < array.length(); i++) {
-                       Map<String, Object> map = new HashMap<String, Object>();
-                       String bookname = array.getJSONObject(i).getString("name");
-                       map.put("title", bookname);
-                       map.put("detail", "简介 : "+array.getJSONObject(i).getString("detail_info"));
-                       map.put("img", mImgUrl+"bookimg_"+bookname+".png");
-                       mList.add(map);
-                   }
-                    LyxListViewAdapter adapter = new LyxListViewAdapter(SearchActivity.this, mList);
-                    mListView.setAdapter(adapter);
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-        }
-    }
 }
