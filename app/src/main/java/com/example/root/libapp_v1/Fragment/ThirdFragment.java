@@ -154,6 +154,8 @@ public class ThirdFragment extends FatherFragment {
 
     private void initRefreshView(View view) {
         mPullToRefreshView = (PullToRefreshView) view.findViewById(R.id.fragment3_pull_to_refresh);
+        mPullToRefreshView.setRefreshing(true);
+        mPullToRefreshView.setRefreshing(false);
         mPullToRefreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
             @Override
             public void onRefresh() {

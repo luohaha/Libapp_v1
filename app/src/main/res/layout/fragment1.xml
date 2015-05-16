@@ -10,10 +10,6 @@
     android:orientation="vertical"
     android:id="@+id/water_fall">
 
-    <com.yalantis.phoenix.PullToRefreshView
-        android:id="@+id/fragment1_pull_to_refresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -35,6 +31,5 @@
 
         </GridView>
     </LinearLayout>
-    </com.yalantis.phoenix.PullToRefreshView>
 
 </LinearLayout>

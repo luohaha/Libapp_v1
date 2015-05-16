@@ -88,7 +88,7 @@ public class MainActivity extends Activity implements OnClickListener {
             public void onClick(View v) {
                 if (v.getId() == R.id.button_right) {
 
-
+                    
                     initmPopupWindowView();
                     popupwindow.showAsDropDown(v, 0, 3);
 

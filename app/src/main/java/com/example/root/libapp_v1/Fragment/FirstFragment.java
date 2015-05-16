@@ -70,7 +70,6 @@ public class FirstFragment extends FatherFragment {
     }
     private void initWhenRefresh(View view) {
         initHeadBar(view);
-        initPullToRefresh(view);
         initData(view);
     }
 
@@ -90,30 +89,18 @@ public class FirstFragment extends FatherFragment {
     private void initHeadBar(View view) {
         headBar = (HeadBar)this.getActivity().findViewById(R.id.head_bar);
         headBar.setTitleText("飞书馆");
-        headBar.setRightSecondButtonNoused();
+        headBar.setRightSecondButtonListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BookpageModule bookpageModule = new BookpageModule(getActivity(), mView, mGridView, mAdapter);
+                bookpageModule.refreshDb();
+            }
+        });
         headBar.setLeftSecondButton(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), SearchActivity.class);
                 startActivity(intent);
-            }
-        });
-    }
-
-    private void initPullToRefresh(View view) {
-        mPullToRefreshView = (PullToRefreshView) view.findViewById(R.id.fragment1_pull_to_refresh);
-        mPullToRefreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mPullToRefreshView.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        BookpageModule bookpageModule = new BookpageModule(getActivity(), mView, mGridView, mAdapter);
-                        bookpageModule.refreshDb();
-                        //stop refresh
-                        mPullToRefreshView.setRefreshing(false);
-                    }
-                }, 100);
             }
         });
     }

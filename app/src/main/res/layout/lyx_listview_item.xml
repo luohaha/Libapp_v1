@@ -7,9 +7,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="10dip"
     android:background="@drawable/standard_view_press_back"
-    android:minHeight="72.0dip"
+    android:minHeight="100dip"
     android:padding="10dip">
     <ImageView
         android:id="@+id/lyx_lv_img"
