@@ -45,6 +45,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.yalantis.phoenix.PullToRefreshView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -61,14 +62,15 @@ import java.util.zip.Inflater;
  * this acitivty is to show the public books reading status.
  * And also he can send a book comment here.
  */
-public class PublicBookActivity extends Activity implements FreshListView.IReflashListener{
+public class PublicBookActivity extends Activity{
     /**
      * define var
      */
     private HeadBar mHeadBar;
     private ArrayList<HashMap<String, Object>> mList;
     private PublicCommentListviewAdapter mAdapter;
-    private FreshListView mListView;
+    private ListView mListView;
+    private PullToRefreshView mPullToRefreshView;
     private TextView mTitle;
     private ImageView mCover;
     private TextView mOwner;
@@ -95,6 +97,7 @@ public class PublicBookActivity extends Activity implements FreshListView.IRefla
     private String mPersonWantToBecomeOwnerTime;
     private String mUniqueId;
     private AsyncBitmapLoader mLoader;
+
     /**
      * the url which we can get owner and sender
      * */
@@ -244,7 +247,16 @@ public class PublicBookActivity extends Activity implements FreshListView.IRefla
          * notice : can not add R.layout.personbook_tab2 into mViewList,
          *          you must add listview into it.
          * */
-        mViewList.add(mListView);
+
+        View view2 = mInflater.inflate(R.layout.publicbook_tab2, null);
+        initPullToRefresh(view2);
+        View view3 = mInflater.inflate(R.layout.publicbook_tab2_listview, null);
+        mListView = (ListView) view3.findViewById(R.id.publicbook_listview);
+        /**
+         * add the listview to refreshview
+         * */
+        mPullToRefreshView.addView(view3);
+        mViewList.add(mPullToRefreshView);
         mViewPager.setAdapter(new PublicBookPageAdapter(mViewList));
         mViewPager.setCurrentItem(0);
 
@@ -411,34 +423,6 @@ public class PublicBookActivity extends Activity implements FreshListView.IRefla
 
 
     /**
-     *  freshlistview
-     * */
-
-    @Override
-    public void onReflash() {
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                // TODO Auto-generated method stub
-                //获取最新数据
-                //  setRefreshData();
-                getListviewDataFromHttp();
-                //通知界面显示
-            //    showListview();
-                //通知listview 刷新数据完毕；
-                mListView.reflashComplete();
-            }
-        }, 2);
-    }
-
-    @Override
-    public void onLoad() {
-        mListView.loadComplete();
-    }
-
-    /**
      * get listview data from local db
      * */
     private void getListviewDataFromHttp() {
@@ -476,7 +460,7 @@ public class PublicBookActivity extends Activity implements FreshListView.IRefla
     private void initListView() {
         LayoutInflater mInflater = getLayoutInflater();
         View mView = mInflater.inflate(R.layout.publicbook_tab2, null);
-        mListView = (FreshListView) mView.findViewById(R.id.publicbook_listview);
+        mListView = (ListView) mView.findViewById(R.id.publicbook_listview);
     //    showListview();
     }
     /**
@@ -489,13 +473,28 @@ public class PublicBookActivity extends Activity implements FreshListView.IRefla
          * show list view
          * */
         if (mAdapter == null) {
-            mListView.setInterface(this);
             mAdapter = new PublicCommentListviewAdapter(this, mList,
                         R.layout.publicbook_comment_item);
             mListView.setAdapter(mAdapter);
         } else {
             mAdapter.onDateChange(mList);
         }
+    }
+
+    private void initPullToRefresh(View view) {
+        mPullToRefreshView = (PullToRefreshView) view.findViewById(R.id.publicbook_tab2_pull_to_refresh);
+        mPullToRefreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mPullToRefreshView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        getListviewDataFromHttp();
+                        mPullToRefreshView.setRefreshing(false);
+                    }
+                }, 100);
+            }
+        });
     }
 
 }

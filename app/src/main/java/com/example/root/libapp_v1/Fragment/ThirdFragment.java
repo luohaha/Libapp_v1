@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.root.libapp_v1.HeadBar.HeadBar;
@@ -19,6 +20,7 @@ import com.example.root.libapp_v1.PullRefreshListView.FreshListView.IReflashList
 import com.example.root.libapp_v1.LyxListView.LyxListViewAdapter;
 import com.example.root.libapp_v1.R;
 import com.example.root.libapp_v1.SQLiteModule.PersonOwnBookpage.PersonOwnBookpageModule;
+import com.yalantis.phoenix.PullToRefreshView;
 
 import java.util.*;
 
@@ -29,7 +31,7 @@ import java.util.*;
  *  10.110
  *  阅览室
  */
-public class ThirdFragment extends FatherFragment implements IReflashListener {
+public class ThirdFragment extends FatherFragment {
     //
     private String mPicUrl;
     private HeadBar headBar;
@@ -39,7 +41,8 @@ public class ThirdFragment extends FatherFragment implements IReflashListener {
             R.drawable.book4, R.drawable.book5, R.drawable.book6, R.drawable.book7,
             R.drawable.book8};
     private LyxListViewAdapter mAdapter;
-    private FreshListView mListView;
+    private ListView mListView;
+    private PullToRefreshView mPullToRefreshView;
     private Map<String, String> mNameToTime;
     /**
      * it start when view need to be created
@@ -54,6 +57,7 @@ public class ThirdFragment extends FatherFragment implements IReflashListener {
         View view = inflater.inflate(R.layout.fragment3, null);
         //  TextView textView = (TextView) view.findViewById(R.id.txt_content);
         setHeadBar();
+        initRefreshView(view);
         getAllView(view, inflater);
         setData();
         showList();
@@ -65,7 +69,6 @@ public class ThirdFragment extends FatherFragment implements IReflashListener {
      */
     private void showList() {
         if (mAdapter == null) {
-            mListView.setInterface(this);
             mAdapter = new LyxListViewAdapter(this.getActivity(), mapList);
             mListView.setAdapter(mAdapter);
         } else {
@@ -78,7 +81,7 @@ public class ThirdFragment extends FatherFragment implements IReflashListener {
      * @param inflater
      */
     private void getAllView(View view, LayoutInflater inflater) {
-        mListView = (FreshListView) view.findViewById(R.id.lyx_lv);
+        mListView = (ListView) view.findViewById(R.id.lyx_lv);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -146,63 +149,25 @@ public class ThirdFragment extends FatherFragment implements IReflashListener {
         cursor.close();
     }
 
-    /**
-     * refresh the new data into mList,
-     * I just test it now!!
-     */
-    private void setRefreshData() {
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("title", "the new gay");
-        map.put("detail", "heyheyhey");
-        map.put("img", mBooks[2]);
-        map.put("informaion", "it sucks");
-        mapList.add(0, map);
-    }
 
-    /**
-     * finish the interface function onReflash()
-     * */
-    @Override
-    public void onReflash() {
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
 
+
+    private void initRefreshView(View view) {
+        mPullToRefreshView = (PullToRefreshView) view.findViewById(R.id.fragment3_pull_to_refresh);
+        mPullToRefreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
             @Override
-            public void run() {
-                // TODO Auto-generated method stub
-                //获取最新数据
-              //  setRefreshData();
-                setData();
-                //通知界面显示
-                showList();
-                //通知listview 刷新数据完毕；
-                mListView.reflashComplete();
+            public void onRefresh() {
+                mPullToRefreshView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        setData();
+                        //通知界面显示
+                        showList();
+                        mPullToRefreshView.setRefreshing(false);
+                    }
+                }, 100);
             }
-        }, 2);
-    }
-
-    /**
-     * finish the interface function onLoad()
-     */
-
-    @Override
-    public void onLoad() {
-/*
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                // TODO Auto-generated method stub
-                //获取最新数据
-            //    setLoadData();
-                //通知界面显示
-                showList();
-                //通知listview 刷新数据完毕；
-                mListView.loadComplete();
-            }
-        }, 2000);*/
-        mListView.loadComplete();
+        });
     }
 
 }

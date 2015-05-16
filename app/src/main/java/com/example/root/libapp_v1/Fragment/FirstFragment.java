@@ -26,6 +26,7 @@ import com.example.root.libapp_v1.PublicBookActivity.PublicBookActivity;
 import com.example.root.libapp_v1.R;
 import com.example.root.libapp_v1.SQLiteModule.Bookpage.BookpageModule;
 import com.example.root.libapp_v1.SearchActivity.SearchActivity;
+import com.yalantis.phoenix.PullToRefreshView;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -45,11 +46,13 @@ public class FirstFragment extends FatherFragment {
 
     private HeadBar headBar;
     private GridView mGridView;
+    private PullToRefreshView mPullToRefreshView;
    // private ArrayList<HashMap<String, Object>> mList;
     //array of books to show in gallery
 
 
     private FirstFragmentAdapter mAdapter;
+    private View mView;
     /**
      * @param inflater :
      * @param container : view container
@@ -60,12 +63,14 @@ public class FirstFragment extends FatherFragment {
     {
         //create a view for fragment1
         View view = inflater.inflate(R.layout.fragment1, null);
+        this.mView = view;
         //find the things we want to show in view
         initWhenRefresh(view);
         return view;
     }
     private void initWhenRefresh(View view) {
         initHeadBar(view);
+        initPullToRefresh(view);
         initData(view);
     }
 
@@ -85,7 +90,7 @@ public class FirstFragment extends FatherFragment {
     private void initHeadBar(View view) {
         headBar = (HeadBar)this.getActivity().findViewById(R.id.head_bar);
         headBar.setTitleText("飞书馆");
-        headBar.setRightSecondButtonListener(new MyOnClickListener(view));
+        headBar.setRightSecondButtonNoused();
         headBar.setLeftSecondButton(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,23 +100,23 @@ public class FirstFragment extends FatherFragment {
         });
     }
 
-    /**
-     * self define a listener
-     * */
-    private class MyOnClickListener implements View.OnClickListener {
-        private View view;
-        public MyOnClickListener(View v) {
-            this.view = v;
-        }
-
-        @Override
-        public void onClick(View v) {
-            BookpageModule bookpageModule = new BookpageModule(getActivity(), this.view, mGridView, mAdapter);
-            bookpageModule.refreshDb();
-            //initData(this.view);
-        }
+    private void initPullToRefresh(View view) {
+        mPullToRefreshView = (PullToRefreshView) view.findViewById(R.id.fragment1_pull_to_refresh);
+        mPullToRefreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mPullToRefreshView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        BookpageModule bookpageModule = new BookpageModule(getActivity(), mView, mGridView, mAdapter);
+                        bookpageModule.refreshDb();
+                        //stop refresh
+                        mPullToRefreshView.setRefreshing(false);
+                    }
+                }, 100);
+            }
+        });
     }
-
     /**
      * init the test data
      * */

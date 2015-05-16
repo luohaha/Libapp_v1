@@ -38,6 +38,7 @@ import com.example.root.libapp_v1.R;
 import com.example.root.libapp_v1.WriteCommentActivity.CommentActivity;
 import com.example.root.libapp_v1.WriteCommentActivity.WriteCommentActivity;
 import com.koushikdutta.ion.Ion;
+import com.yalantis.phoenix.PullToRefreshView;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -51,13 +52,14 @@ import java.util.zip.Inflater;
  * this acitivty is to show the personal books reading status.
  * And also he can send a book comment here.
  */
-public class PersonBookActivity extends Activity implements FreshListView.IReflashListener{
+public class PersonBookActivity extends Activity{
     /**
      * define var
      */
     private HeadBar mHeadBar;
     private ArrayList<HashMap<String, Object>> mList;
-    private FreshListView mListView;
+    private ListView mListView;
+    private PullToRefreshView mPullToRefreshView;
     private TextView mTitle;
     private ImageView mCover;
     private TextView mDetailInfo;
@@ -97,11 +99,11 @@ public class PersonBookActivity extends Activity implements FreshListView.IRefla
          * get local data and init listview
          * */
         getListviewDataFromLocalDb();
-        initListView();
         /**
          * second step, put the first layout and list view both into viewpager
          * */
         initView();
+        initListViewOnItemClick();
         getDataFromLocalDataBase();
     }
     /**
@@ -121,10 +123,10 @@ public class PersonBookActivity extends Activity implements FreshListView.IRefla
     /**
      * initial the listview
      */
-    private void initListView() {
-        LayoutInflater mInflater = getLayoutInflater();
-        View mView = mInflater.inflate(R.layout.personbook_tab2, null);
-        mListView = (FreshListView) mView.findViewById(R.id.personbook_listview);
+    private void initListViewOnItemClick() {
+        //LayoutInflater mInflater = getLayoutInflater();
+        //View mView = mInflater.inflate(R.layout.personbook_tab2, null);
+        //mListView = (FreshListView) mView.findViewById(R.id.personbook_listview);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -141,7 +143,6 @@ public class PersonBookActivity extends Activity implements FreshListView.IRefla
      * */
     private void showListview() {
         if (mAdapter == null) {
-            mListView.setInterface(this);
             mAdapter = new CommentListviewAdapter(this, mList,
                     R.layout.personbook_comment_item);
             mListView.setAdapter(mAdapter);
@@ -267,7 +268,16 @@ public class PersonBookActivity extends Activity implements FreshListView.IRefla
          * notice : can not add R.layout.personbook_tab2 into mViewList,
          *          you must add listview into it.
          * */
-        mViewList.add(mListView);
+        View view2 = mInflater.inflate(R.layout.personbook_tab2, null);
+        initRefreshView(view2);
+        mPullToRefreshView = (PullToRefreshView)view2.findViewById(R.id.personbook_pull_to_refresh);
+        View view3 = mInflater.inflate(R.layout.personbook_tab2_listview, null);
+        mListView = (ListView)view3.findViewById(R.id.personbook_listview);
+        mPullToRefreshView.addView(view3);
+        /**
+         * add listview to refreshview
+         * */
+        mViewList.add(mPullToRefreshView);
         mViewPager.setAdapter(new PersonBookPageAdapter(mViewList));
         mViewPager.setCurrentItem(0);
 
@@ -375,31 +385,23 @@ public class PersonBookActivity extends Activity implements FreshListView.IRefla
         }
         cursor.close();
     }
-    /**
-     * the pull to refresh module
-     * */
-    @Override
-    public void onReflash() {
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
 
+    private void initRefreshView(View view) {
+        mPullToRefreshView = (PullToRefreshView) view.findViewById(R.id.personbook_pull_to_refresh);
+        mPullToRefreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
             @Override
-            public void run() {
-                // TODO Auto-generated method stub
-                //获取最新数据
-                //  setRefreshData();
-                getListviewDataFromLocalDb();
-                //通知界面显示
-                showListview();
-                //通知listview 刷新数据完毕；
-                mListView.reflashComplete();
+            public void onRefresh() {
+                mPullToRefreshView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        getListviewDataFromLocalDb();
+                        //通知界面显示
+                        showListview();
+                        mPullToRefreshView.setRefreshing(false);
+                    }
+                }, 100);
             }
-        }, 2);
-    }
-
-    @Override
-    public void onLoad() {
-        mListView.loadComplete();
+        });
     }
 
 }

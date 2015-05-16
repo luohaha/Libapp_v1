@@ -6,11 +6,12 @@
     android:layout_height="match_parent"
     android:background="@color/card_back">
 
-    <com.example.root.libapp_v1.PullRefreshListView.FreshListView
-        android:id="@+id/publicbook_listview"
+    <com.yalantis.phoenix.PullToRefreshView
+        android:id="@+id/publicbook_tab2_pull_to_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </com.example.root.libapp_v1.PullRefreshListView.FreshListView>
+    </com.yalantis.phoenix.PullToRefreshView>
+
 
 </LinearLayout>
