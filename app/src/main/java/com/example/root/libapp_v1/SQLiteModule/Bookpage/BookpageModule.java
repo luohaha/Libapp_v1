@@ -18,6 +18,7 @@ import com.example.root.libapp_v1.HttpModule.DoGetAndPost;
 import com.example.root.libapp_v1.PublicBookActivity.PublicBookActivity;
 import com.example.root.libapp_v1.R;
 import com.example.root.libapp_v1.SQLiteModule.DatabaseClient;
+import com.example.root.libapp_v1.StaggeredGridView.StaggeredGridView;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -35,14 +36,14 @@ import java.util.HashMap;
 public class BookpageModule {
     private Context mContext;
     private View mView;
-    private GridView mGridView;
+    private StaggeredGridView mGridView;
     private FirstFragmentAdapter mAdapter;
     /**
      *the url we get from
      */
     private String mGetUrl;
     private String mImgUrl;
-    public BookpageModule(Context context, View view, GridView gridView, FirstFragmentAdapter adapter){
+    public BookpageModule(Context context, View view, StaggeredGridView gridView, FirstFragmentAdapter adapter){
         this.mContext = context;
         this.mView = view;
         this.mGridView = gridView;
@@ -129,18 +130,26 @@ public class BookpageModule {
      * init the grid view and set adapter for it
      * */
     private void initGridView(View view, ArrayList<HashMap<String, Object>> mList) {
-        mGridView=(GridView) view.findViewById(R.id.publicbook_gridview);
+        mGridView=(StaggeredGridView) view.findViewById(R.id.publicbook_gridview);
                 /*
         * create a adapter
         * */
-        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mGridView.setOnItemClickListener(new StaggeredGridView.OnItemClickListener() {
+            @Override
+            public void onItemClick(StaggeredGridView parent, View view, int position, long id) {
+                TextView textView = (TextView)view.findViewById(R.id.firstfragment_textview);;
+                Intent intent = new Intent(mContext, PublicBookActivity.class);
+                intent.putExtra("bookname", textView.getText());
+                mContext.startActivity(intent);
+            }
+/*
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView textView = (TextView)view.findViewById(R.id.firstfragment_textview);;
                 Intent intent = new Intent(mContext, PublicBookActivity.class);
                 intent.putExtra("bookname", textView.getText());
                 mContext.startActivity(intent);
-            }
+            }*/
         });
         if (mAdapter == null) {
             mAdapter = new FirstFragmentAdapter(mContext, mList,

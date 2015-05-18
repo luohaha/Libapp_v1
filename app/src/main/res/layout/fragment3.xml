@@ -3,19 +3,21 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/pulltofresh">
+    android:background="@color/card_back">
 
     <com.yalantis.phoenix.PullToRefreshView
         android:id="@+id/fragment3_pull_to_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginLeft="8dip"
+        android:layout_marginRight="8dip">
 
     <ListView
         android:id="@+id/lyx_lv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@color/card_back"
-        android:dividerHeight="7dip"/>
+        android:dividerHeight="8dip"/>
     </com.yalantis.phoenix.PullToRefreshView>
 
 </LinearLayout>

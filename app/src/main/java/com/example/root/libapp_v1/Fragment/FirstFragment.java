@@ -26,6 +26,7 @@ import com.example.root.libapp_v1.PublicBookActivity.PublicBookActivity;
 import com.example.root.libapp_v1.R;
 import com.example.root.libapp_v1.SQLiteModule.Bookpage.BookpageModule;
 import com.example.root.libapp_v1.SearchActivity.SearchActivity;
+import com.example.root.libapp_v1.StaggeredGridView.StaggeredGridView;
 import com.yalantis.phoenix.PullToRefreshView;
 
 import java.net.URLEncoder;
@@ -45,7 +46,7 @@ import java.util.Map;
 public class FirstFragment extends FatherFragment {
 
     private HeadBar headBar;
-    private GridView mGridView;
+    private StaggeredGridView mGridView;
     private PullToRefreshView mPullToRefreshView;
    // private ArrayList<HashMap<String, Object>> mList;
     //array of books to show in gallery
@@ -145,18 +146,26 @@ public class FirstFragment extends FatherFragment {
      * init the grid view and set adapter for it
      * */
     private void initGridView(View view, ArrayList<HashMap<String, Object>> mList) {
-        mGridView=(GridView) view.findViewById(R.id.publicbook_gridview);
+        mGridView=(StaggeredGridView) view.findViewById(R.id.publicbook_gridview);
                 /*
         * create a adapter
         * */
-        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mGridView.setOnItemClickListener(new StaggeredGridView.OnItemClickListener() {
+            @Override
+            public void onItemClick(StaggeredGridView parent, View view, int position, long id) {
+                TextView textView = (TextView)view.findViewById(R.id.firstfragment_textview);;
+                Intent intent = new Intent(getActivity(), PublicBookActivity.class);
+                intent.putExtra("bookname", textView.getText());
+                startActivity(intent);
+            }
+            /*
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView textView = (TextView)view.findViewById(R.id.firstfragment_textview);;
                 Intent intent = new Intent(getActivity(), PublicBookActivity.class);
                 intent.putExtra("bookname", textView.getText());
                 startActivity(intent);
-            }
+            }*/
         });
         if (mAdapter == null) {
             mAdapter = new FirstFragmentAdapter(getActivity(), mList,
