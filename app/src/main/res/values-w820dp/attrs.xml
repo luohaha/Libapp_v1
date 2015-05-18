@@ -5,4 +5,9 @@
         <attr name="numColumns" format="integer" />
         <attr name="itemMargin" format="dimension" />
     </declare-styleable>
+    <declare-styleable name="RefreshView">
+        <attr name="type" format="enum">
+            <enum name="sun" value="0" />
+        </attr>
+    </declare-styleable>
 </resources>
