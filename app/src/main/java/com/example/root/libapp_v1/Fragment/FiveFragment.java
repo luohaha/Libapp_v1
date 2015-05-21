@@ -40,8 +40,10 @@ public class FiveFragment extends FatherFragment {
      */
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
+
         view = inflater.inflate(R.layout.fragment5, null);
         setHeadBar();
+        /*
         //the ids of books
         imageResIDs = new int[] {R.drawable.book8, R.drawable.book7,R.drawable.book6
                 ,R.drawable.book5, R.drawable.book4, R.drawable.book3, R.drawable.book2,
@@ -52,6 +54,7 @@ public class FiveFragment extends FatherFragment {
         customGallery = (CustomGallery) view.findViewById(R.id.customgallery);
         ImageAdapter adapter = new ImageAdapter();
         customGallery.setAdapter(adapter);
+        */
         return view;
     }
 

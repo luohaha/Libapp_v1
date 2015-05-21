@@ -49,7 +49,7 @@
                         android:textSize="15sp"
                         android:typeface="serif"
                         android:textColor="@color/black"
-                        android:text="你要内心强大"/>
+                        android:text="网络未连接~~"/>
 
                 </LinearLayout>
                 <ImageView
@@ -78,7 +78,7 @@
                         android:textSize="15sp"
                         android:typeface="serif"
                         android:textColor="@color/black"
-                        android:text="此书可以借阅"/>
+                        android:text="网络未连接~~"/>
                     <com.beardedhen.androidbootstrap.BootstrapButton
                         android:id="@+id/publicbook_become_owner"
                         android:layout_width="wrap_content"
@@ -117,7 +117,7 @@
                         android:textSize="15sp"
                         android:typeface="serif"
                         android:textColor="@color/black"
-                        android:text="null"/>
+                        android:text="网络未连接~~"/>
 
                 </LinearLayout>
 
@@ -169,7 +169,7 @@
                     android:textSize="12sp"
                     android:typeface="monospace"
                     android:textColor="@color/black"
-                    android:text="从2009年1月起，青年学者石勇以ID “发帖回帖专用马甲”在天涯杂谈陆续开帖《在这个险恶的"
+                    android:text="网络未连接~~"
 
                     />
 
@@ -218,11 +218,7 @@
                     android:textSize="12sp"
                     android:typeface="monospace"
                     android:textColor="@color/black"
-                    android:text="
-
-一只眼睛盯着等级制度的暴力，另一只眼睛盯着歧视性观念的暴力，
-
-用心理分析之刀准确地插入中国社会。"
+                    android:text="网络未连接~~"
 
                     />
 
@@ -270,10 +266,7 @@
                     android:textSize="12sp"
                     android:typeface="monospace"
                     android:textColor="@color/black"
-                    android:text="自序：从今天起，做强大自我的主人 4
-第一章 建立自己的心理优势 5 5
-1、出问题的往往不是一个人的能力，而是他的心理 6
-"
+                    android:text="网络未连接~~"
 
                     />
 

@@ -35,14 +35,14 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:typeface="sans"
-            android:textSize="24sp" />
+            android:textSize="20sp" />
         <TextView
             android:id="@+id/lyx_lv_detal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/gray"
             android:typeface="serif"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
     </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>

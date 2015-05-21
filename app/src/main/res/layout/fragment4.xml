@@ -54,7 +54,7 @@
                     android:layout_margin="10dip"
                     android:layout_gravity="center"
                     android:typeface="sans"
-                    android:text="罗一鑫"/>
+                    android:text="未登陆~~"/>
                 </LinearLayout>
             <ImageView
                 android:layout_width="match_parent"
@@ -80,7 +80,7 @@
                     android:layout_margin="10dip"
                     android:textColor="@color/black"
                     android:typeface="monospace"
-                    android:text="不撤退，不投降，这是我们的法律。依照法律，我们要抵抗，要战斗到死"/>
+                    android:text="未登陆~~"/>
             </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -114,7 +114,7 @@
                 android:textSize="15sp"
                 android:typeface="serif"
                 android:textColor="@color/black"
-                android:text="Beijing, China"
+                android:text=""
                 />
             </LinearLayout>
         <ImageView
@@ -141,7 +141,7 @@
                 android:textSize="15sp"
                 android:typeface="serif"
                 android:textColor="@color/black"
-                android:text="965166527@qq.com"
+                android:text=""
                 />
         </LinearLayout>
         <ImageView
@@ -168,7 +168,7 @@
                 android:textSize="15sp"
                 android:textColor="@color/black"
                 android:typeface="serif"
-                android:text="18812345678"
+                android:text=""
                 />
         </LinearLayout>
 

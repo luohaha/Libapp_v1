@@ -6,10 +6,11 @@
     <!--
     扫一扫 模块界面
     -->
-
+    <!--
     <com.example.root.libapp_v1.Gallery.CustomGallery
         android:id="@+id/customgallery"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
     </com.example.root.libapp_v1.Gallery.CustomGallery>
+    -->
 </RelativeLayout>
