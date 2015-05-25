@@ -68,6 +68,7 @@ public class PublicCommentListviewAdapter extends BaseAdapter {
             viewHolder.postTime = (TextView) convertView.findViewById(R.id.publicbook_comment_time);
             viewHolder.personName = (TextView) convertView.findViewById(R.id.publicbook_comment_person);
             viewHolder.head = (ImageView) convertView.findViewById(R.id.publicbook_comment_head);
+            convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }

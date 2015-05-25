@@ -86,8 +86,8 @@ public class BookpageModule {
                                 contentValues.put("catalog_info", array.get(i).getAsJsonObject().get("catalog_info").getAsString());
                                 contentValues.put("timestamp", array.get(i).getAsJsonObject().get("timestamp").getAsString());
                                 Uri tmp = contentResolver.insert(uri, contentValues);
-                                initData(mView);
                             }
+                            initData(mView);
                         } catch (Exception ee) {
                             ee.printStackTrace();
                         }

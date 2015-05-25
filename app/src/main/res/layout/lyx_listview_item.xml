@@ -10,6 +10,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/standard_view_press_back"
     card_view:cardCornerRadius="4dp"
+    card_view:cardElevation="4dp"
     android:minHeight="100dip"
     android:padding="16dip">
     <LinearLayout
